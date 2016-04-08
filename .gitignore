@@ -1,0 +1,7 @@
+/.idea
+/local.properties
+/.gradle
+build
+.DS_Store
+LengJiYeToolkit.iml
+app/app.iml

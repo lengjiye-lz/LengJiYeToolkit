@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StretchTextView">
+
+        <attr name="defaultLine" format="integer|string" />
+        <attr name="content" format="reference|string" />
+        <attr name="animation_time" format="integer" />
+        <!-- 设置箭头图片 -->
+        <attr name="arrows_image" format="reference|color" />
+        <!-- 设置折叠文字 -->
+        <attr name="fold_text" format="reference|string" />
+        <attr name="unfold_text" format="reference|string" />
+
+    </declare-styleable>
+</resources>
