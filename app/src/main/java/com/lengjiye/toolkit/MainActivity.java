@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.lengjiye.toolkit.activity.StretchTextActivity;
+import com.lengjiye.toolkit.view.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.stretch).setOnClickListener(this);
+        Toast.makeText(this, "asdc", Toast.LENGTH_SHORT).show();
     }
 
     @Override

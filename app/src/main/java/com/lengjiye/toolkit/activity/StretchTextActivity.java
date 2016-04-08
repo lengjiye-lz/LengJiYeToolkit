@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.lengjiye.toolkit.R;
-import com.lengjiye.toolkit.view.StretchTextView;
 
 public class StretchTextActivity extends AppCompatActivity {
 
@@ -12,8 +11,5 @@ public class StretchTextActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stretch_text);
-
-        StretchTextView view = (StretchTextView) findViewById(R.id.stretch);
-        view.setContent("阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的阿萨德擦拭的成熟的擦实打实的");
     }
 }
