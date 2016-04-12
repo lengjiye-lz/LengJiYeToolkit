@@ -2,13 +2,16 @@ package com.lengjiye.toolkit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
+import com.lengjiye.toolkit.activity.BaseActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
 import com.lengjiye.toolkit.view.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import org.xutils.view.annotation.ViewInject;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

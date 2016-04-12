@@ -42,6 +42,22 @@
 # google 的pb协议
 -keep class com.google.protobuf.** { *; }
 -keep public class * extends com.google.protobuf.** { *; }
+# xUtils3 混淆配置
+-keepattributes Signature,*Annotation*
+-keep public class org.xutils.** {
+    public protected *;
+}
+-keep public interface org.xutils.** {
+    public protected *;
+}
+-keepclassmembers class * extends org.xutils.** {
+    public protected *;
+}
+-keepclassmembers @org.xutils.db.annotation.* class * {*;}
+-keepclassmembers @org.xutils.http.annotation.* class * {*;}
+-keepclassmembers class * {
+    @org.xutils.view.annotation.Event <methods>;
+}
 
 # shareSDK 混淆  分别keep了ShareSDK和新浪微博SSO授权方式所需要的所有jar和源码。
 # 最后请注意，注册到cn.sharesdk.framework.ShareSDKUIShell下用于自定义授权页面的类也是需要keep的，否则ShareSDK将找不到它。
