@@ -2,6 +2,7 @@ package com.lengjiye.toolkit.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.lengjiye.toolkit.utils.CommonUtils;
 
@@ -40,6 +41,7 @@ public class LJYApplication extends Application {
      * 设置环境配置
      */
     private void setEnvironmentConfiguration() {
+        Log.e("lz", "isDebugMode:" + CommonUtils.isDebugMode());
         if (CommonUtils.isDebugMode()) {
             x.Ext.setDebug(true);
         } else {
