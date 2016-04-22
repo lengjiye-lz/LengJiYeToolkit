@@ -2,7 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
+    <com.lengjiye.toolkit.view.TouchTest.LinearLayout1
+        android:id="@+id/layout1"
+        android:layout_width="@dimen/dimen_550px"
+        android:layout_height="@dimen/dimen_550px"
+        android:background="@color/colorPrimary"
+        android:gravity="center">
 
+        <com.lengjiye.toolkit.view.TouchTest.LinearLayout2
+            android:id="@+id/layout2"
+            android:layout_width="@dimen/dimen_300px"
+            android:layout_height="@dimen/dimen_300px"
+            android:background="@color/colorAccent"
+            android:gravity="center">
+
+            <com.lengjiye.toolkit.view.TouchTest.TextView1
+                android:id="@+id/text"
+                android:layout_width="@dimen/dimen_100px"
+                android:layout_height="@dimen/dimen_100px"
+                android:background="@color/c06_dddddd" />
+        </com.lengjiye.toolkit.view.TouchTest.LinearLayout2>
+    </com.lengjiye.toolkit.view.TouchTest.LinearLayout1>
 </LinearLayout>

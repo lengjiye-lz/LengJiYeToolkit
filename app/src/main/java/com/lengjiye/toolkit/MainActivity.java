@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
+import com.lengjiye.toolkit.activity.TouchTestActivity;
 import com.lengjiye.toolkit.adapter.MainAdapter;
 
 import java.util.ArrayList;
@@ -41,6 +42,10 @@ public class MainActivity extends BaseActivity {
                 switch (position) {
                     case 0:
                         intent = new Intent(mContext, StretchTextActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(mContext, TouchTestActivity.class);
                         startActivity(intent);
                         break;
                 }

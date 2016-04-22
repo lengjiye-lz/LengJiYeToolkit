@@ -22,6 +22,7 @@
         </activity>
 
         <activity android:name=".activity.StretchTextActivity" />
+        <activity android:name=".activity.TouchTestActivity" />
     </application>
 
 </manifest>
