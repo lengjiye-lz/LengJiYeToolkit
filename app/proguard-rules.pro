@@ -71,7 +71,7 @@
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
 
-# 保持哪些类不被混淆
+# 保持哪些类不被混淆(因为这是android源码里面的一些类，如果混淆，代码就找不到对应的类，就会报错)
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
