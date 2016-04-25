@@ -33,6 +33,20 @@ public class TextView1 extends TextView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.e("lz", "TextView1  onTouchEvent:" + super.onTouchEvent(event));
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Log.e("lz", "TextView1  ACTION_DOWN:");
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.e("lz", "TextView1  ACTION_UP:");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.e("lz", "TextView1  ACTION_MOVE:");
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                Log.e("lz", "TextView1  ACTION_CANCEL:");
+                break;
+        }
         return super.onTouchEvent(event);
     }
 }

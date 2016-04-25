@@ -39,6 +39,20 @@ public class LinearLayout2 extends LinearLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.e("lz", "LinearLayout2  onTouchEvent:" + super.onTouchEvent(event));
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Log.e("lz", "LinearLayout2  ACTION_DOWN:");
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.e("lz", "LinearLayout2  ACTION_UP:");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.e("lz", "LinearLayout2  ACTION_MOVE:");
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                Log.e("lz", "LinearLayout2  ACTION_CANCEL:");
+                break;
+        }
         return super.onTouchEvent(event);
     }
 }
