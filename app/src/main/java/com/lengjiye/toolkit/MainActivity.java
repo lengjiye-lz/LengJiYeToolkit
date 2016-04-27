@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity {
         List<String> strings = new ArrayList<>();
         strings.add("可伸缩的TextView");
         strings.add("事件分发机制");
+        strings.add("test");
         return strings;
     }
 }
