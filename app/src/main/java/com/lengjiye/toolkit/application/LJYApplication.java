@@ -22,6 +22,7 @@ public class LJYApplication extends Application {
         super.onCreate();
         sInstance = this;
         appContext = getApplicationContext();
+        // 初始化xUtils3
         x.Ext.init(this);
         setEnvironmentConfiguration();
     }

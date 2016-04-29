@@ -23,6 +23,7 @@
 
         <activity android:name=".activity.StretchTextActivity" />
         <activity android:name=".activity.TouchTestActivity" />
+        <activity android:name=".activity.OKHttpActivity" />
     </application>
 
 </manifest>

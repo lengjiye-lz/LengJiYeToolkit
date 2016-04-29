@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
+import com.lengjiye.toolkit.activity.OKHttpActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
 import com.lengjiye.toolkit.activity.TouchTestActivity;
 import com.lengjiye.toolkit.adapter.MainAdapter;
@@ -21,16 +22,12 @@ public class MainActivity extends BaseActivity {
     private Context mContext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initOnCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-        init();
     }
 
-    /**
-     * 初始化
-     */
-    private void init() {
+    @Override
+    protected void init() {
         mContext = this;
         List<String> strings = getData();
         MainAdapter adapter = new MainAdapter(mContext, strings);
@@ -48,10 +45,15 @@ public class MainActivity extends BaseActivity {
                         intent = new Intent(mContext, TouchTestActivity.class);
                         startActivity(intent);
                         break;
+                    case 2:
+                        intent = new Intent(mContext, OKHttpActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
     }
+
 
     /**
      * 获取数据源
@@ -62,7 +64,7 @@ public class MainActivity extends BaseActivity {
         List<String> strings = new ArrayList<>();
         strings.add("可伸缩的TextView");
         strings.add("事件分发机制");
-        strings.add("test");
+        strings.add("OKHttp请求");
         return strings;
     }
 }

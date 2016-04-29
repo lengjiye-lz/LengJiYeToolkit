@@ -7,8 +7,12 @@ import com.lengjiye.toolkit.R;
 public class StretchTextActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initOnCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_stretch_text);
+    }
+
+    @Override
+    protected void init() {
+
     }
 }

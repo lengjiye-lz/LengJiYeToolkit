@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.lengjiye.toolkit.R;
 
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 public class TouchTestActivity extends BaseActivity {
 
@@ -19,9 +18,13 @@ public class TouchTestActivity extends BaseActivity {
     private TextView text;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initOnCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_touch_test);
-        x.view().inject(this);
     }
+
+    @Override
+    protected void init() {
+
+    }
+
 }
