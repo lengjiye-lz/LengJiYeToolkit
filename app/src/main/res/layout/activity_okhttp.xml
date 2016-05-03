@@ -17,10 +17,31 @@
             android:textSize="@dimen/sp_20" />
 
         <Button
-            android:id="@+id/bt_wangye"
+            android:id="@+id/bt_wangye_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="请求网页数据" />
+            android:text="get请求网页数据"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_wangye_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="post请求网页数据"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_wangye_tring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="string请求网页数据"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
