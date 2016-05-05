@@ -13,6 +13,7 @@ import com.lengjiye.toolkit.R;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
@@ -20,6 +21,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -154,9 +156,52 @@ public class OKHttpActivity extends BaseActivity {
         });
     }
 
+    /**
+     *
+     * 上传图片
+     */
+    private void sendImageView() {
+        //创建okHttpClient对象
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("title", "Square Logo")
+                .addFormDataPart("image", "logo-square.png",
+                        RequestBody.create(MediaType.parse("image/png"), new File("C:\\Users\\Administrator\\Desktop\\asdcasdc.gif")))
+                .build();
+
+        Request request = new Request.Builder()
+                .header("Authorization", "Client-ID " + "9199fdef135c122")
+                .url("https://api.imgur.com/3/image")
+                .post(requestBody)
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message message = new Message();
+                message.obj = e;
+                message.what = 1;
+                ttsHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String htmlStr = response.body().string();
+                Log.e("lz", "htmlStr:" + htmlStr);
+                Message message = new Message();
+                message.obj = htmlStr;
+                message.what = 0;
+                ttsHandler.sendMessage(message);
+            }
+        });
+    }
+
     MyHandler ttsHandler = new MyHandler(OKHttpActivity.this);
 
-    @Event({R.id.bt_wangye_post, R.id.bt_wangye_get, R.id.bt_wangye_tring})
+    @Event({R.id.bt_wangye_post, R.id.bt_wangye_get, R.id.bt_wangye_tring, R.id.bt_shanghcuantupian})
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_wangye_get:
@@ -168,6 +213,9 @@ public class OKHttpActivity extends BaseActivity {
                 break;
             case R.id.bt_wangye_tring:
                 loadWebPageDataString();
+                break;
+            case R.id.bt_shanghcuantupian:
+                sendImageView();
                 break;
         }
     }
