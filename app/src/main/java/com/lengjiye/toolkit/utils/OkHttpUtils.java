@@ -9,7 +9,8 @@ import okhttp3.Request;
 /**
  * OkHttp 工具类
  * kohttp 简单封装
- * 异步请求（git、post、）
+ * 异步请求（get、post）
+ * 同步请求（get、post）
  * Created by lz on 2016/5/5.
  */
 public class OkHttpUtils {
