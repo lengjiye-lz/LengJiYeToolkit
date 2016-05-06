@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.R;
+import com.lengjiye.toolkit.utils.OkHttpUtils;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -46,16 +47,8 @@ public class OKHttpActivity extends BaseActivity {
      * 请求网页数据
      */
     private void loadWebPageDataGit() {
-        //创建okHttpClient对象
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        //创建一个Request
-        Request request = new Request.Builder()
-                .url("https://www.baidu.com/")
-                .build();
-        //new call
-        Call call = mOkHttpClient.newCall(request);
-        //请求加入调度
-        call.enqueue(new Callback() {
+        String path = "https://www.baidu.com/";
+        OkHttpUtils.getInstance().getRequest(path, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Message message = new Message();
@@ -157,7 +150,6 @@ public class OKHttpActivity extends BaseActivity {
     }
 
     /**
-     *
      * 上传图片
      */
     private void sendImageView() {
@@ -207,7 +199,6 @@ public class OKHttpActivity extends BaseActivity {
             case R.id.bt_wangye_get:
                 loadWebPageDataGit();
                 break;
-
             case R.id.bt_wangye_post:
                 loadWebPageDataPost();
                 break;
