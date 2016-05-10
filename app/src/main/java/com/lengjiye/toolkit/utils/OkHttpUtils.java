@@ -1,10 +1,12 @@
 package com.lengjiye.toolkit.utils;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * OkHttp 工具类
@@ -95,5 +97,36 @@ public class OkHttpUtils {
      */
     public void getRequest(Request request, Callback responseCallback) {
         mOkHttpClient.newCall(request).enqueue(responseCallback);
+    }
+
+    /**
+     * git请求
+     *
+     * @param url
+     */
+    public Response getRequest(String url) throws IOException {
+        Request request = new Request.Builder().url(url).build();
+        return getRequest(request);
+    }
+
+    /**
+     * git请求
+     *
+     * @param name  添加请求头
+     * @param value 添加请求头
+     * @param url   请求链接
+     */
+    public Response getRequest(String name, String value, String url) throws IOException {
+        Request request = new Request.Builder().addHeader(name, value).url(url).build();
+        return getRequest(request);
+    }
+
+    /**
+     * git请求
+     *
+     * @param request
+     */
+    public Response getRequest(Request request) throws IOException {
+        return mOkHttpClient.newCall(request).execute();
     }
 }

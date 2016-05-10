@@ -27,6 +27,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class OKHttpActivity extends BaseActivity {
 
@@ -40,13 +45,12 @@ public class OKHttpActivity extends BaseActivity {
 
     @Override
     protected void init() {
-
     }
 
     /**
-     * 请求网页数据
+     * 请求网页数据   异步请求
      */
-    private void loadWebPageDataGit() {
+    private void loadWebPageDataGitAsync() {
         String path = "https://www.baidu.com/";
         OkHttpUtils.getInstance().getRequest(path, new Callback() {
             @Override
@@ -67,6 +71,51 @@ public class OKHttpActivity extends BaseActivity {
                 ttsHandler.sendMessage(message);
             }
         });
+    }
+
+    /**
+     * 请求网页数据  同步请求
+     */
+    private void loadWebPageDataGit() {
+        Observable.create(
+                new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> sub) {
+                        try {
+                            String path = "https://www.baidu.com/";
+                            Response response = OkHttpUtils.getInstance().getRequest(path);
+                            if (response.code() == 200) {
+                                sub.onNext(response.toString());
+                            } else {
+                                sub.onError(new Exception("code" + response.code()));
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            sub.onError(e);
+                        }
+                    }
+                }
+        )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
+                        text.setText(s);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
+                        text.setText("请求失败:" + e);
+                    }
+                });
+
     }
 
     /**
@@ -191,11 +240,38 @@ public class OKHttpActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 测试使用rxJava通讯
+     *
+     * @param message 消息
+     * @param b       成功还是失败
+     */
+    private void testRxJavaCommunication(String message, final boolean b) {
+        Observable.just(message)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        if (b) {
+                            Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
+                            text.setText(s);
+                        } else {
+                            Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
+                            text.setText("请求失败：" + s);
+                        }
+                    }
+                });
+    }
+
     MyHandler ttsHandler = new MyHandler(OKHttpActivity.this);
 
-    @Event({R.id.bt_wangye_post, R.id.bt_wangye_get, R.id.bt_wangye_tring, R.id.bt_shanghcuantupian})
+    @Event({R.id.bt_wangye_post, R.id.bt_wangye_get_async, R.id.bt_wangye_get, R.id.bt_wangye_tring, R.id.bt_shanghcuantupian})
     private void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bt_wangye_get_async:
+                loadWebPageDataGitAsync();
+                break;
             case R.id.bt_wangye_get:
                 loadWebPageDataGit();
                 break;

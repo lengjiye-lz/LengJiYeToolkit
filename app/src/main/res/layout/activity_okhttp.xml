@@ -17,10 +17,17 @@
             android:textSize="@dimen/sp_20"/>
 
         <Button
+            android:id="@+id/bt_wangye_get_async"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="get异步请求网页数据"
+            android:textAllCaps="false"/>
+
+        <Button
             android:id="@+id/bt_wangye_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="get请求网页数据"
+            android:text="get同步请求网页数据"
             android:textAllCaps="false"/>
 
         <Button
