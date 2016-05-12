@@ -44,7 +44,7 @@ public class OKHttpActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initView() {
     }
 
     /**
@@ -267,7 +267,7 @@ public class OKHttpActivity extends BaseActivity {
     MyHandler ttsHandler = new MyHandler(OKHttpActivity.this);
 
     @Event({R.id.bt_wangye_post, R.id.bt_wangye_get_async, R.id.bt_wangye_get, R.id.bt_wangye_tring, R.id.bt_shanghcuantupian})
-    private void onClick(View view) {
+    private void Click(View view) {
         switch (view.getId()) {
             case R.id.bt_wangye_get_async:
                 loadWebPageDataGitAsync();

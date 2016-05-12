@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/abc_search_url_text_normal"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_10px"
+        android:paddingTop="@dimen/dimen_10px"
+        android:text="text点击事件"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10px"
+        android:text="button点击事件"
+        android:textAllCaps="false"/>
+</LinearLayout>

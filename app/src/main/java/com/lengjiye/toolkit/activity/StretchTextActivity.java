@@ -12,7 +12,7 @@ public class StretchTextActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initView() {
 
     }
 }

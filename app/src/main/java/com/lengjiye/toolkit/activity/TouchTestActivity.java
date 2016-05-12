@@ -23,7 +23,7 @@ public class TouchTestActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initView() {
 
     }
 

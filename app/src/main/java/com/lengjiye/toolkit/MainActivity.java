@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
+import com.lengjiye.toolkit.activity.NoDoubleTestActivity;
 import com.lengjiye.toolkit.activity.OKHttpActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
 import com.lengjiye.toolkit.activity.TouchTestActivity;
@@ -27,7 +28,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initView() {
         mContext = this;
         List<String> strings = getData();
         MainAdapter adapter = new MainAdapter(mContext, strings);
@@ -49,6 +50,10 @@ public class MainActivity extends BaseActivity {
                         intent = new Intent(mContext, OKHttpActivity.class);
                         startActivity(intent);
                         break;
+                    case 3:
+                        intent = new Intent(mContext, NoDoubleTestActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
@@ -65,6 +70,12 @@ public class MainActivity extends BaseActivity {
         strings.add("可伸缩的TextView");
         strings.add("事件分发机制");
         strings.add("OKHttp请求");
+        strings.add("不可重复点击测试");
         return strings;
+    }
+
+    @Override
+    protected void click(View v) {
+        super.click(v);
     }
 }
