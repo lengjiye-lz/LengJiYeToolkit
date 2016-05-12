@@ -47,6 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
         click(v);
     }
 
+    
     /**
      * 添加点击事件
      *
