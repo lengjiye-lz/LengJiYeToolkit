@@ -1,6 +1,7 @@
 package com.lengjiye.toolkit.activity;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -52,7 +53,7 @@ public class OKHttpActivity extends BaseActivity {
      */
     private void loadWebPageDataGitAsync() {
         String path = "https://www.baidu.com/";
-        OkHttpUtils.getInstance().getRequest(path, new Callback() {
+        OkHttpUtils.getInstance().getRequest(path, null, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Message message = new Message();
@@ -83,7 +84,7 @@ public class OKHttpActivity extends BaseActivity {
                     public void call(Subscriber<? super String> sub) {
                         try {
                             String path = "https://www.baidu.com/";
-                            Response response = OkHttpUtils.getInstance().getRequest(path);
+                            Response response = OkHttpUtils.getInstance().getRequest(path, null);
                             if (response.code() == 200) {
                                 sub.onNext(response.toString());
                             } else {
@@ -129,7 +130,8 @@ public class OKHttpActivity extends BaseActivity {
         RequestBody requestBody = builder.build();
         //创建一个Request
         Request request = new Request.Builder()
-                .url("https://en.wikipedia.org/w/index.php").post(requestBody)
+                .url("https://en.wikipedia.org/w/index.php")
+                .post(requestBody)
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -209,7 +211,8 @@ public class OKHttpActivity extends BaseActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("title", "Square Logo")
                 .addFormDataPart("image", "logo-square.png",
-                        RequestBody.create(MediaType.parse("image/png"), new File("C:\\Users\\Administrator\\Desktop\\asdcasdc.gif")))
+                        RequestBody.create(MediaType.parse("image/png"), new File(Environment.getExternalStorageDirectory()
+                                .getAbsoluteFile() + "/" + "icon.png")))
                 .build();
 
         Request request = new Request.Builder()
