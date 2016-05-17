@@ -173,6 +173,7 @@ public class OKHttpActivity extends BaseActivity {
         Request request = new Request.Builder()
                 .url("https://api.github.com/markdown/raw")
                 .post(RequestBody.create(MediaType.parse("text/x-markdown; charset=utf-8"), postBody))
+//                .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString()))   josn 请求
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
