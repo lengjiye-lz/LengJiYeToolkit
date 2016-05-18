@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.lengjiye.toolkit.application.LJYApplication;
 import com.lengjiye.toolkit.utils.NoDoubleClickUtils;
 
 import org.xutils.x;
@@ -27,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
         initOnCreate(savedInstanceState);
         x.view().inject(this);
         initView();
+        LJYApplication.getInstance().addActivity(this);
     }
 
     protected abstract void initOnCreate(Bundle savedInstanceState);
@@ -54,5 +56,11 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
      */
     protected void click(View v) {
         Log.e("lz", "点击事件");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LJYApplication.getInstance().removeActivity(this);
     }
 }

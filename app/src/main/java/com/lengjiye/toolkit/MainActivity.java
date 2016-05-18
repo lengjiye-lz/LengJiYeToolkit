@@ -3,9 +3,11 @@ package com.lengjiye.toolkit;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
 import com.lengjiye.toolkit.activity.NoDoubleTestActivity;
@@ -13,6 +15,7 @@ import com.lengjiye.toolkit.activity.OKHttpActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
 import com.lengjiye.toolkit.activity.TouchTestActivity;
 import com.lengjiye.toolkit.adapter.MainAdapter;
+import com.lengjiye.toolkit.application.LJYApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ public class MainActivity extends BaseActivity {
 
     private Intent intent;
     private Context mContext;
+    private long lastPressTime;
 
     @Override
     protected void initOnCreate(Bundle savedInstanceState) {
@@ -77,5 +81,21 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void click(View v) {
         super.click(v);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastPressTime > 2000) {
+                Toast.makeText(getBaseContext(), "再按一次退出", Toast.LENGTH_SHORT).show();
+                lastPressTime = currentTime;
+            } else {
+                LJYApplication.getInstance().exit();
+                finish();
+            }
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 }

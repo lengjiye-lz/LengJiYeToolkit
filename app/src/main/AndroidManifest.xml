@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".application.LJYApplication"
@@ -25,6 +26,9 @@
         <activity android:name=".activity.TouchTestActivity"/>
         <activity android:name=".activity.OKHttpActivity"/>
         <activity android:name=".activity.NoDoubleTestActivity"/>
+
+        <!-- 注册广播 -->
+
     </application>
 
 </manifest>
