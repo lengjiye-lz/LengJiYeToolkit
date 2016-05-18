@@ -63,7 +63,6 @@ public class OKHttpActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
-                Log.e("lz", "htmlStr:" + htmlStr);
                 Message message = new Message();
                 message.obj = htmlStr;
                 message.what = 0;
@@ -137,7 +136,6 @@ public class OKHttpActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
-                Log.e("lz", "htmlStr:" + htmlStr);
                 Message message = new Message();
                 message.obj = htmlStr;
                 message.what = 0;
@@ -170,7 +168,6 @@ public class OKHttpActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
-                Log.e("lz", "htmlStr:" + htmlStr);
                 Message message = new Message();
                 message.obj = htmlStr;
                 message.what = 0;
@@ -203,7 +200,6 @@ public class OKHttpActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
-
                 Message message = new Message();
                 message.obj = htmlStr;
                 message.what = 0;
