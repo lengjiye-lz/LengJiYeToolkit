@@ -24,8 +24,6 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import rx.Observable;
@@ -123,20 +121,11 @@ public class OKHttpActivity extends BaseActivity {
      * post 表单提交数据
      */
     private void loadWebPageDataPost() {
-        //创建okHttpClient对象
-        OkHttpClient mOkHttpClient = new OkHttpClient();
+        //创建FormBody对象
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("search", "Jurassic Park");
         RequestBody requestBody = builder.build();
-        //创建一个Request
-        Request request = new Request.Builder()
-                .url("https://en.wikipedia.org/w/index.php")
-                .post(requestBody)
-                .build();
-        //new call
-        Call call = mOkHttpClient.newCall(request);
-        //请求加入调度
-        call.enqueue(new Callback() {
+        OkHttpUtils.getInstance().postRequest("https://en.wikipedia.org/w/index.php", requestBody, null, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Message message = new Message();
@@ -162,8 +151,6 @@ public class OKHttpActivity extends BaseActivity {
      * post string
      */
     private void loadWebPageDataString() {
-        //创建okHttpClient对象
-        OkHttpClient mOkHttpClient = new OkHttpClient();
         String postBody = ""
                 + "Releases\n"
                 + "--------\n"
@@ -171,16 +158,7 @@ public class OKHttpActivity extends BaseActivity {
                 + " * _1.0_ May 6, 2013\n"
                 + " * _1.1_ June 15, 2013\n"
                 + " * _1.2_ August 11, 2013\n";
-        //创建一个Request
-        Request request = new Request.Builder()
-                .url("https://api.github.com/markdown/raw")
-                .post(RequestBody.create(MediaType.parse("text/x-markdown; charset=utf-8"), postBody))
-//                .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString()))   josn 请求
-                .build();
-        //new call
-        Call call = mOkHttpClient.newCall(request);
-        //请求加入调度
-        call.enqueue(new Callback() {
+        OkHttpUtils.getInstance().postRequest("https://api.github.com/markdown/raw", "text/x-markdown; charset=utf-8", postBody, null, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Message message = new Message();
@@ -205,8 +183,7 @@ public class OKHttpActivity extends BaseActivity {
      * 上传图片
      */
     private void sendImageView() {
-        //创建okHttpClient对象
-        OkHttpClient mOkHttpClient = new OkHttpClient();
+        //创建RequestBody对象
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("title", "Square Logo")
@@ -214,16 +191,7 @@ public class OKHttpActivity extends BaseActivity {
                         RequestBody.create(MediaType.parse("image/png"), new File(Environment.getExternalStorageDirectory()
                                 .getAbsoluteFile() + "/" + "icon.png")))
                 .build();
-
-        Request request = new Request.Builder()
-                .header("Authorization", "Client-ID " + "9199fdef135c122")
-                .url("https://api.imgur.com/3/image")
-                .post(requestBody)
-                .build();
-        //new call
-        Call call = mOkHttpClient.newCall(request);
-        //请求加入调度
-        call.enqueue(new Callback() {
+        OkHttpUtils.getInstance().postRequest("https://api.imgur.com/3/image", requestBody, null, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Message message = new Message();
@@ -235,7 +203,7 @@ public class OKHttpActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
-                Log.e("lz", "htmlStr:" + htmlStr);
+
                 Message message = new Message();
                 message.obj = htmlStr;
                 message.what = 0;
@@ -311,10 +279,12 @@ public class OKHttpActivity extends BaseActivity {
                 case 0:
                     Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
                     text.setText((CharSequence) msg.obj);
+                    Log.e("lz", "请求成功:" + msg.obj);
                     break;
                 case 1:
                     Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
                     text.setText("请求失败：" + msg.obj);
+                    Log.e("lz", "请求失败:" + msg.obj);
                     break;
             }
         }

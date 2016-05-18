@@ -162,7 +162,7 @@ public class OkHttpUtils {
 
 
     /**
-     * git请求
+     * 请求
      *
      * @param request          请求内容，需自行封装
      * @param responseCallback 返回callback
@@ -172,7 +172,7 @@ public class OkHttpUtils {
     }
 
     /**
-     * git请求
+     * git同步请求
      *
      * @param url 请求url
      * @param tag 请求标识，用来取消本次请求，可以为null
@@ -183,7 +183,7 @@ public class OkHttpUtils {
     }
 
     /**
-     * git请求
+     * git同步请求
      *
      * @param name  添加请求头
      * @param value 添加请求头
@@ -196,7 +196,7 @@ public class OkHttpUtils {
     }
 
     /**
-     * git请求
+     * 请求
      *
      * @param request 请求内容，需自行封装
      */
