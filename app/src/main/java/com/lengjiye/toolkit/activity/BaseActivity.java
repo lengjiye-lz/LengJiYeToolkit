@@ -9,6 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.application.LJYApplication;
+import com.lengjiye.toolkit.receiver.NetworkChangedReceiver;
+import com.lengjiye.toolkit.receiver.NetworkChangedReceiver.NetworkChangedListener;
 import com.lengjiye.toolkit.utils.NoDoubleClickUtils;
 
 import org.xutils.x;
@@ -17,7 +19,7 @@ import org.xutils.x;
  * activity基类
  * Created by lz on 2016/4/12.
  */
-public abstract class BaseActivity extends AppCompatActivity implements OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements OnClickListener, NetworkChangedListener {
 
     protected Context mContext;
 
@@ -29,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
         x.view().inject(this);
         initView();
         LJYApplication.getInstance().addActivity(this);
+        NetworkChangedReceiver.setNetworkChangedListener(this);
     }
 
     protected abstract void initOnCreate(Bundle savedInstanceState);
@@ -62,5 +65,15 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
     protected void onDestroy() {
         super.onDestroy();
         LJYApplication.getInstance().removeActivity(this);
+    }
+
+    @Override
+    public void onNetworkLinkSuccess() {
+
+    }
+
+    @Override
+    public void onNetworkLinkFailure() {
+
     }
 }

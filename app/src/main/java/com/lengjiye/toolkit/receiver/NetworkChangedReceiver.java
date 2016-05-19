@@ -12,19 +12,37 @@ import android.widget.Toast;
  * Created by lz on 2016/5/18.
  */
 public class NetworkChangedReceiver extends BroadcastReceiver {
+
+    private static NetworkChangedListener listener;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
         //Toast.makeText(context, intent.getAction(), 1).show();
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo activeInfo = manager.getActiveNetworkInfo();
         if (activeInfo != null) {
-            Toast.makeText(context, "mobile:" + mobileInfo.isConnected() + "\n" + "wifi:" + wifiInfo.isConnected()
-                    + "\n" + "active:" + activeInfo.getTypeName(), Toast.LENGTH_SHORT).show();
+            if (listener != null) {
+                listener.onNetworkLinkSuccess();
+            }
         } else {
+            if (listener != null) {
+                listener.onNetworkLinkFailure();
+            }
             Toast.makeText(context, "网络链接断开", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * 网络变化接口
+     */
+    public interface NetworkChangedListener {
+        void onNetworkLinkSuccess();
+
+        void onNetworkLinkFailure();
+    }
+
+    public static void setNetworkChangedListener(NetworkChangedListener changedListener) {
+        listener = changedListener;
     }
 }

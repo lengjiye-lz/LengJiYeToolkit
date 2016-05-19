@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity {
     private Intent intent;
     private Context mContext;
     private long lastPressTime;
+    private TextView textView;
 
     @Override
     protected void initOnCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends BaseActivity {
         List<String> strings = getData();
         MainAdapter adapter = new MainAdapter(mContext, strings);
         ListView listView = (ListView) findViewById(R.id.listview);
+        textView = (TextView) findViewById(R.id.text);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,5 +100,17 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public void onNetworkLinkFailure() {
+        super.onNetworkLinkFailure();
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNetworkLinkSuccess() {
+        super.onNetworkLinkSuccess();
+        textView.setVisibility(View.GONE);
     }
 }
