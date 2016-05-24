@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
+import com.lengjiye.toolkit.activity.MVPPatternActivity;
 import com.lengjiye.toolkit.activity.NoDoubleTestActivity;
 import com.lengjiye.toolkit.activity.OKHttpActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
@@ -61,6 +62,10 @@ public class MainActivity extends BaseActivity {
                         intent = new Intent(mContext, NoDoubleTestActivity.class);
                         startActivity(intent);
                         break;
+                    case 4:
+                        intent = new Intent(mContext, MVPPatternActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
@@ -78,6 +83,7 @@ public class MainActivity extends BaseActivity {
         strings.add("事件分发机制");
         strings.add("OKHttp请求");
         strings.add("不可重复点击测试");
+        strings.add("android常用到的设计模式");
         return strings;
     }
 

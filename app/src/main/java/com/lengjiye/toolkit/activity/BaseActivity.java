@@ -58,7 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
      * @param v
      */
     protected void click(View v) {
-        Log.e("lz", "点击事件");
     }
 
     @Override
