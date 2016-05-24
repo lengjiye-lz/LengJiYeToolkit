@@ -26,7 +26,9 @@
         <activity android:name=".activity.TouchTestActivity"/>
         <activity android:name=".activity.OKHttpActivity"/>
         <activity android:name=".activity.NoDoubleTestActivity"/>
-        <activity android:name=".activity.MVPPatternActivity"/>
+        <activity android:name=".activity.FrameModeActivity"/>
+        <activity android:name=".activity.MVPTestActivity"/>
+        <activity android:name=".activity.MVVMTestActivity"/>
 
         <!-- 注册广播 -->
 

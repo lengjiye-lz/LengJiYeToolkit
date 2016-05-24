@@ -12,7 +12,7 @@ import com.lengjiye.toolkit.presenter.UserPresenter;
  * mvp设计模式中view的操作
  * Created by lz on 2016/5/23.
  */
-public class MVPPatternActivity extends BaseActivity implements IUserView {
+public class MVPTestActivity extends BaseActivity implements IUserView {
 
     private UserPresenter userPresenter;
     private EditText et_id;
@@ -21,7 +21,7 @@ public class MVPPatternActivity extends BaseActivity implements IUserView {
 
     @Override
     protected void initOnCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_mvp_pattern);
+        setContentView(R.layout.activity_mvp_test);
     }
 
     @Override

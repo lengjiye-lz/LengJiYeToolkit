@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
-import com.lengjiye.toolkit.activity.MVPPatternActivity;
+import com.lengjiye.toolkit.activity.FrameModeActivity;
 import com.lengjiye.toolkit.activity.NoDoubleTestActivity;
 import com.lengjiye.toolkit.activity.OKHttpActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
@@ -22,10 +22,12 @@ import com.lengjiye.toolkit.application.LJYApplication;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 主activity
+ * Created by lz on 2016/5/23.
+ */
 public class MainActivity extends BaseActivity {
 
-    private Intent intent;
-    private Context mContext;
     private long lastPressTime;
     private TextView textView;
 
@@ -36,7 +38,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mContext = this;
         List<String> strings = getData();
         MainAdapter adapter = new MainAdapter(mContext, strings);
         ListView listView = (ListView) findViewById(R.id.listview);
@@ -47,24 +48,19 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        intent = new Intent(mContext, StretchTextActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(mContext, StretchTextActivity.class));
                         break;
                     case 1:
-                        intent = new Intent(mContext, TouchTestActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(mContext, TouchTestActivity.class));
                         break;
                     case 2:
-                        intent = new Intent(mContext, OKHttpActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(mContext, OKHttpActivity.class));
                         break;
                     case 3:
-                        intent = new Intent(mContext, NoDoubleTestActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(mContext, NoDoubleTestActivity.class));
                         break;
                     case 4:
-                        intent = new Intent(mContext, MVPPatternActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(mContext, FrameModeActivity.class));
                         break;
                 }
             }
