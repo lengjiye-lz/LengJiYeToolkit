@@ -38,7 +38,6 @@ public class UserPresenter {
      * @param id
      */
     public void loadUser(int id) {
-        
         UserBean user = userModel.load(id);
         userView.setFirstName(user.getFirstName());//通过调用IUserView的方法来更新显示
         userView.setLastName(user.getLastName());
