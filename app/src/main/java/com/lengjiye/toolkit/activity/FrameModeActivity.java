@@ -1,6 +1,5 @@
 package com.lengjiye.toolkit.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,7 +37,7 @@ public class FrameModeActivity extends BaseActivity {
                         startActivity(new Intent(mContext, MVPTestActivity.class));
                         break;
                     case 1:
-                        startActivity(new Intent(mContext, TouchTestActivity.class));
+                        startActivity(new Intent(mContext, MVVMTestActivity.class));
                         break;
                 }
             }

@@ -11,7 +11,7 @@
 
         <variable
             name="user"
-            type="com.lengjiye.toolkit.bean.UserBean"/>
+            type="com.lengjiye.toolkit.bean.MVVMUserBean"/>
     </data>
 
     <LinearLayout
@@ -34,9 +34,9 @@
 
             <EditText
                 android:id="@+id/et_id"
-                android:text="@{user.id}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(user.id)}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -54,9 +54,9 @@
 
             <EditText
                 android:id="@+id/et_first_name"
-                android:text="@{user.firstName}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@{user.firstName}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,9 +74,9 @@
 
             <EditText
                 android:id="@+id/et_last_name"
-                android:text="@{user.lastName}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@{user.lastName}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -92,15 +92,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="存"/>
+                android:text="cun"/>
 
             <Button
                 android:id="@+id/btn_du"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="读"/>
-        </LinearLayout>
+                android:text="du"/>
 
+            <Button
+                android:id="@+id/btn_jia1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+1"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>
