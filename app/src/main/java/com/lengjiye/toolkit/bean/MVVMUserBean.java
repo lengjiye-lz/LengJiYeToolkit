@@ -1,6 +1,5 @@
 package com.lengjiye.toolkit.bean;
 
-import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
@@ -11,7 +10,7 @@ import android.databinding.ObservableInt;
  * 另一种是使用ObservableField<String>
  * Created by lz on 2016/5/25.
  */
-public class MVVMUserBean extends BaseObservable {
+public class MVVMUserBean {
     public final ObservableInt id = new ObservableInt();
     public final ObservableField<String> firstName = new ObservableField<>();
     public final ObservableField<String> lastName = new ObservableField<>();
