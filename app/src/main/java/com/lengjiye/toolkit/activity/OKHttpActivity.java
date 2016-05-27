@@ -57,7 +57,8 @@ public class OKHttpActivity extends BaseActivity {
                 Message message = new Message();
                 message.obj = e;
                 message.what = 1;
-                ttsHandler.sendMessage(message);
+//                ttsHandler.sendMessage(message);
+                testRxJavaCommunication(e.toString(), false);
             }
 
             @Override
@@ -66,7 +67,8 @@ public class OKHttpActivity extends BaseActivity {
                 Message message = new Message();
                 message.obj = htmlStr;
                 message.what = 0;
-                ttsHandler.sendMessage(message);
+//                ttsHandler.sendMessage(message);
+                testRxJavaCommunication(htmlStr, false);
             }
         });
     }
@@ -225,7 +227,7 @@ public class OKHttpActivity extends BaseActivity {
                             Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
                             text.setText(s);
                         } else {
-                            Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
                             text.setText("请求失败：" + s);
                         }
                     }

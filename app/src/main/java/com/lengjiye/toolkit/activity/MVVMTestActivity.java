@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.EditText;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.bean.MVVMUserBean;
@@ -18,9 +17,7 @@ import com.lengjiye.toolkit.utils.StringUtils;
 public class MVVMTestActivity extends BaseActivity {
 
     private ActivityMvvmTestBinding binding;
-    private EditText et_id;
-    private EditText et_first_name;
-    private EditText et_last_name;
+
 
     private SparseArray sparseArray; // 保存临时变量
 
@@ -32,9 +29,6 @@ public class MVVMTestActivity extends BaseActivity {
     @Override
     protected void initView() {
         sparseArray = new SparseArray();
-        et_id = (EditText) findViewById(R.id.et_id);
-        et_first_name = (EditText) findViewById(R.id.et_first_name);
-        et_last_name = (EditText) findViewById(R.id.et_last_name);
         binding.btnCun.setOnClickListener(this);
         binding.btnDu.setOnClickListener(this);
         binding.btnJia1.setOnClickListener(this);
@@ -47,13 +41,13 @@ public class MVVMTestActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_cun:
                 MVVMUserBean userBean = new MVVMUserBean();
-                userBean.id.set(Integer.parseInt(StringUtils.isBlank(et_id.getText().toString()) ? "0" : et_id.getText().toString()));
-                userBean.firstName.set(et_first_name.getText().toString());
-                userBean.lastName.set(et_last_name.getText().toString());
+                userBean.id.set(Integer.parseInt(StringUtils.isBlank(binding.etId.getText().toString()) ? "0" : binding.etId.getText().toString()));
+                userBean.firstName.set(binding.etFirstName.getText().toString());
+                userBean.lastName.set(binding.etLastName.getText().toString());
                 sparseArray.append(0, userBean);
-                et_id.setText("");
-                et_first_name.setText("");
-                et_last_name.setText("");
+                binding.etId.setText("");
+                binding.etFirstName.setText("");
+                binding.etLastName.setText("");
                 break;
             case R.id.btn_du:
                 MVVMUserBean bean = (MVVMUserBean) sparseArray.get(0);
@@ -61,7 +55,7 @@ public class MVVMTestActivity extends BaseActivity {
                 break;
             case R.id.btn_jia1:
                 MVVMUserBean mvvmUserBean = (MVVMUserBean) sparseArray.get(0);
-                mvvmUserBean.id.set(Integer.parseInt(et_id.getText().toString()) + 1);
+                mvvmUserBean.id.set(Integer.parseInt(binding.etId.getText().toString()) + 1);
                 binding.setUser(mvvmUserBean);
                 break;
         }
