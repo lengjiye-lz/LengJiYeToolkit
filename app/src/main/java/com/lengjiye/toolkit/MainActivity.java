@@ -1,6 +1,5 @@
 package com.lengjiye.toolkit;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 
 import com.lengjiye.toolkit.activity.BaseActivity;
 import com.lengjiye.toolkit.activity.FrameModeActivity;
+import com.lengjiye.toolkit.activity.ImageCompressActivity;
 import com.lengjiye.toolkit.activity.NoDoubleTestActivity;
 import com.lengjiye.toolkit.activity.OKHttpActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
@@ -62,6 +62,9 @@ public class MainActivity extends BaseActivity {
                     case 4:
                         startActivity(new Intent(mContext, FrameModeActivity.class));
                         break;
+                    case 5:
+                        startActivity(new Intent(mContext, ImageCompressActivity.class));
+                        break;
                 }
             }
         });
@@ -80,6 +83,7 @@ public class MainActivity extends BaseActivity {
         strings.add("OKHttp请求");
         strings.add("不可重复点击测试");
         strings.add("android常用到的设计模式");
+        strings.add("图片压缩工具类");
         return strings;
     }
 

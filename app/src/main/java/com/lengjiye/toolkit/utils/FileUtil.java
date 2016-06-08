@@ -148,4 +148,22 @@ public class FileUtil {
             deleteAll(path);
         }
     }
+
+    /**
+     * 获取子文件
+     *
+     * @param path
+     * @return
+     */
+    public static String[] getChildren(String path) {
+        String children[] = null;
+        File file = new File(path);
+        if (!file.exists()) {
+            return children;
+        }
+        if (file.isDirectory()) {
+            children = file.list();
+        }
+        return children;
+    }
 }

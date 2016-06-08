@@ -3,7 +3,6 @@
           package="com.lengjiye.toolkit">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!--在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
@@ -33,6 +32,7 @@
         <activity android:name=".activity.FrameModeActivity"/>
         <activity android:name=".activity.MVPTestActivity"/>
         <activity android:name=".activity.MVVMTestActivity"/>
+        <activity android:name=".activity.ImageCompressActivity"/>
 
         <!-- 注册广播 -->
 
