@@ -10,6 +10,7 @@ import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.utils.Constants;
 import com.lengjiye.toolkit.utils.FileUtil;
 import com.lengjiye.toolkit.utils.ImageCompress;
+import com.lengjiye.toolkit.view.LoadingDialog;
 
 import org.xutils.view.annotation.ViewInject;
 
@@ -21,12 +22,14 @@ import java.util.List;
  * 测试图片压缩工具类
  * Created by lz on 2016/6/8.
  */
-public class ImageCompressActivity extends BaseActivity {
+public class ImageCompressActivity extends BaseActivity implements ImageCompress.CompressCallBack {
 
     @ViewInject(R.id.button1)
     private Button button1;
     @ViewInject(R.id.button2)
     private Button button2;
+
+    private LoadingDialog dialog;
 
     private List<String> strings;
 
@@ -41,6 +44,7 @@ public class ImageCompressActivity extends BaseActivity {
     @Override
     protected void initView() {
         strings = new ArrayList<>();
+        dialog = new LoadingDialog(mContext);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         FileUtil.createFolder(oldPath);
@@ -56,43 +60,15 @@ public class ImageCompressActivity extends BaseActivity {
                 if (strings.size() < 0) {
                     return;
                 }
-                ImageCompress.getInstance().compress(strings.get(0), newPath, new ImageCompress.CompressCallBack() {
-                    @Override
-                    public void success(List<String> strings) {
-
-                    }
-
-                    @Override
-                    public void success(String s) {
-                        Log.e("lz", "s:" + s);
-                    }
-
-                    @Override
-                    public void failure(String error) {
-                        Log.e("lz", "error:" + error);
-                    }
-                });
+                dialog.show();
+                ImageCompress.getInstance().compress(strings.get(0), newPath, this);
                 break;
             case R.id.button2:
                 if (strings.size() < 0) {
                     return;
                 }
-                ImageCompress.getInstance().compress(strings, newPath, new ImageCompress.CompressCallBack() {
-                    @Override
-                    public void success(List<String> strings) {
-                        Log.e("lz", "strings:" + strings);
-                    }
-
-                    @Override
-                    public void success(String s) {
-
-                    }
-
-                    @Override
-                    public void failure(String error) {
-                        Log.e("lz", "error:" + error);
-                    }
-                });
+                dialog.show();
+                ImageCompress.getInstance().compress(strings, newPath, this);
                 break;
         }
     }
@@ -110,4 +86,27 @@ public class ImageCompressActivity extends BaseActivity {
         Log.e("lz", "strings:" + strings);
     }
 
+    @Override
+    public void success(List<String> strings) {
+        Log.e("lz", "strings:" + strings);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void success(String s) {
+        Log.e("lz", "s:" + s);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void failure(String error) {
+        Log.e("lz", "error:" + error);
+        dialog.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dialog.destroy();
+    }
 }

@@ -82,12 +82,16 @@ public class ImageUtils {
      */
     private static ByteArrayOutputStream compressImage(Bitmap image, int compressSize) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, outputStream);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 100;
-        while (outputStream.toByteArray().length / 1024 > compressSize) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-            outputStream.reset();// 重置baos即清空baos
-            image.compress(Bitmap.CompressFormat.JPEG, options, outputStream);// 这里压缩options%，把压缩后的数据存放到baos中
-            options -= 10;// 每次都减少10
+        try {
+            image.compress(Bitmap.CompressFormat.PNG, 100, outputStream);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+            int options = 100;
+            while (outputStream.toByteArray().length / 1024 > compressSize) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+                outputStream.reset();// 重置baos即清空baos
+                image.compress(Bitmap.CompressFormat.JPEG, options, outputStream);// 这里压缩options%，把压缩后的数据存放到baos中
+                options -= 10;// 每次都减少10
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return outputStream;
     }
