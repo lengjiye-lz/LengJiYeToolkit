@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/transparent"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/dimen_30px"
+              android:paddingRight="@dimen/dimen_30px">
+
+    <LinearLayout
+        android:id="@+id/ll_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_confirm_dialog_top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_40px">
+        <!--仅仅用来保持dialog match_parent-->
+        <View
+            android:id="@+id/vw_keep_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_color"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/cl_2c2c2c"
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:gravity="center_horizontal"
+            android:textColor="@color/cl_2c2c2c"
+            android:textSize="@dimen/sp_14"/>
+
+        <View
+            android:id="@+id/vw_ver_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/dimen_40px"
+            android:background="#33000000"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_88px"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/bg_confirm_dialog_bottom_left"
+            android:gravity="center"
+            android:text="@android:string/cancel"
+            android:textColor="@color/cl_0079ff"
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold"/>
+
+        <View
+            android:id="@+id/vw_divider"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#b5b5b5"/>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/bg_confirm_dialog_bottom_right"
+            android:gravity="center"
+            android:text="@android:string/ok"
+            android:textColor="@color/cl_0079ff"
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</LinearLayout>

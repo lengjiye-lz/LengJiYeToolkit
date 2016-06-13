@@ -10,7 +10,7 @@ import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.utils.Constants;
 import com.lengjiye.toolkit.utils.FileUtil;
 import com.lengjiye.toolkit.utils.ImageCompress;
-import com.lengjiye.toolkit.view.LoadingDialog;
+import com.lengjiye.toolkit.view.BaseDialog;
 
 import org.xutils.view.annotation.ViewInject;
 
@@ -29,7 +29,7 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
     @ViewInject(R.id.button2)
     private Button button2;
 
-    private LoadingDialog dialog;
+    private BaseDialog baseDialog;
 
     private List<String> strings;
 
@@ -44,7 +44,7 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
     @Override
     protected void initView() {
         strings = new ArrayList<>();
-        dialog = new LoadingDialog(mContext);
+        baseDialog = new BaseDialog(mContext);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         FileUtil.createFolder(oldPath);
@@ -60,14 +60,14 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
                 if (strings.size() < 0) {
                     return;
                 }
-                dialog.show();
+                baseDialog.show();
                 ImageCompress.getInstance().compress(strings.get(0), newPath, this);
                 break;
             case R.id.button2:
                 if (strings.size() < 0) {
                     return;
                 }
-                dialog.show();
+                baseDialog.show();
                 ImageCompress.getInstance().compress(strings, newPath, this);
                 break;
         }
@@ -89,24 +89,24 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
     @Override
     public void success(List<String> strings) {
         Log.e("lz", "strings:" + strings);
-        dialog.dismiss();
+        baseDialog.dismiss();
     }
 
     @Override
     public void success(String s) {
         Log.e("lz", "s:" + s);
-        dialog.dismiss();
+        baseDialog.dismiss();
     }
 
     @Override
     public void failure(String error) {
         Log.e("lz", "error:" + error);
-        dialog.dismiss();
+        baseDialog.dismiss();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dialog.destroy();
+        baseDialog.destroy();
     }
 }

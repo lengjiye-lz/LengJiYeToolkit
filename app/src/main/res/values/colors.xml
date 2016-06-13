@@ -3,7 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="divider_color">@color/c06_dddddd</color>
     <color name="c06_dddddd">#dddddd</color>
     <color name="listview_pressed_d9d9d9">#d9d9d9</color>
     <color name="bg_loading_default">#cc000000</color>
+    <color name="cl_2c2c2c">#2c2c2c</color>
+    <color name="cl_0079ff">#0079ff</color>
 </resources>
