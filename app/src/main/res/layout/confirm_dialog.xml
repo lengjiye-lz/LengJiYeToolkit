@@ -33,7 +33,8 @@
             android:singleLine="true"
             android:textColor="@color/cl_2c2c2c"
             android:textSize="@dimen/sp_17"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -43,7 +44,8 @@
             android:layout_marginRight="@dimen/dimen_20px"
             android:gravity="center_horizontal"
             android:textColor="@color/cl_2c2c2c"
-            android:textSize="@dimen/sp_14"/>
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"/>
 
         <View
             android:id="@+id/vw_ver_divider"
@@ -62,14 +64,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_ok"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="@drawable/bg_confirm_dialog_bottom_left"
+            android:background="@drawable/bg_confirm_dialog_btn_left"
             android:gravity="center"
-            android:text="@android:string/cancel"
+            android:text="@android:string/ok"
             android:textColor="@color/cl_0079ff"
             android:textSize="@dimen/sp_17"
             android:textStyle="bold"/>
@@ -81,14 +83,14 @@
             android:background="#b5b5b5"/>
 
         <Button
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="@drawable/bg_confirm_dialog_bottom_right"
+            android:background="@drawable/bg_confirm_dialog_btn_right"
             android:gravity="center"
-            android:text="@android:string/ok"
+            android:text="@android:string/cancel"
             android:textColor="@color/cl_0079ff"
             android:textSize="@dimen/sp_17"
             android:textStyle="bold"/>
