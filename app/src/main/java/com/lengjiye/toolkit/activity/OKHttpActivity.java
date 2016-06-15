@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.R;
+import com.lengjiye.toolkit.utils.CommonUtils;
 import com.lengjiye.toolkit.utils.OkHttpUtils;
 
 import org.xutils.view.annotation.Event;
@@ -50,6 +51,7 @@ public class OKHttpActivity extends BaseActivity {
      * 请求网页数据   异步请求
      */
     private void loadWebPageDataGitAsync() {
+        CommonUtils.generateClassAndMethodTag();
         String path = "https://www.baidu.com/";
         OkHttpUtils.getInstance().getRequest(path, null, new Callback() {
             @Override

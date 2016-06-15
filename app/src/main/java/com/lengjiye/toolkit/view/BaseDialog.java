@@ -44,7 +44,6 @@ public class BaseDialog extends Dialog {
     private void init(Context mContext) {
         this.mContext = mContext;
         setType(LOADING);
-
     }
 
     /**
