@@ -3,6 +3,7 @@ package com.lengjiye.toolkit.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.lengjiye.toolkit.R;
 public class BaseDialog extends Dialog {
 
     public static final int LOADING = 0; // loading框
+    public static final int LOADING_ANIM = 2; // 带有动画效果的loading框
     public static final int CONFIRM = 1; // 确认对话框
 
     private Context mContext;
@@ -58,6 +60,9 @@ public class BaseDialog extends Dialog {
             case CONFIRM:
                 confirmDialog();
                 break;
+            case LOADING_ANIM:
+                loadingDialogAnim();
+                break;
         }
     }
 
@@ -69,6 +74,15 @@ public class BaseDialog extends Dialog {
         setLayoutRes(R.layout.loading_dialog);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
+    }
+
+    /**
+     * 带有动画效果的loading框
+     * 默认对话框不能取消
+     */
+    private void loadingDialogAnim() {
+        loadingDialog();
+        setAnimations(R.style.main_menu_animstyle);
     }
 
     /**
@@ -199,10 +213,28 @@ public class BaseDialog extends Dialog {
         return view;
     }
 
+    /**
+     * 设置动画效果
+     *
+     * @param resId
+     * @return
+     */
+    public void setAnimations(int resId) {
+        Window window = getWindow();
+        //设置显示动画
+        window.setWindowAnimations(resId);
+    }
+
     public int getType() {
         return type;
     }
 
+    /**
+     * 设置显示属性
+     * 默认是loading对话框
+     *
+     * @param type
+     */
     public void setType(int type) {
         this.type = type;
         setDialogType();

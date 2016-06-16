@@ -45,6 +45,7 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
     protected void initView() {
         strings = new ArrayList<>();
         baseDialog = new BaseDialog(mContext);
+        baseDialog.setType(BaseDialog.LOADING_ANIM);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         FileUtil.createFolder(oldPath);
