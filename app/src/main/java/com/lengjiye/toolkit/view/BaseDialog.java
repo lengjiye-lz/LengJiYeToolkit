@@ -72,8 +72,7 @@ public class BaseDialog extends Dialog {
      */
     private void loadingDialog() {
         setLayoutRes(R.layout.loading_dialog);
-        setCancelable(false);
-        setCanceledOnTouchOutside(false);
+        setIsCancel(false);
     }
 
     /**
@@ -223,6 +222,16 @@ public class BaseDialog extends Dialog {
         Window window = getWindow();
         //设置显示动画
         window.setWindowAnimations(resId);
+    }
+
+    /**
+     * 设置点击的时候是否可以取消
+     *
+     * @param isCancel
+     */
+    public void setIsCancel(boolean isCancel) {
+        setCancelable(isCancel);
+        setCanceledOnTouchOutside(isCancel);
     }
 
     public int getType() {
