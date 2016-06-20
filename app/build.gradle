@@ -2,22 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.android.databinding'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.lengjiye.toolkit"
-        minSdkVersion 15
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
     signingConfigs {
         release {
-            storeFile file("j1_wireless.keystore")
-            storePassword "j1@20140815"
-            keyAlias "j1 doctor"
-            keyPassword "jianyiwang"
+
         }
     }
     buildTypes {

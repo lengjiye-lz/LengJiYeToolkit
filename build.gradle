@@ -12,6 +12,14 @@ buildscript {
     }
 }
 
+//针对不同的app module之间的差异不统一，也不可控
+ext {
+    compileSdkVersion = 22
+    buildToolsVersion = "22.0.1"
+    minSdkVersion = 15
+    targetSdkVersion = 22
+}
+
 allprojects {
     repositories {
         jcenter()
