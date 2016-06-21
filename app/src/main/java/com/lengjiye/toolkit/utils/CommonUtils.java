@@ -28,6 +28,33 @@ public class CommonUtils {
     }
 
     /**
+     * 获取版本号
+     *
+     * @return
+     */
+    public static int getVersionCode() {
+        return BuildConfig.VERSION_CODE;
+    }
+
+    /**
+     * 获取版本名称
+     *
+     * @return
+     */
+    public static String getVersionName() {
+        return BuildConfig.VERSION_NAME;
+    }
+
+    /**
+     * 获取包名
+     *
+     * @return
+     */
+    public static String getApplicationId() {
+        return BuildConfig.APPLICATION_ID;
+    }
+
+    /**
      * 获取类名和方法名
      *
      * @return
