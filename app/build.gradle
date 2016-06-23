@@ -7,11 +7,35 @@ android {
 
     defaultConfig {
         applicationId "com.lengjiye.toolkit"
-        minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
     }
+
+    productFlavors { // 正常的开发环境需要有这些配置，可以配置IP地址，不用每次都进行修改IP, 也可以配置不同的渠道号进行不同的渠道打包
+        local{ // 本机环境
+            minSdkVersion 21
+            buildConfigField("String", "IP", "\"192.168.2.2\"") // 使用方法BuildConfig.IP就可以获取当前环境下的IP地址
+        }
+
+        dev{ // (开发小组内自测的)开发环境
+            minSdkVersion 21
+            buildConfigField("String", "IP", "\"192.168.2.1\"")
+        }
+
+        tst{ // (提供给测试团队的)测试环境
+            minSdkVersion rootProject.ext.minSdkVersion
+        }
+
+        pre{ // 预发布环境
+            minSdkVersion rootProject.ext.minSdkVersion
+        }
+
+        prod{ // 正式生产环境
+            minSdkVersion rootProject.ext.minSdkVersion
+        }
+    }
+
     signingConfigs {
         release {
 
