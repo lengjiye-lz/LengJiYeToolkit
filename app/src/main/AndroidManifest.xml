@@ -33,6 +33,7 @@
         <activity android:name=".activity.MVPTestActivity"/>
         <activity android:name=".activity.MVVMTestActivity"/>
         <activity android:name=".activity.ImageCompressActivity"/>
+        <activity android:name=".activity.RecyclerViewActivity"/>
 
         <!-- 注册广播 -->
 

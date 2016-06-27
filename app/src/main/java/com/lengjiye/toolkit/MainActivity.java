@@ -14,6 +14,7 @@ import com.lengjiye.toolkit.activity.FrameModeActivity;
 import com.lengjiye.toolkit.activity.ImageCompressActivity;
 import com.lengjiye.toolkit.activity.NoDoubleTestActivity;
 import com.lengjiye.toolkit.activity.OKHttpActivity;
+import com.lengjiye.toolkit.activity.RecyclerViewActivity;
 import com.lengjiye.toolkit.activity.StretchTextActivity;
 import com.lengjiye.toolkit.activity.TouchTestActivity;
 import com.lengjiye.toolkit.adapter.MainAdapter;
@@ -65,6 +66,9 @@ public class MainActivity extends BaseActivity {
                     case 5:
                         startActivity(new Intent(mContext, ImageCompressActivity.class));
                         break;
+                    case 6:
+                        startActivity(new Intent(mContext, RecyclerViewActivity.class));
+                        break;
                 }
             }
         });
@@ -84,6 +88,7 @@ public class MainActivity extends BaseActivity {
         strings.add("不可重复点击测试");
         strings.add("android常用到的设计模式");
         strings.add("图片压缩工具类");
+        strings.add("使用RecyclerView");
         return strings;
     }
 

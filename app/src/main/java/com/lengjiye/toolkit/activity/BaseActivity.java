@@ -30,10 +30,15 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
         initOnCreate(savedInstanceState);
         x.view().inject(this);
         initView();
+        initData();
         LJYApplication.getInstance().addActivity(this);
         NetworkChangedReceiver.setNetworkChangedListener(this);
     }
 
+    /**
+     * 加载布局文件
+     * @param savedInstanceState
+     */
     protected abstract void initOnCreate(Bundle savedInstanceState);
 
 
@@ -41,6 +46,11 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
      * 初始化方法,每个子类都必须继承，用于初始化数组、控件等。
      */
     protected abstract void initView();
+
+    /**
+     * 初始化数据源
+     */
+    protected void initData() { }
 
     @Override
     public void onClick(View v) {
@@ -57,8 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
      *
      * @param v
      */
-    protected void click(View v) {
-    }
+    protected void click(View v) { }
 
     @Override
     protected void onDestroy() {
@@ -67,12 +76,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
     }
 
     @Override
-    public void onNetworkLinkSuccess() {
-
-    }
+    public void onNetworkLinkSuccess() { }
 
     @Override
-    public void onNetworkLinkFailure() {
-
-    }
+    public void onNetworkLinkFailure() { }
 }
