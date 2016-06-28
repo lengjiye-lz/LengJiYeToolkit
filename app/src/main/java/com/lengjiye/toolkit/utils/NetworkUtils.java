@@ -15,9 +15,9 @@ public class NetworkUtils {
     /**
      * 判断是否有网络链接
      *
-     * @return
+     * @return {@code true} 网络链接， {@code false} 网络没有连接
      */
-    public boolean isNetworkConnected() {
+    public static boolean isNetworkConnected() {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -32,7 +32,7 @@ public class NetworkUtils {
      *
      * @return
      */
-    public boolean isWifiConnected() {
+    public static boolean isWifiConnected() {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWiFiNetworkInfo = mConnectivityManager
@@ -48,7 +48,7 @@ public class NetworkUtils {
      *
      * @return
      */
-    public boolean isMobileConnected() {
+    public static boolean isMobileConnected() {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mMobileNetworkInfo = mConnectivityManager

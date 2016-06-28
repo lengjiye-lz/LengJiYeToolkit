@@ -32,11 +32,17 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
         initView();
         initData();
         LJYApplication.getInstance().addActivity(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         NetworkChangedReceiver.setNetworkChangedListener(this);
     }
 
     /**
      * 加载布局文件
+     *
      * @param savedInstanceState
      */
     protected abstract void initOnCreate(Bundle savedInstanceState);
@@ -50,7 +56,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
     /**
      * 初始化数据源
      */
-    protected void initData() { }
+    protected void initData() {
+    }
 
     @Override
     public void onClick(View v) {
@@ -67,7 +74,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
      *
      * @param v
      */
-    protected void click(View v) { }
+    protected void click(View v) {
+    }
 
     @Override
     protected void onDestroy() {
@@ -76,8 +84,10 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
     }
 
     @Override
-    public void onNetworkLinkSuccess() { }
+    public void onNetworkLinkSuccess() {
+    }
 
     @Override
-    public void onNetworkLinkFailure() { }
+    public void onNetworkLinkFailure() {
+    }
 }

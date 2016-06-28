@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
+import com.lengjiye.toolkit.utils.NetworkUtils;
+
 /**
  * 监听网络变化的广播
  * Created by lz on 2016/5/18.
@@ -44,5 +46,10 @@ public class NetworkChangedReceiver extends BroadcastReceiver {
 
     public static void setNetworkChangedListener(NetworkChangedListener changedListener) {
         listener = changedListener;
+        if (NetworkUtils.isNetworkConnected()) {
+            listener.onNetworkLinkSuccess();
+        } else {
+            listener.onNetworkLinkFailure();
+        }
     }
 }
