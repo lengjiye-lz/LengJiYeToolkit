@@ -25,7 +25,10 @@ public class MaskTextView extends View {
     private Paint mPaint;
     private Bitmap mBitmap1; // mCanvas绘制在这上面
     private Bitmap mBitmap2; // mCanvas绘制在这上面
-    private Bitmap mBitmap3; // mCanvas绘制在这上面
+    private int strokeWidth = 5; // 线的高度
+    private int textSice = 30; // 字体的大小
+    private int progress = 0; // 进度
+    private String textContent; // 字体内容
 
     public MaskTextView(Context context) {
         super(context);
@@ -47,6 +50,47 @@ public class MaskTextView extends View {
         if (isInEditMode()) {
             return;
         }
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public void setTextSice(int textSice) {
+        this.textSice = textSice;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+        if (mWidth != 0 && progress > mWidth) {
+            this.progress = mWidth;
+        }
+        postInvalidate();
+    }
+
+    /**
+     * 设置百分比进度
+     * progress的取值范围是0到1
+     *
+     * @param progress
+     */
+    public void setProgress(double progress) {
+        if (progress <= 0) {
+            progress = 0;
+        }
+        if (progress >= 1) {
+            progress = 1;
+        }
+        if (mWidth != 0) {
+            this.progress = (int) (mWidth * progress);
+        } else {
+            return;
+        }
+        postInvalidate();
+    }
+
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 
     @Override
@@ -82,28 +126,21 @@ public class MaskTextView extends View {
      * 绘制第一个view
      */
     private void first() {
-        int strokeWidth = 5; // 线的高度
         mCanvas = new Canvas(mBitmap1);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.parseColor("#FF7E00"));
         mPaint.setStrokeWidth(strokeWidth);
-//        RectF oval1 = new RectF(strokeWidth / 2, strokeWidth / 2, mHeight + strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
-//        mCanvas.drawArc(oval1, 90, 180, false, mPaint); // 画圆弧
-//        RectF oval2 = new RectF(mWidth - mHeight + strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
-//        mCanvas.drawArc(oval2, -90, 180, false, mPaint); // 画圆弧
-//        mCanvas.drawLine(mHeight / 2, strokeWidth / 2, mWidth - mHeight / 2, strokeWidth / 2, mPaint); // 划线
-//        mCanvas.drawLine(mHeight / 2, mHeight - strokeWidth / 2, mWidth - mHeight / 2, mHeight - strokeWidth / 2, mPaint);
 
         RectF oval3 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
         mCanvas.drawRoundRect(oval3, mHeight / 2, mHeight / 2, mPaint);
 
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(2);
-        mPaint.setTextSize(30);
+        mPaint.setTextSize(textSice);
         mPaint.setColor(Color.parseColor("#000000"));
-        mCanvas.drawText("500/600", 50, mHeight / 2 + 15, mPaint);
+        mCanvas.drawText(textContent, 20, mHeight / 2 + textSice / 2, mPaint);
 
     }
 
@@ -111,39 +148,32 @@ public class MaskTextView extends View {
      * 绘制第二个view
      */
     private void second() {
-        int strokeWidth = 5; // 线的高度
         mCanvas = new Canvas(mBitmap2);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.parseColor("#FF7E00"));
         mPaint.setStrokeWidth(strokeWidth);
-//        RectF oval1 = new RectF(strokeWidth / 2, strokeWidth / 2, mHeight + strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
-//        mCanvas.drawArc(oval1, 90, 180, true, mPaint); // 画圆弧
-//        RectF oval2 = new RectF(mWidth - mHeight + strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
-//        mCanvas.drawArc(oval2, -90, 180, true, mPaint); // 画圆弧
-//        mCanvas.drawRect(mHeight / 2, 0, mWidth - mHeight / 2, mHeight, mPaint);
 
         RectF oval1 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
         mCanvas.drawRoundRect(oval1, mHeight / 2, mHeight / 2, mPaint);
 
         mPaint.setStrokeWidth(2);
-        mPaint.setTextSize(30);
+        mPaint.setTextSize(textSice);
         mPaint.setColor(Color.parseColor("#ffffff"));
-        mCanvas.drawText("500/600", 50, mHeight / 2 + 15, mPaint);
+        mCanvas.drawText(textContent, 20, mHeight / 2 + textSice / 2, mPaint);
 
         mPaint.setColor(Color.parseColor("#009999"));
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
         Path path = new Path();
-        path.moveTo(mHeight / 2, 0);
+        path.moveTo(0 + progress, 0);
         path.lineTo(mWidth, 0);
         path.lineTo(mWidth, mHeight);
-        path.lineTo(mHeight / 2, mHeight);
-        RectF oval3 = new RectF(0, 0, mHeight, mHeight);// 设置个长方形，扫描测量
+        path.lineTo(0 + progress, mHeight);
+        RectF oval3 = new RectF(progress - mHeight / 2, 0, progress + mHeight / 2, mHeight);// 设置个长方形，扫描测量
         path.addArc(oval3, -90, 180);
         path.setFillType(Path.FillType.EVEN_ODD);
         mCanvas.drawPath(path, mPaint);
-
     }
 
 }

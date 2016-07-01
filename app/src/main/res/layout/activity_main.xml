@@ -14,8 +14,15 @@
         android:visibility="gone"/>
 
     <com.lengjiye.toolkit.view.MaskTextView
+        android:id="@+id/mask_text_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_25"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="button"/>
 
     <ListView
         android:id="@+id/listview"

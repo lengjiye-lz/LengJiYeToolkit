@@ -19,6 +19,7 @@ import com.lengjiye.toolkit.activity.StretchTextActivity;
 import com.lengjiye.toolkit.activity.TouchTestActivity;
 import com.lengjiye.toolkit.adapter.MainAdapter;
 import com.lengjiye.toolkit.application.LJYApplication;
+import com.lengjiye.toolkit.view.MaskTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MainActivity extends BaseActivity {
 
     private long lastPressTime;
     private TextView textView;
+    private int i = 10;
 
     @Override
     protected void initOnCreate(Bundle savedInstanceState) {
@@ -72,8 +74,17 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+        final MaskTextView mask_text_view = (MaskTextView) findViewById(R.id.mask_text_view);
+        mask_text_view.setProgress(50);
+        mask_text_view.setTextContent("200/500");
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mask_text_view.setProgress(50 + i);
+                i += 10;
+            }
+        });
     }
-
 
     /**
      * 获取数据源
