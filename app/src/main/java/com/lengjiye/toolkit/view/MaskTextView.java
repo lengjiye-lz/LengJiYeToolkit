@@ -19,6 +19,9 @@ import android.view.View;
  */
 public class MaskTextView extends View {
 
+    private static int DEFAULT_HEIGHT = 60;// 默认高度
+    private static int DEFAULT_MAX_PROGRESS = 100;// 默认最大进度
+
     private Context mContext;
     private Canvas mCanvas;
     private int mWidth, mHeight;
@@ -26,9 +29,9 @@ public class MaskTextView extends View {
     private Bitmap mBitmap1; // mCanvas绘制在这上面
     private Bitmap mBitmap2; // mCanvas绘制在这上面
     private int strokeWidth = 5; // 线的高度
-    private int textSice = 30; // 字体的大小
+    private int textSize = 30; // 字体的大小
     private int progress = 0; // 进度
-    private String textContent; // 字体内容
+    private int maxProgress;// 最大进度
 
     public MaskTextView(Context context) {
         super(context);
@@ -50,65 +53,69 @@ public class MaskTextView extends View {
         if (isInEditMode()) {
             return;
         }
+        setMaxProgress(DEFAULT_MAX_PROGRESS);// 默认最大进度是100
     }
 
     public void setStrokeWidth(int strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
-    public void setTextSice(int textSice) {
-        this.textSice = textSice;
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 
     public void setProgress(int progress) {
+        if (maxProgress != 0 && progress > maxProgress) {
+            progress = maxProgress;
+        } else if (progress > DEFAULT_MAX_PROGRESS) {
+            progress = DEFAULT_MAX_PROGRESS;
+        }
         this.progress = progress;
-        if (mWidth != 0 && progress > mWidth) {
-            this.progress = mWidth;
-        }
         postInvalidate();
     }
 
-    /**
-     * 设置百分比进度
-     * progress的取值范围是0到1
-     *
-     * @param progress
-     */
-    public void setProgress(double progress) {
-        if (progress <= 0) {
-            progress = 0;
-        }
-        if (progress >= 1) {
-            progress = 1;
-        }
-        if (mWidth != 0) {
-            this.progress = (int) (mWidth * progress);
-        } else {
-            return;
-        }
-        postInvalidate();
+    public void setMaxProgress(int maxProgress) {
+        this.maxProgress = maxProgress;
     }
 
-    public void setTextContent(String textContent) {
-        this.textContent = textContent;
+    public int getProgress() {
+        return progress;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mWidth = getMeasuredWidth();
-        mHeight = getMeasuredHeight();
+        setDefaultWidthHeight(widthMeasureSpec, heightMeasureSpec);
         mBitmap1 = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mBitmap2 = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
 
     }
 
+    private float countProgress() {
+        if (mWidth != 0 && maxProgress != 0) {
+            return (float) mWidth / (float) maxProgress;
+        }
+        return 1;
+    }
+
+
+    /**
+     * 设置默认高度
+     */
+    private void setDefaultWidthHeight(int widthMeasureSpec, int heightMeasureSpec) {
+        mWidth = View.MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);// 得到模式
+        if (heightMode == MeasureSpec.AT_MOST) {
+            mHeight = DEFAULT_HEIGHT;
+        }
+        setMeasuredDimension(mWidth, mHeight);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.parseColor("#ffffff"));
         first();
-        second();
+        second((int) (progress * countProgress()));
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -138,16 +145,16 @@ public class MaskTextView extends View {
 
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(2);
-        mPaint.setTextSize(textSice);
+        mPaint.setTextSize(textSize);
         mPaint.setColor(Color.parseColor("#000000"));
-        mCanvas.drawText(textContent, 20, mHeight / 2 + textSice / 2, mPaint);
+        mCanvas.drawText(this.progress + "/" + maxProgress, 20, mHeight / 2 + textSize / 2, mPaint);
 
     }
 
     /**
      * 绘制第二个view
      */
-    private void second() {
+    private void second(int progress) {
         mCanvas = new Canvas(mBitmap2);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -159,12 +166,15 @@ public class MaskTextView extends View {
         mCanvas.drawRoundRect(oval1, mHeight / 2, mHeight / 2, mPaint);
 
         mPaint.setStrokeWidth(2);
-        mPaint.setTextSize(textSice);
+        mPaint.setTextSize(textSize);
         mPaint.setColor(Color.parseColor("#ffffff"));
-        mCanvas.drawText(textContent, 20, mHeight / 2 + textSice / 2, mPaint);
+        mCanvas.drawText(this.progress + "/" + maxProgress, 20, mHeight / 2 + textSize / 2, mPaint);
 
-        mPaint.setColor(Color.parseColor("#009999"));
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        /**
+         * 绘制透明遮罩
+         */
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT)); // 设置转换模式，取下层绘制非交集部分。
+        // （setXfermode方法之前表示下层，方法之后表示上层）
         Path path = new Path();
         path.moveTo(0 + progress, 0);
         path.lineTo(mWidth, 0);
@@ -175,5 +185,6 @@ public class MaskTextView extends View {
         path.setFillType(Path.FillType.EVEN_ODD);
         mCanvas.drawPath(path, mPaint);
     }
+
 
 }

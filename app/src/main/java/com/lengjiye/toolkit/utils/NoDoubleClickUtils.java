@@ -5,12 +5,8 @@ package com.lengjiye.toolkit.utils;
  * Created by lz on 2016/5/12.
  */
 public class NoDoubleClickUtils {
-    private static long lastClickTime;
+    private static long lastClickTime = 0;
     private final static int SPACE_TIME = 500;
-
-    public static void initLastClickTime() {
-        lastClickTime = 0;
-    }
 
     public synchronized static boolean isDoubleClick() {
         long currentTime = System.currentTimeMillis();

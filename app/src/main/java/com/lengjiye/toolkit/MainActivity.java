@@ -21,6 +21,8 @@ import com.lengjiye.toolkit.adapter.MainAdapter;
 import com.lengjiye.toolkit.application.LJYApplication;
 import com.lengjiye.toolkit.view.MaskTextView;
 
+import org.xutils.common.util.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,13 +77,14 @@ public class MainActivity extends BaseActivity {
             }
         });
         final MaskTextView mask_text_view = (MaskTextView) findViewById(R.id.mask_text_view);
+        mask_text_view.setMaxProgress(100);
         mask_text_view.setProgress(50);
-        mask_text_view.setTextContent("200/500");
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mask_text_view.setProgress(50 + i);
                 i += 10;
+                LogUtil.e("getProgress:" + mask_text_view.getProgress());
             }
         });
     }
