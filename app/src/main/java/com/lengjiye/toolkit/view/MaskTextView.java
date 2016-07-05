@@ -105,7 +105,7 @@ public class MaskTextView extends View {
     private void setDefaultWidthHeight(int widthMeasureSpec, int heightMeasureSpec) {
         mWidth = View.MeasureSpec.getSize(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);// 得到模式
-        if (heightMode == MeasureSpec.AT_MOST) {
+        if (heightMode != MeasureSpec.EXACTLY) {
             mHeight = DEFAULT_HEIGHT;
         }
         setMeasuredDimension(mWidth, mHeight);
@@ -148,7 +148,6 @@ public class MaskTextView extends View {
         mPaint.setTextSize(textSize);
         mPaint.setColor(Color.parseColor("#000000"));
         mCanvas.drawText(this.progress + "/" + maxProgress, 20, mHeight / 2 + textSize / 2, mPaint);
-
     }
 
     /**
