@@ -77,12 +77,10 @@ public class MainActivity extends BaseActivity {
             }
         });
         final MaskTextView mask_text_view = (MaskTextView) findViewById(R.id.mask_text_view);
-        mask_text_view.setMaxProgress(100);
-        mask_text_view.setProgress(50);
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mask_text_view.setProgress(50 + i);
+                mask_text_view.setProgress(mask_text_view.getProgress() + i);
                 i += 10;
                 LogUtil.e("getProgress:" + mask_text_view.getProgress());
             }

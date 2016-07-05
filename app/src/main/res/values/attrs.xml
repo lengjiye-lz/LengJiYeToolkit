@@ -2,14 +2,21 @@
 <resources>
     <declare-styleable name="StretchTextView">
 
-        <attr name="defaultLine" format="integer|string" />
-        <attr name="content" format="reference|string" />
-        <attr name="animation_time" format="integer" />
+        <attr name="defaultLine" format="integer|string"/>
+        <attr name="content" format="reference|string"/>
+        <attr name="animation_time" format="integer"/>
         <!-- 设置箭头图片 -->
-        <attr name="arrows_image" format="reference|color" />
+        <attr name="arrows_image" format="reference|color"/>
         <!-- 设置折叠文字 -->
-        <attr name="fold_text" format="reference|string" />
-        <attr name="unfold_text" format="reference|string" />
+        <attr name="fold_text" format="reference|string"/>
+        <attr name="unfold_text" format="reference|string"/>
 
+    </declare-styleable>
+
+    <declare-styleable name="MaskTextView">
+        <attr name="text_size" format="reference|dimension"/>
+        <attr name="stroke_width" format="reference|dimension"/>
+        <attr name="progress" format="integer"/>
+        <attr name="max_progress" format="integer"/>
     </declare-styleable>
 </resources>

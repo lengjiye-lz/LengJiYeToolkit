@@ -1,17 +1,18 @@
 package com.lengjiye.toolkit.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.lengjiye.toolkit.R;
 
 /**
  * 实现遮罩效果的进度条
@@ -21,15 +22,14 @@ public class MaskTextView extends View {
 
     private static int DEFAULT_HEIGHT = 60;// 默认高度
     private static int DEFAULT_MAX_PROGRESS = 100;// 默认最大进度
+    private static float TEXT_TO_LIFT = 20; // text距左边的距离
 
     private Context mContext;
-    private Canvas mCanvas;
+    private Paint.FontMetrics fm;
     private int mWidth, mHeight;
     private Paint mPaint;
-    private Bitmap mBitmap1; // mCanvas绘制在这上面
-    private Bitmap mBitmap2; // mCanvas绘制在这上面
-    private int strokeWidth = 5; // 线的高度
-    private int textSize = 30; // 字体的大小
+    private float strokeWidth = 5; // 线的宽度
+    private float textSize = 30; // 字体的大小
     private int progress = 0; // 进度
     private int maxProgress;// 最大进度
 
@@ -53,14 +53,15 @@ public class MaskTextView extends View {
         if (isInEditMode()) {
             return;
         }
+        initAttributeFromXml(attrs);
         setMaxProgress(DEFAULT_MAX_PROGRESS);// 默认最大进度是100
     }
 
-    public void setStrokeWidth(int strokeWidth) {
+    public void setStrokeWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
-    public void setTextSize(int textSize) {
+    public void setTextSize(float textSize) {
         this.textSize = textSize;
     }
 
@@ -85,10 +86,56 @@ public class MaskTextView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setDefaultWidthHeight(widthMeasureSpec, heightMeasureSpec);
-        mBitmap1 = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
-        mBitmap2 = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
+        mWidth = measureWidth(widthMeasureSpec);
+        mHeight = measureHeight(heightMeasureSpec);
+        setMeasuredDimension(mWidth, mHeight);
+    }
 
+    /**
+     * 设置高度
+     *
+     * @param measureSpec
+     * @return
+     */
+    private int measureHeight(int measureSpec) {
+        int mode = MeasureSpec.getMode(measureSpec);
+        int val = MeasureSpec.getSize(measureSpec);
+        int result = 0;
+        switch (mode) {
+            case MeasureSpec.EXACTLY:
+                result = val;
+                break;
+            case MeasureSpec.AT_MOST:
+            case MeasureSpec.UNSPECIFIED:
+                result = DEFAULT_HEIGHT;
+                break;
+        }
+        result = mode == MeasureSpec.AT_MOST ? Math.min(result, val) : result;
+        return result + getPaddingTop() + getPaddingBottom();
+    }
+
+    /**
+     * 设置宽度
+     *
+     * @param measureSpec
+     * @return
+     */
+    private int measureWidth(int measureSpec) {
+        int mode = MeasureSpec.getMode(measureSpec);
+        int val = MeasureSpec.getSize(measureSpec);
+        int result = 0;
+        switch (mode) {
+            case MeasureSpec.EXACTLY:
+                result = val;
+                break;
+            case MeasureSpec.AT_MOST:
+            case MeasureSpec.UNSPECIFIED:
+                // result = mTextBound.width();
+                result = val;
+                break;
+        }
+        result = mode == MeasureSpec.AT_MOST ? Math.min(result, val) : result;
+        return result + getPaddingLeft() + getPaddingRight();
     }
 
     private float countProgress() {
@@ -98,42 +145,47 @@ public class MaskTextView extends View {
         return 1;
     }
 
-
     /**
-     * 设置默认高度
+     * 设置xml属性
+     *
+     * @param attrs
      */
-    private void setDefaultWidthHeight(int widthMeasureSpec, int heightMeasureSpec) {
-        mWidth = View.MeasureSpec.getSize(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);// 得到模式
-        if (heightMode != MeasureSpec.EXACTLY) {
-            mHeight = DEFAULT_HEIGHT;
+    private void initAttributeFromXml(AttributeSet attrs) {
+        TypedArray typed = this.mContext.obtainStyledAttributes(attrs, R.styleable.MaskTextView);
+        if (typed == null) {
+            return;
         }
-        setMeasuredDimension(mWidth, mHeight);
+        for (int i = 0; i < typed.getIndexCount(); i++) {
+            int attr = typed.getIndex(i);
+            switch (attr) {
+                case R.styleable.MaskTextView_max_progress:
+                    setMaxProgress(typed.getInt(R.styleable.MaskTextView_max_progress, DEFAULT_MAX_PROGRESS));
+                    break;
+                case R.styleable.MaskTextView_progress:
+                    setProgress(typed.getInt(R.styleable.MaskTextView_progress, 0));
+                    break;
+                case R.styleable.MaskTextView_stroke_width:
+                    setTextSize(typed.getDimension(R.styleable.MaskTextView_stroke_width, 30));
+                    break;
+                case R.styleable.MaskTextView_text_size:
+                    setStrokeWidth(typed.getDimension(R.styleable.MaskTextView_text_size, 5));
+                    break;
+            }
+        }
+        typed.recycle();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        first();
-        second((int) (progress * countProgress()));
-
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        if (mBitmap1 != null) {
-            canvas.drawBitmap(mBitmap1, new Rect(0, 0, mBitmap1.getWidth(), mBitmap1.getHeight()),
-                    new Rect(0, 0, mBitmap1.getWidth(), mBitmap1.getHeight()), mPaint);
-        }
-        if (mBitmap2 != null) {
-            canvas.drawBitmap(mBitmap2, new Rect(0, 0, mBitmap2.getWidth(), mBitmap2.getHeight()),
-                    new Rect(0, 0, mBitmap2.getWidth(), mBitmap2.getHeight()), mPaint);
-        }
+        first(canvas);
+        second(canvas, (int) (progress * countProgress()));
     }
 
     /**
      * 绘制第一个view
      */
-    private void first() {
-        mCanvas = new Canvas(mBitmap1);
+    private void first(Canvas mCanvas) {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
@@ -147,43 +199,44 @@ public class MaskTextView extends View {
         mPaint.setStrokeWidth(2);
         mPaint.setTextSize(textSize);
         mPaint.setColor(Color.parseColor("#000000"));
-        mCanvas.drawText(this.progress + "/" + maxProgress, 20, mHeight / 2 + textSize / 2, mPaint);
+        fm = mPaint.getFontMetrics();
+        float textPlace = mHeight / 2 - fm.descent + (fm.descent - fm.ascent) / 2;
+        mCanvas.drawText(this.progress + "/" + maxProgress, TEXT_TO_LIFT, textPlace, mPaint);
     }
 
     /**
      * 绘制第二个view
      */
-    private void second(int progress) {
-        mCanvas = new Canvas(mBitmap2);
+    private void second(Canvas mCanvas, int progress) {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.parseColor("#FF7E00"));
         mPaint.setStrokeWidth(strokeWidth);
-
+        mCanvas.saveLayer(0, 0, mWidth, mHeight, mPaint);
         RectF oval1 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
         mCanvas.drawRoundRect(oval1, mHeight / 2, mHeight / 2, mPaint);
 
         mPaint.setStrokeWidth(2);
         mPaint.setTextSize(textSize);
         mPaint.setColor(Color.parseColor("#ffffff"));
-        mCanvas.drawText(this.progress + "/" + maxProgress, 20, mHeight / 2 + textSize / 2, mPaint);
+        float textPlace = mHeight / 2 - fm.descent + (fm.descent - fm.ascent) / 2;
+        mCanvas.drawText(this.progress + "/" + maxProgress, TEXT_TO_LIFT, textPlace, mPaint);
 
-        /**
+        /**、
          * 绘制透明遮罩
          */
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT)); // 设置转换模式，取下层绘制非交集部分。
         // （setXfermode方法之前表示下层，方法之后表示上层）
         Path path = new Path();
-        path.moveTo(0 + progress, 0);
-        path.lineTo(mWidth, 0);
-        path.lineTo(mWidth, mHeight);
-        path.lineTo(0 + progress, mHeight);
-        RectF oval3 = new RectF(progress - mHeight / 2, 0, progress + mHeight / 2, mHeight);// 设置个长方形，扫描测量
+        path.moveTo(progress - mHeight / 2, 0);
+        path.lineTo(mWidth + mHeight / 2, 0);
+        path.lineTo(mWidth + mHeight / 2, mHeight);
+        path.lineTo(progress - mHeight / 2, mHeight);
+        RectF oval3 = new RectF(progress - mHeight, 0, progress, mHeight);// 设置个长方形，扫描测量
         path.addArc(oval3, -90, 180);
         path.setFillType(Path.FillType.EVEN_ODD);
         mCanvas.drawPath(path, mPaint);
+        mCanvas.restore();
     }
-
-
 }
