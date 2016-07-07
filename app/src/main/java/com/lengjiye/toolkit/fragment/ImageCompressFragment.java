@@ -1,9 +1,12 @@
-package com.lengjiye.toolkit.activity;
+package com.lengjiye.toolkit.fragment;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.lengjiye.toolkit.R;
@@ -22,7 +25,7 @@ import java.util.List;
  * 测试图片压缩工具类
  * Created by lz on 2016/6/8.
  */
-public class ImageCompressActivity extends BaseActivity implements ImageCompress.CompressCallBack {
+public class ImageCompressFragment extends BaseFragment implements ImageCompress.CompressCallBack {
 
     @ViewInject(R.id.button1)
     private Button button1;
@@ -36,16 +39,31 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
     private String oldPath = Environment.getExternalStorageDirectory() + File.separator + Constants.IMAGE_ARTWORK;
     private String newPath = Environment.getExternalStorageDirectory() + File.separator + Constants.IMAGE_THUMB;
 
-    @Override
-    protected void initOnCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_image_compress);
+    public ImageCompressFragment() {
+    }
+
+    /**
+     * 创建一个fragment
+     *
+     * @return
+     */
+    public static ImageCompressFragment newInstance() {
+        ImageCompressFragment fragment = new ImageCompressFragment();
+        return fragment;
     }
 
     @Override
-    protected void initView() {
+    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_image_compress, container, false);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
         strings = new ArrayList<>();
         baseDialog = new BaseDialog(mContext);
         baseDialog.setType(BaseDialog.LOADING_ANIM);
+        Log.e("lz", "button1:" + button1);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         FileUtil.createFolder(oldPath);
@@ -106,8 +124,8 @@ public class ImageCompressActivity extends BaseActivity implements ImageCompress
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         baseDialog.destroy();
     }
 }

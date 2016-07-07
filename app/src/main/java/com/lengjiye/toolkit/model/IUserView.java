@@ -7,7 +7,7 @@ package com.lengjiye.toolkit.model;
  * Created by lz on 2016/5/23.
  */
 public interface IUserView {
-    int getId();
+    int getUId();
 
     String getFirstName();
 

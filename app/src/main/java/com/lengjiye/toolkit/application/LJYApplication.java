@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.support.multidex.MultiDex;
 
 import com.lengjiye.toolkit.receiver.NetworkChangedReceiver;
 import com.lengjiye.toolkit.utils.CommonUtils;
@@ -88,6 +89,13 @@ public class LJYApplication extends Application {
         if (activityManager != null && activityManager.size() > 0 && activityManager.contains(activity)) {
             activityManager.remove(activity);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        // 方法超过64k，需要分包
+        MultiDex.install(this);
     }
 
     /**

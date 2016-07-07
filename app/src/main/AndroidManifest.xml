@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!--在SDCard中创建与删除文件权限 -->
+    <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <!--往SDCard写入数据权限 -->
+    <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
@@ -16,25 +16,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.lengjiye.toolkit.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.StretchTextActivity"/>
-        <activity android:name=".activity.TouchTestActivity"/>
-        <activity android:name=".activity.OKHttpActivity"/>
-        <activity android:name=".activity.NoDoubleTestActivity"/>
-        <activity android:name=".activity.FrameModeActivity"/>
-        <activity android:name=".activity.MVPTestActivity"/>
-        <activity android:name=".activity.MVVMTestActivity"/>
-        <activity android:name=".activity.ImageCompressActivity"/>
-        <activity android:name=".activity.RecyclerViewActivity"/>
-
         <!-- 注册广播 -->
 
     </application>

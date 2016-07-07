@@ -1,9 +1,12 @@
-package com.lengjiye.toolkit.activity;
+package com.lengjiye.toolkit.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.bean.MVVMUserBean;
@@ -14,26 +17,39 @@ import com.lengjiye.toolkit.utils.StringUtils;
  * MVVM框架模式
  * Created by lz on 2016/5/24.
  */
-public class MVVMTestActivity extends BaseActivity {
+public class MVVMTestFragment extends BaseFragment {
 
     private ActivityMvvmTestBinding binding;
-
-
     private SparseArray sparseArray; // 保存临时变量
 
-    @Override
-    protected void initOnCreate(Bundle savedInstanceState) {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_mvvm_test);
+    public MVVMTestFragment() {
+    }
+
+    /**
+     * 创建一个fragment
+     *
+     * @return
+     */
+    public static MVVMTestFragment newInstance() {
+        MVVMTestFragment fragment = new MVVMTestFragment();
+        return fragment;
     }
 
     @Override
-    protected void initView() {
+    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_mvvm_test, container, false);
+        binding = DataBindingUtil.bind(view);
+        return view;
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
         sparseArray = new SparseArray();
         binding.btnCun.setOnClickListener(this);
         binding.btnDu.setOnClickListener(this);
         binding.btnJia1.setOnClickListener(this);
     }
-
 
     @Override
     protected void click(View v) {

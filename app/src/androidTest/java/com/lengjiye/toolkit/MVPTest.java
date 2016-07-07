@@ -14,7 +14,7 @@ public class MVPTest extends AndroidTestCase implements IUserView {
     private UserPresenter userPresenter;
 
     @Override
-    public int getId() {
+    public int getUId() {
         return 0;
     }
 

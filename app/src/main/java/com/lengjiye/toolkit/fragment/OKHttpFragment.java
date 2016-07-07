@@ -1,15 +1,19 @@
-package com.lengjiye.toolkit.activity;
+package com.lengjiye.toolkit.fragment;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.R;
+import com.lengjiye.toolkit.activity.BaseActivity;
 import com.lengjiye.toolkit.utils.CommonUtils;
 import com.lengjiye.toolkit.utils.OkHttpUtils;
 
@@ -33,19 +37,32 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class OKHttpActivity extends BaseActivity {
+/**
+ * 试用okhttp
+ */
+public class OKHttpFragment extends BaseFragment {
 
     @ViewInject(R.id.text)
     private TextView text;
 
-    @Override
-    protected void initOnCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_okhttp);
+    public OKHttpFragment() {
+    }
+
+    /**
+     * 创建一个fragment
+     *
+     * @return
+     */
+    public static OKHttpFragment newInstance() {
+        OKHttpFragment fragment = new OKHttpFragment();
+        return fragment;
     }
 
     @Override
-    protected void initView() {
+    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_okhttp, container, false);
     }
+
 
     /**
      * 请求网页数据   异步请求
@@ -236,7 +253,7 @@ public class OKHttpActivity extends BaseActivity {
                 });
     }
 
-    MyHandler ttsHandler = new MyHandler(OKHttpActivity.this);
+    MyHandler ttsHandler = new MyHandler((BaseActivity) mActivity);
 
     @Event({R.id.bt_wangye_post, R.id.bt_wangye_get_async, R.id.bt_wangye_get, R.id.bt_wangye_tring, R.id.bt_shanghcuantupian})
     private void Click(View view) {
@@ -258,6 +275,7 @@ public class OKHttpActivity extends BaseActivity {
                 break;
         }
     }
+
 
     /**
      * 防止内存溢出
