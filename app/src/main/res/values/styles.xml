@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/Toolbar</item>
+    </style>
+
+    // 自定义toolbar样式
+    <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:contentInsetStart">0dp</item> //去除标题前面的间距
     </style>
 
 
@@ -24,8 +30,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="main_menu_animstyle">
+    <style name="main_menu_animation">
         <item name="android:windowEnterAnimation">@anim/window_in</item>
         <item name="android:windowExitAnimation">@anim/window_out</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

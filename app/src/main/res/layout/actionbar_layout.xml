@@ -1,17 +1,28 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="?android:attr/actionBarSize">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_left"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="标题"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="标题"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="@dimen/sp_18"/>
 
+    <ImageView
+        android:id="@+id/image_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_launcher"/>
 </RelativeLayout>

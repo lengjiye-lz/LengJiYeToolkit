@@ -92,4 +92,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="svg_add">   M 10,50 H 90 M 50 10 V 90 </string>
+    <string name="svg_remove">M 10,50 H 90 M 10 50 H 90</string>
+    <string name="svg_menu">M 10 14 L 90 14 M 10 50 H 90 M 10 86 L 90 86</string>
+    <string name="svg_back">M 50 14 L 10 50 M 10 50 H 90 M 50 86 L 10 50</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
 </resources>

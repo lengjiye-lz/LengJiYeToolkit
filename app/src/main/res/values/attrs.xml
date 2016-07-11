@@ -19,4 +19,15 @@
         <attr name="progress" format="integer"/>
         <attr name="max_progress" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="SVGPathView">
+
+        <!-- 指向保存path数据的string -->
+        <attr name="svg_start_path" format="reference" />
+        <attr name="svg_end_path" format="reference" />
+        <attr name="svg_paint_width" format="integer" />
+        <attr name="svg_view_width" format="integer" />
+        <attr name="svg_view_height" format="integer" />
+        <attr name="svg_color" format="color" />
+    </declare-styleable>
 </resources>

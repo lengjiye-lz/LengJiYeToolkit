@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,11 +34,12 @@ import java.util.List;
  * 主activity
  * Created by lz on 2016/5/23.
  */
-public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener, AdapterView.OnItemClickListener {
 
     private long lastPressTime;
     private TextView textView;
     private DrawerLayout drawer_layout;
+    private Toolbar toolbar;
 
     @Override
     protected void initOnCreate(Bundle savedInstanceState) {
@@ -46,67 +49,18 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     @Override
     protected void initView() {
         List<String> strings = getData();
-        MainAdapter adapter = new MainAdapter(mContext, strings);
         ListView listView = (ListView) findViewById(R.id.listview);
         textView = (TextView) findViewById(R.id.text);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_layout.openDrawer(Gravity.LEFT);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer_layout.addDrawerListener(toggle);
+        toggle.syncState();
+        MainAdapter adapter = new MainAdapter(mContext, strings);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        FragmentTransaction transactionStretchText = getSupportFragmentManager().beginTransaction();
-                        transactionStretchText.replace(R.id.frame_layout, StretchTextFragment.newInstance());
-                        transactionStretchText.commit();
-//                        startActivity(new Intent(mContext, StretchTextFragment.class));
-                        break;
-                    case 1:
-                        FragmentTransaction transactionTouchTest = getSupportFragmentManager().beginTransaction();
-                        transactionTouchTest.replace(R.id.frame_layout, TouchTestFragment.newInstance());
-                        transactionTouchTest.commit();
-//                        startActivity(new Intent(mContext, TouchTestFragment.class));
-                        break;
-                    case 2:
-                        FragmentTransaction transactionOKHttp = getSupportFragmentManager().beginTransaction();
-                        transactionOKHttp.replace(R.id.frame_layout, OKHttpFragment.newInstance());
-                        transactionOKHttp.commit();
-//                        startActivity(new Intent(mContext, OKHttpFragment.class));
-                        break;
-                    case 3:
-                        FragmentTransaction transactionNoDoubleTest = getSupportFragmentManager().beginTransaction();
-                        transactionNoDoubleTest.replace(R.id.frame_layout, NoDoubleTestFragment.newInstance());
-                        transactionNoDoubleTest.commit();
-//                        startActivity(new Intent(mContext, NoDoubleTestFragment.class));
-                        break;
-                    case 4:
-                        FragmentTransaction transactionFrameMode = getSupportFragmentManager().beginTransaction();
-                        transactionFrameMode.replace(R.id.frame_layout, FrameModeFragment.newInstance());
-                        transactionFrameMode.commit();
-//                        startActivity(new Intent(mContext, FrameModeFragment.class));
-                        break;
-                    case 5:
-                        FragmentTransaction transactionImageCompress = getSupportFragmentManager().beginTransaction();
-                        transactionImageCompress.replace(R.id.frame_layout, ImageCompressFragment.newInstance());
-                        transactionImageCompress.commit();
-//                        startActivity(new Intent(mContext, ImageCompressFragment.class));
-                        break;
-                    case 6:
-                        FragmentTransaction transactionRecyclerView = getSupportFragmentManager().beginTransaction();
-                        transactionRecyclerView.replace(R.id.frame_layout, RecyclerViewFragment.newInstance());
-                        transactionRecyclerView.commit();
-//                        startActivity(new Intent(mContext, RecyclerViewFragment.class));
-                        break;
-                    case 7:
-                        FragmentTransaction transactionCustomProgress = getSupportFragmentManager().beginTransaction();
-                        transactionCustomProgress.replace(R.id.frame_layout, CustomProgressFragment.newInstance());
-                        transactionCustomProgress.commit();
-                        break;
-                }
-                drawer_layout.closeDrawers();
-            }
-        });
+        listView.setOnItemClickListener(this);
     }
 
     /**
@@ -163,5 +117,52 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                FragmentTransaction transactionStretchText = getSupportFragmentManager().beginTransaction();
+                transactionStretchText.replace(R.id.frame_layout, StretchTextFragment.newInstance());
+                transactionStretchText.commit();
+                break;
+            case 1:
+                FragmentTransaction transactionTouchTest = getSupportFragmentManager().beginTransaction();
+                transactionTouchTest.replace(R.id.frame_layout, TouchTestFragment.newInstance());
+                transactionTouchTest.commit();
+                break;
+            case 2:
+                FragmentTransaction transactionOKHttp = getSupportFragmentManager().beginTransaction();
+                transactionOKHttp.replace(R.id.frame_layout, OKHttpFragment.newInstance());
+                transactionOKHttp.commit();
+                break;
+            case 3:
+                FragmentTransaction transactionNoDoubleTest = getSupportFragmentManager().beginTransaction();
+                transactionNoDoubleTest.replace(R.id.frame_layout, NoDoubleTestFragment.newInstance());
+                transactionNoDoubleTest.commit();
+                break;
+            case 4:
+                FragmentTransaction transactionFrameMode = getSupportFragmentManager().beginTransaction();
+                transactionFrameMode.replace(R.id.frame_layout, FrameModeFragment.newInstance());
+                transactionFrameMode.commit();
+                break;
+            case 5:
+                FragmentTransaction transactionImageCompress = getSupportFragmentManager().beginTransaction();
+                transactionImageCompress.replace(R.id.frame_layout, ImageCompressFragment.newInstance());
+                transactionImageCompress.commit();
+                break;
+            case 6:
+                FragmentTransaction transactionRecyclerView = getSupportFragmentManager().beginTransaction();
+                transactionRecyclerView.replace(R.id.frame_layout, RecyclerViewFragment.newInstance());
+                transactionRecyclerView.commit();
+                break;
+            case 7:
+                FragmentTransaction transactionCustomProgress = getSupportFragmentManager().beginTransaction();
+                transactionCustomProgress.replace(R.id.frame_layout, CustomProgressFragment.newInstance());
+                transactionCustomProgress.commit();
+                break;
+        }
+        drawer_layout.closeDrawers();
     }
 }

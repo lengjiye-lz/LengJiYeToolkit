@@ -81,7 +81,7 @@ public class BaseDialog extends Dialog {
      */
     private void loadingDialogAnim() {
         loadingDialog();
-        setAnimations(R.style.main_menu_animstyle);
+        setAnimations(R.style.main_menu_animation);
     }
 
     /**
