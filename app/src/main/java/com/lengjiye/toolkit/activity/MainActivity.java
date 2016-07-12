@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,7 +52,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         textView = (TextView) findViewById(R.id.text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer_layout.openDrawer(Gravity.LEFT);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer_layout.addDrawerListener(toggle);

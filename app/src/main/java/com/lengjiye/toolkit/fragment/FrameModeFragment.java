@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.List;
  * 框架模式
  * Created by lz on 2016/5/24.
  */
-public class FrameModeFragment extends BaseFragment {
+public class FrameModeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     private ListView listView;
     private DrawerLayout drawer_layout;
@@ -52,26 +51,9 @@ public class FrameModeFragment extends BaseFragment {
         super.initData();
         List<String> strings = getData();
         MainAdapter adapter = new MainAdapter(mContext, strings);
-        drawer_layout.openDrawer(Gravity.RIGHT);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        FragmentTransaction transactionMVPTest = getChildFragmentManager().beginTransaction();
-                        transactionMVPTest.replace(R.id.frame_layout, MVPTestFragment.newInstance());
-                        transactionMVPTest.commit();
-                        break;
-                    case 1:
-                        FragmentTransaction transactionMVVMTest = getChildFragmentManager().beginTransaction();
-                        transactionMVVMTest.replace(R.id.frame_layout, MVVMTestFragment.newInstance());
-                        transactionMVVMTest.commit();
-                        break;
-                }
-                drawer_layout.closeDrawers();
-            }
-        });
+        listView.setOnItemClickListener(this);
+        addDefaultFragment();
     }
 
     /**
@@ -90,5 +72,29 @@ public class FrameModeFragment extends BaseFragment {
     @Override
     protected void click(View v) {
         super.click(v);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                addDefaultFragment();
+                break;
+            case 1:
+                FragmentTransaction transactionMVVMTest = getChildFragmentManager().beginTransaction();
+                transactionMVVMTest.replace(R.id.frame_layout, MVVMTestFragment.newInstance());
+                transactionMVVMTest.commit();
+                break;
+        }
+        drawer_layout.closeDrawers();
+    }
+
+    /**
+     * 显示默认的fragment
+     */
+    private void addDefaultFragment() {
+        FragmentTransaction transactionMVPTest = getChildFragmentManager().beginTransaction();
+        transactionMVPTest.replace(R.id.frame_layout, MVPTestFragment.newInstance());
+        transactionMVPTest.commit();
     }
 }
