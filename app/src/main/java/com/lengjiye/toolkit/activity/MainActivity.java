@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         MainAdapter adapter = new MainAdapter(mContext, strings);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
+        addDefaultFragment();
     }
 
     /**
@@ -119,13 +120,20 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
     }
 
+    /**
+     * 显示默认的fragment
+     */
+    private void addDefaultFragment() {
+        FragmentTransaction transactionStretchText = getSupportFragmentManager().beginTransaction();
+        transactionStretchText.replace(R.id.frame_layout, StretchTextFragment.newInstance());
+        transactionStretchText.commit();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
-                FragmentTransaction transactionStretchText = getSupportFragmentManager().beginTransaction();
-                transactionStretchText.replace(R.id.frame_layout, StretchTextFragment.newInstance());
-                transactionStretchText.commit();
+                addDefaultFragment();
                 break;
             case 1:
                 FragmentTransaction transactionTouchTest = getSupportFragmentManager().beginTransaction();
