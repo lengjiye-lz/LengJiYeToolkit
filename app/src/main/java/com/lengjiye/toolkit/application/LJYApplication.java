@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class LJYApplication extends Application {
 
-    public static Context appContext;
     private static LJYApplication sInstance;
 
     private NetworkChangedReceiver networkChangedReceiver = null;
@@ -31,7 +30,6 @@ public class LJYApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        appContext = getApplicationContext();
         // 初始化xUtils3
         x.Ext.init(this);
         setEnvironmentConfiguration();
@@ -39,9 +37,8 @@ public class LJYApplication extends Application {
     }
 
     public static synchronized LJYApplication getInstance() {
-        if (sInstance == null || appContext == null) {
+        if (sInstance == null) {
             sInstance = new LJYApplication();
-            appContext = sInstance.getApplicationContext();
         }
         //该实例是在onCreate事件中实例化的
         return sInstance;
