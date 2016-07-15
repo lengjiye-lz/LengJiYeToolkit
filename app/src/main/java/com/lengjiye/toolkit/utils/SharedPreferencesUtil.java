@@ -37,7 +37,7 @@ public class SharedPreferencesUtil {
 
     /**
      * @param mContext 上下文
-     * @param name     SharedPreferences文件的名字，不传默认是 @code{NAME}
+     * @param name     SharedPreferences文件的名字，不传默认是 {@code NAME}
      * @return SharedPreferencesUtil
      */
     public synchronized static SharedPreferencesUtil getInstance(Context mContext, String name) {
