@@ -10,21 +10,21 @@ import com.lengjiye.toolkit.application.LJYApplication;
  * 数据库操作类
  * Created by lz on 2016/7/14.
  */
-public class DBOperation {
+public class DBOperationDao {
 
     private final static String NAME = "lengjiye.db";
     private final static int VERSION = 1;
 
     private DBHelper dbHelper;
-    private static DBOperation operation;
+    private static DBOperationDao operation;
 
-    public DBOperation() {
+    public DBOperationDao() {
         dbHelper = new DBHelper(LJYApplication.getInstance().getApplicationContext(), NAME, null, VERSION);
     }
 
-    public static DBOperation getInstance() {
+    public static DBOperationDao getInstance() {
         if (operation == null) {
-            operation = new DBOperation();
+            operation = new DBOperationDao();
         }
         return operation;
     }
