@@ -18,7 +18,7 @@ public class NetworkUtils {
      * @return {@code true} 网络链接， {@code false} 网络没有连接
      */
     public static boolean isNetworkConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.getInstance().getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
         if (mNetworkInfo != null) {
@@ -33,7 +33,7 @@ public class NetworkUtils {
      * @return
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.getInstance().getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWiFiNetworkInfo = mConnectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -49,7 +49,7 @@ public class NetworkUtils {
      * @return
      */
     public static boolean isMobileConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.getInstance().getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mMobileNetworkInfo = mConnectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -65,7 +65,7 @@ public class NetworkUtils {
      * @return
      */
     public static int getConnectedType() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.appContext
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) LJYApplication.getInstance().getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
         if (mNetworkInfo != null && mNetworkInfo.isAvailable()) {

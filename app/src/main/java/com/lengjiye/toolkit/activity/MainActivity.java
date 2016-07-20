@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.adapter.MainAdapter;
 import com.lengjiye.toolkit.application.LJYApplication;
+import com.lengjiye.toolkit.fragment.AnimatorFragment;
 import com.lengjiye.toolkit.fragment.BaseFragment;
 import com.lengjiye.toolkit.fragment.CustomProgressFragment;
 import com.lengjiye.toolkit.fragment.FrameModeFragment;
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("图片压缩工具类");
         strings.add("使用RecyclerView");
         strings.add("自定义进度条");
+        strings.add("动画");
         return strings;
     }
 
@@ -167,6 +169,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 FragmentTransaction transactionCustomProgress = getSupportFragmentManager().beginTransaction();
                 transactionCustomProgress.replace(R.id.frame_layout, CustomProgressFragment.newInstance());
                 transactionCustomProgress.commit();
+                break;
+            case 8:
+                FragmentTransaction transactionAnimator = getSupportFragmentManager().beginTransaction();
+                transactionAnimator.replace(R.id.frame_layout, AnimatorFragment.newInstance());
+                transactionAnimator.commit();
                 break;
         }
         drawer_layout.closeDrawers();

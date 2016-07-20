@@ -33,7 +33,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("lz", "onAttach");
         mContext = context;
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -52,13 +51,11 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
-        Log.e("lz", "onCreate");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e("lz", "onDetach");
         mListener = null;
     }
 
@@ -81,7 +78,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             Log.e("lz", "第二次加载fragment");
         }
         isCreate = true;
-        Log.e("lz", "onCreateView:" + (view == null));
         return view;
     }
 
@@ -94,7 +90,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
-        Log.e("lz", "onActivityCreated");
     }
 
     /**
@@ -112,7 +107,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             isVisible = false;
             onInvisible();
         }
-        Log.e("lz", "setUserVisibleHint");
     }
 
     /**
@@ -130,7 +124,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.e("lz", "onHiddenChanged");
     }
 
     /**

@@ -14,6 +14,7 @@ import org.xutils.common.util.LogUtil;
 
 /**
  * 自定义进度条
+ * Created by lz on 2016/7/19.
  */
 public class CustomProgressFragment extends BaseFragment {
 
