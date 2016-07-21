@@ -1,16 +1,15 @@
 package com.lengjiye.toolkit.fragment;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.lengjiye.toolkit.R;
-import com.lengjiye.toolkit.view.MaskTextView;
-
-import org.xutils.common.util.LogUtil;
 
 /**
  * Frame动画
@@ -18,6 +17,8 @@ import org.xutils.common.util.LogUtil;
  */
 public class FrameAnimationFragment extends BaseFragment {
 
+    private ImageView image;
+    private Button button;
 
     public FrameAnimationFragment() {
     }
@@ -34,13 +35,23 @@ public class FrameAnimationFragment extends BaseFragment {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_property_animation, container, false);
+        View view = inflater.inflate(R.layout.fragment_frame_animation, container, false);
+        image = (ImageView) view.findViewById(R.id.image);
+        button = (Button) view.findViewById(R.id.button);
         return view;
     }
 
     @Override
     public void initData() {
         super.initData();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image.setImageResource(R.drawable.frame_animation);
+                AnimationDrawable drawable = (AnimationDrawable) image.getDrawable();
+                drawable.start();
+            }
+        });
 
     }
 }
