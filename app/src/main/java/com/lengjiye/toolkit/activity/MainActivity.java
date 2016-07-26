@@ -1,11 +1,17 @@
 package com.lengjiye.toolkit.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,10 +42,15 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener, AdapterView.OnItemClickListener {
 
+    static final String ACTION_STARTED = "com.example.android.supportv4.STARTED";
+    static final String ACTION_UPDATE = "com.example.android.supportv4.UPDATE";
+    static final String ACTION_STOPPED = "com.example.android.supportv4.STOPPED";
+
     private long lastPressTime;
     private TextView textView;
     private DrawerLayout drawer_layout;
     private Toolbar toolbar;
+    private LocalBroadcastManager mLocalBroadcastManager;
 
     @Override
     protected void initOnCreate(Bundle savedInstanceState) {
@@ -61,6 +72,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         addDefaultFragment();
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_STARTED);
+        filter.addAction(ACTION_UPDATE);
+        filter.addAction(ACTION_STOPPED);
+        mLocalBroadcastManager.registerReceiver(mReceiver, filter);
     }
 
     /**
@@ -177,5 +194,24 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 break;
         }
         drawer_layout.closeDrawers();
+    }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ACTION_STARTED)) {
+                Log.e("lz", "STARTED");
+            } else if (intent.getAction().equals(ACTION_UPDATE)) {
+                Log.e("lz", "Got update: " + intent.getIntExtra("value", 0));
+            } else if (intent.getAction().equals(ACTION_STOPPED)) {
+                Log.e("lz", "STOPPED");
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocalBroadcastManager.unregisterReceiver(mReceiver);
     }
 }
