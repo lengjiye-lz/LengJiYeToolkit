@@ -54,7 +54,7 @@ public class ImageCompressFragment extends BaseFragment implements ImageCompress
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_image_compress, container, false);
+        return inflater.inflate(R.layout.fragment_image_compress, container, false);
     }
 
     @Override

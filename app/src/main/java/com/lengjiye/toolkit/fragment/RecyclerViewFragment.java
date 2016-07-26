@@ -44,7 +44,7 @@ public class RecyclerViewFragment extends BaseFragment {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_recycler_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         textView = (TextView) view.findViewById(R.id.text);
         return view;

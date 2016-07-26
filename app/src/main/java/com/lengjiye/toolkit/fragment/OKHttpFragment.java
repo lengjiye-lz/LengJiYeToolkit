@@ -60,7 +60,7 @@ public class OKHttpFragment extends BaseFragment {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_okhttp, container, false);
+        return inflater.inflate(R.layout.fragment_okhttp, container, false);
     }
 
 

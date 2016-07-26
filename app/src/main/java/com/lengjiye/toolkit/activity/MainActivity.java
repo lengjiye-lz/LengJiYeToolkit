@@ -27,6 +27,7 @@ import com.lengjiye.toolkit.fragment.BaseFragment;
 import com.lengjiye.toolkit.fragment.CustomProgressFragment;
 import com.lengjiye.toolkit.fragment.FrameModeFragment;
 import com.lengjiye.toolkit.fragment.ImageCompressFragment;
+import com.lengjiye.toolkit.fragment.LocalBroadcastManagerFragment;
 import com.lengjiye.toolkit.fragment.NoDoubleTestFragment;
 import com.lengjiye.toolkit.fragment.OKHttpFragment;
 import com.lengjiye.toolkit.fragment.RecyclerViewFragment;
@@ -96,6 +97,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("使用RecyclerView");
         strings.add("自定义进度条");
         strings.add("动画");
+        strings.add("LocalBroadcastManager");
         return strings;
     }
 
@@ -192,6 +194,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 transactionAnimator.replace(R.id.frame_layout, AnimatorFragment.newInstance());
                 transactionAnimator.commit();
                 break;
+            case 9:
+                FragmentTransaction transactionLocalBroadcastManager = getSupportFragmentManager().beginTransaction();
+                transactionLocalBroadcastManager.replace(R.id.frame_layout, LocalBroadcastManagerFragment.newInstance());
+                transactionLocalBroadcastManager.commit();
+                break;
         }
         drawer_layout.closeDrawers();
     }
@@ -203,6 +210,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 Log.e("lz", "STARTED");
             } else if (intent.getAction().equals(ACTION_UPDATE)) {
                 Log.e("lz", "Got update: " + intent.getIntExtra("value", 0));
+                addDefaultFragment();
             } else if (intent.getAction().equals(ACTION_STOPPED)) {
                 Log.e("lz", "STOPPED");
             }

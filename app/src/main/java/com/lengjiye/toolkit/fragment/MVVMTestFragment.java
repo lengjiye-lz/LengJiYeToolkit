@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.bean.MVVMUserBean;
-import com.lengjiye.toolkit.databinding.ActivityMvvmTestBinding;
+import com.lengjiye.toolkit.databinding.FragmentMvvmTestBinding;
 import com.lengjiye.toolkit.utils.StringUtils;
 
 /**
@@ -19,7 +19,7 @@ import com.lengjiye.toolkit.utils.StringUtils;
  */
 public class MVVMTestFragment extends BaseFragment {
 
-    private ActivityMvvmTestBinding binding;
+    private FragmentMvvmTestBinding binding;
     private SparseArray sparseArray; // 保存临时变量
 
     public MVVMTestFragment() {
@@ -37,7 +37,7 @@ public class MVVMTestFragment extends BaseFragment {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_mvvm_test, container, false);
+        View view = inflater.inflate(R.layout.fragment_mvvm_test, container, false);
         binding = DataBindingUtil.bind(view);
         return view;
     }

@@ -30,7 +30,7 @@ public class NoDoubleTestFragment extends BaseFragment {
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_no_double_test, container, false);
+        View view = inflater.inflate(R.layout.fragment_no_double_test, container, false);
         view.findViewById(R.id.text).setOnClickListener(this);
         view.findViewById(R.id.button).setOnClickListener(this);
         return view;
