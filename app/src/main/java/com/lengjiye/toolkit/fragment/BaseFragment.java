@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.lengjiye.toolkit.utils.MyHandler;
 import com.lengjiye.toolkit.utils.NoDoubleClickUtils;
 
 import org.xutils.x;
@@ -26,6 +29,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     protected OnFragmentInteractionListener mListener;
     public Activity mActivity;
     public Context mContext;
+    public MyHandler myHandler;
 
     public boolean isVisible; // 是否显示
     public boolean isCreate; // 是否创建
@@ -40,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        myHandler = new MyHandler(Looper.getMainLooper());
     }
 
     /**
@@ -135,6 +140,25 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
      * 初始化数据, 子类可以不实现
      */
     public void initData() {
+    }
+
+    public void setHandler() {
+        Log.e("lz", "setHandler");
+        myHandler.setHandler(new MyHandler.IHandler() {
+            @Override
+            public void handleMessage(Message msg) {
+                handler(msg);
+            }
+        });
+    }
+
+    /**
+     * 数据更新
+     *
+     * @param msg
+     */
+    public void handler(Message msg) {
+
     }
 
     @Override

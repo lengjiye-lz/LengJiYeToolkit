@@ -5,21 +5,24 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 import com.lengjiye.toolkit.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 适配器
- * Created by lz on 2016/4/21.
- */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class StaggeredHomeAdapter extends
+        RecyclerView.Adapter<StaggeredHomeAdapter.MyViewHolder> {
 
     private List<String> mDatas;
     private LayoutInflater mInflater;
+
+    private List<Integer> mHeights;
 
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
@@ -33,15 +36,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
-
-    public RecyclerViewAdapter(Context context, List<String> datas) {
+    public StaggeredHomeAdapter(Context context, List<String> datas) {
         mInflater = LayoutInflater.from(context);
         mDatas = datas;
+
+        mHeights = new ArrayList<Integer>();
+        for (int i = 0; i < mDatas.size(); i++) {
+            mHeights.add((int) (100 + Math.random() * 300));
+        }
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // TODO 使用parent可以使单个item充满屏幕，使用null不会充满屏幕
         MyViewHolder holder = new MyViewHolder(mInflater.inflate(
                 R.layout.adapter_recycler_view, parent, false));
         return holder;
@@ -49,11 +55,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        LayoutParams lp = holder.tv.getLayoutParams();
+        lp.height = mHeights.get(position);
+
+        holder.tv.setLayoutParams(lp);
         holder.tv.setText(mDatas.get(position));
 
         // 如果设置了回调，则设置点击事件
         if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = holder.getLayoutPosition();
@@ -61,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.itemView.setOnLongClickListener(new OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     int pos = holder.getLayoutPosition();
@@ -80,9 +90,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void addData(int position) {
         mDatas.add(position, "Insert One");
+        mHeights.add(position, (int) (100 + Math.random() * 300));
         notifyItemInserted(position);
     }
-
 
     public void removeData(int position) {
         mDatas.remove(position);
@@ -96,7 +106,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public MyViewHolder(View view) {
             super(view);
             tv = (TextView) view.findViewById(R.id.text);
-
 
         }
     }

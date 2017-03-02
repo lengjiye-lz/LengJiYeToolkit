@@ -9,4 +9,6 @@
     <color name="bg_loading_default">#cc000000</color>
     <color name="cl_2c2c2c">#2c2c2c</color>
     <color name="cl_0079ff">#0079ff</color>
+    <color name="color_item_press">#ffff0000</color>
+    <color name="color_item_normal">#44ff0000</color>
 </resources>

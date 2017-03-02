@@ -10,13 +10,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SVGUtil {
-	private static volatile SVGUtil svgUtil;
+public class SVGUtils {
+	private static volatile SVGUtils svgUtils;
 	private Set<String> svgCommandSet;
 	private String[] command = { "M", "L", "H", "V", "C", "S", "Q", "T", "A",
 			"Z" };
 
-	private SVGUtil() {
+	private SVGUtils() {
 		svgCommandSet = new HashSet<String>();
 		for (String cmd : command) {
 			svgCommandSet.add(cmd);
@@ -24,15 +24,15 @@ public class SVGUtil {
 
 	}
 
-	public static SVGUtil getInstance() {
-		if (svgUtil == null) {
-			synchronized (SVGUtil.class) {
-				if (svgUtil == null) {
-					svgUtil = new SVGUtil();
+	public static SVGUtils getInstance() {
+		if (svgUtils == null) {
+			synchronized (SVGUtils.class) {
+				if (svgUtils == null) {
+					svgUtils = new SVGUtils();
 				}
 			}
 		}
-		return svgUtil;
+		return svgUtils;
 	}
 
 	public Path parsePath(String svgData, int widthFactor, int heightFactor) {
@@ -347,7 +347,7 @@ public class SVGUtil {
 	 * quadratic Belzier curveto A = elliptical Arc Z = closepath 绘制圆弧指令：
 	 **/
 
-	static enum PathType {
+	enum PathType {
 		MOVE, LINE_TO, CURVE_TO, QUAD_TO, ARC, CLOSE
 	}
 

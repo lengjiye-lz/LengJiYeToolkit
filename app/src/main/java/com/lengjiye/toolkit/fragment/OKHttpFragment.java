@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.activity.BaseActivity;
-import com.lengjiye.toolkit.utils.CommonUtils;
+import com.lengjiye.toolkit.utils.AppUtils;
 import com.lengjiye.toolkit.utils.OkHttpUtils;
 
 import org.xutils.view.annotation.Event;
@@ -68,7 +68,7 @@ public class OKHttpFragment extends BaseFragment {
      * 请求网页数据   异步请求
      */
     private void loadWebPageDataGitAsync() {
-        CommonUtils.generateClassAndMethodTag();
+        AppUtils.generateClassAndMethodTag();
         String path = "https://www.baidu.com/";
         OkHttpUtils.getInstance().getRequest(path, null, new Callback() {
             @Override

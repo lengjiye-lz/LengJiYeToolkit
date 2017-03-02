@@ -19,8 +19,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.lengjiye.toolkit.R;
-import com.lengjiye.toolkit.utils.SVGUtil;
-import com.lengjiye.toolkit.utils.SVGUtil.FragmentPath;
+import com.lengjiye.toolkit.utils.SVGUtils;
+import com.lengjiye.toolkit.utils.SVGUtils.FragmentPath;
 
 import java.util.ArrayList;
 
@@ -86,14 +86,14 @@ public class SVGPathView extends SurfaceView implements SurfaceHolder.Callback {
         mPaintColor = ta.getColor(R.styleable.SVGPathView_svg_color,
                 Color.BLACK);
 
-        SVGUtil svgUtil = SVGUtil.getInstance();
+        SVGUtils svgUtils = SVGUtils.getInstance();
         // 将原始数据做预处理
-        svgStartStrList = svgUtil.extractSvgData(svgStartPath);
-        svgEndStrList = svgUtil.extractSvgData(svgEndPath);
+        svgStartStrList = svgUtils.extractSvgData(svgStartPath);
+        svgEndStrList = svgUtils.extractSvgData(svgEndPath);
 
         // 将经过预处理后的path数据，转为FragmentPath列表
-        svgStartDataList = svgUtil.strListToFragList(svgStartStrList);
-        svgEndDataList = svgUtil.strListToFragList(svgEndStrList);
+        svgStartDataList = svgUtils.strListToFragList(svgStartStrList);
+        svgEndDataList = svgUtils.strListToFragList(svgEndStrList);
 
         ta.recycle();
         init();
@@ -125,7 +125,7 @@ public class SVGPathView extends SurfaceView implements SurfaceHolder.Callback {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     float animatorFactor = (float) animation.getAnimatedValue();
-                    Path path = SVGUtil.getInstance().parseFragList(
+                    Path path = SVGUtils.getInstance().parseFragList(
                             svgStartDataList, svgEndDataList, widthFactor,
                             heightFactor, animatorFactor);
                     //
@@ -214,7 +214,7 @@ public class SVGPathView extends SurfaceView implements SurfaceHolder.Callback {
         mCanvas = new Canvas(mBitmap);
         // 将画笔绘制线条的宽度设置为经过放缩后的宽度
         mPaint.setStrokeWidth(mPaintWidth * widthFactor);
-        Path path = SVGUtil.getInstance().parsePath(svgStartStrList,
+        Path path = SVGUtils.getInstance().parsePath(svgStartStrList,
                 widthFactor, heightFactor);
         drawPath(path);
         invalidate();

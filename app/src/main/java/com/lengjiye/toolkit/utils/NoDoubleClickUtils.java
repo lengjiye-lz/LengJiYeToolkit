@@ -8,6 +8,11 @@ public class NoDoubleClickUtils {
     private static long lastClickTime = 0;
     private final static int SPACE_TIME = 500;
 
+    private NoDoubleClickUtils() {
+        /* cannot be instantiated */
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     public synchronized static boolean isDoubleClick() {
         long currentTime = System.currentTimeMillis();
         boolean isClick2;

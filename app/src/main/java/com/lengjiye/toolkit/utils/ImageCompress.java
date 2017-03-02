@@ -60,7 +60,7 @@ public class ImageCompress {
             public void run() {
                 for (int i = 0; i < stringList.size(); i++) {
                     File file = new File(stringList.get(i));
-                    if (FileUtil.isExist(file.getPath())) {
+                    if (FileUtils.isExist(file.getPath())) {
                         String path = ImageUtils.getImage(file.getPath(), newpath, file.getName());
                         strings.add(path);
                     }

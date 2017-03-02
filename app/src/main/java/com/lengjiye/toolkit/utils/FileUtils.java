@@ -1,13 +1,28 @@
 package com.lengjiye.toolkit.utils;
 
+import android.os.Environment;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件操作类，包括创建、删除文件、文件夹，定期删除，制定大小删除等
  * Created by lz on 2016/6/3.
  */
-public class FileUtil {
+public class FileUtils {
+
+    private FileUtils() {
+        /* cannot be instantiated */
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
 
     /**
      * 判断文件夹是否存在
@@ -33,6 +48,20 @@ public class FileUtil {
     public static boolean isExist(String path, String name) {
         String absolutePath = path + File.separator + name;
         return isExist(absolutePath);
+    }
+
+    /**
+     * 获取SD卡根目录路径
+     *
+     * @return
+     */
+    public static String getSdCardPath() {
+        boolean exist = SDCardUtils.isSDCardEnable();
+        String sdpath = "";
+        if (exist) {
+            sdpath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
+        return sdpath;
     }
 
     /**
@@ -109,8 +138,7 @@ public class FileUtil {
     }
 
     /**
-     * 删除文件夹下的所有文件和子文件，并删除当前文件
-     * 如果文件目录层级比较深的话，建议添加线程进行操作
+     * 删除文件夹下的所有文件和子文件，并删除当前文件 如果文件目录层级比较深的话，建议添加线程进行操作
      *
      * @param path 路径
      * @return {@code true} 删除成功, {@code false} 删除失败
@@ -166,4 +194,110 @@ public class FileUtil {
         }
         return children;
     }
+
+    /**
+     * 读取文件
+     *
+     * @param pathName
+     * @return
+     */
+    public static StringBuffer readerBuffer(String pathName) {
+        StringBuffer sb = new StringBuffer();
+        try {
+            File file = new File(pathName);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String readline = "";
+            while ((readline = br.readLine()) != null) {
+                System.out.println("readline:" + readline);
+                sb.append(readline);
+            }
+            br.close();
+            System.out.println("读取成功：" + sb.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb;
+    }
+
+    /**
+     * 读取文件
+     *
+     * @param pathName
+     * @return
+     */
+    public static byte[] readerFile(String pathName) {
+        byte[] b = null;
+        try {
+            File file = new File(pathName);
+            FileInputStream is = new FileInputStream(file);
+            b = new byte[is.available()];
+            is.read(b);
+            is.close();
+            System.out.println("读取成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+    /**
+     * 写文件
+     *
+     * @param pathName    写入路径
+     * @param fileContent 写入内容
+     * @return
+     */
+    public static void writeBuffer(String pathName, String fileContent) {
+        try {
+            File file = new File(pathName);
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(fileContent.getBytes());
+            fos.close();
+            System.out.println("写入成功：");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 读取文件
+     *
+     * @param pathName    写入路径
+     * @param fileContent 写入内容
+     * @return
+     */
+    public static void writeFile(String pathName, String fileContent) {
+        try {
+            File file = new File(pathName);
+            // 第二个参数意义是说是否以append方式添加内容
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+            bw.write(fileContent);
+            bw.flush();
+            bw.close();
+            System.out.println("写入成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取目录下所有的文件
+     *
+     * @param path
+     * @return
+     */
+    public static List<File> getFileLiet(String path) {
+        List<File> fileList = new ArrayList<>();
+        if (isExist(path)) {
+            File file = new File(path);
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                if (!files[i].isDirectory()) {
+                    fileList.add(files[i]);
+                }
+            }
+        }
+        return fileList;
+    }
+
 }

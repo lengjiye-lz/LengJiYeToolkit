@@ -8,6 +8,11 @@ import java.io.File;
  */
 public class Constants {
 
+    private Constants() {
+        /* cannot be instantiated */
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * 项目根目录
      */

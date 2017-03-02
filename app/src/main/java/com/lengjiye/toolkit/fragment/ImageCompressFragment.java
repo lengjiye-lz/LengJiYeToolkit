@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.utils.Constants;
-import com.lengjiye.toolkit.utils.FileUtil;
+import com.lengjiye.toolkit.utils.FileUtils;
 import com.lengjiye.toolkit.utils.ImageCompress;
 import com.lengjiye.toolkit.view.BaseDialog;
 
@@ -66,9 +66,9 @@ public class ImageCompressFragment extends BaseFragment implements ImageCompress
         Log.e("lz", "button1:" + button1);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
-        FileUtil.createFolder(oldPath);
-        FileUtil.createFolder(newPath);
-        String[] children = FileUtil.getChildren(oldPath);
+        FileUtils.createFolder(oldPath);
+        FileUtils.createFolder(newPath);
+        String[] children = FileUtils.getChildren(oldPath);
         formatArray(children);
     }
 

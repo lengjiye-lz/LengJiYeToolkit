@@ -19,7 +19,7 @@ public class DBOperationDao {
     private static DBOperationDao operation;
 
     public DBOperationDao() {
-        dbHelper = new DBHelper(LJYApplication.getInstance().getApplicationContext(), NAME, null, VERSION);
+        dbHelper = new DBHelper(LJYApplication.getInstance(), NAME, null, VERSION);
     }
 
     public static DBOperationDao getInstance() {

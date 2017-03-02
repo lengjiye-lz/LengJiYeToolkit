@@ -3,6 +3,10 @@ package com.lengjiye.toolkit;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
+import com.lengjiye.toolkit.utils.FileUtils;
+
+import java.io.File;
+
 /**
  * 方法测试
  * Created by lz on 2016/4/29.
@@ -59,6 +63,19 @@ public class StringTest extends AndroidTestCase {
                     int temp = a[j];
                     a[j] = a[j - 1];
                     a[j - 1] = temp;
+                }
+            }
+        }
+    }
+
+    public void testGetFile() {
+        if (FileUtils.isExist(FileUtils.getSdCardPath())) {
+            File file = new File(FileUtils.getSdCardPath());
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                Log.e("lz", "files:" + files[i]);
+                if (!files[i].isDirectory()){
+                    Log.e("lz", "files222:" + files[i]);
                 }
             }
         }

@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 import android.support.multidex.MultiDex;
 
 import com.lengjiye.toolkit.receiver.NetworkChangedReceiver;
-import com.lengjiye.toolkit.utils.CommonUtils;
+import com.lengjiye.toolkit.utils.AppUtils;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
@@ -49,7 +49,7 @@ public class LJYApplication extends Application {
      * 设置环境配置
      */
     private void setEnvironmentConfiguration() {
-        if (CommonUtils.isDebugMode()) {
+        if (AppUtils.isDebugMode()) {
             x.Ext.setDebug(true);
         } else {
             x.Ext.setDebug(BuildConfig.DEBUG); // 开启debug会影响性能

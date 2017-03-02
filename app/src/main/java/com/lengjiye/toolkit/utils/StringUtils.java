@@ -22,6 +22,11 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
+    private StringUtils() {
+        /* cannot be instantiated */
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     public static boolean isBlank(String str) {
         // int strLen;
         if (str == null || str.trim().length() == 0) {

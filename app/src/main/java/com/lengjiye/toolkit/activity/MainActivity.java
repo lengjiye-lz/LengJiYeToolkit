@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -26,6 +27,7 @@ import com.lengjiye.toolkit.fragment.AnimatorFragment;
 import com.lengjiye.toolkit.fragment.BaseFragment;
 import com.lengjiye.toolkit.fragment.CustomProgressFragment;
 import com.lengjiye.toolkit.fragment.FrameModeFragment;
+import com.lengjiye.toolkit.fragment.HandlerThreadFragment;
 import com.lengjiye.toolkit.fragment.ImageCompressFragment;
 import com.lengjiye.toolkit.fragment.LocalBroadcastManagerFragment;
 import com.lengjiye.toolkit.fragment.NoDoubleTestFragment;
@@ -54,7 +56,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     private LocalBroadcastManager mLocalBroadcastManager;
 
     @Override
-    protected void initOnCreate(Bundle savedInstanceState) {
+    protected void initOnCreate(Bundle savedInstanceSstate) {
         setContentView(R.layout.activity_main);
     }
 
@@ -79,26 +81,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         filter.addAction(ACTION_UPDATE);
         filter.addAction(ACTION_STOPPED);
         mLocalBroadcastManager.registerReceiver(mReceiver, filter);
-    }
-
-    /**
-     * 获取数据源
-     *
-     * @return
-     */
-    private List<String> getData() {
-        List<String> strings = new ArrayList<>();
-        strings.add("可伸缩的TextView");
-        strings.add("事件分发机制");
-        strings.add("OKHttp请求");
-        strings.add("不可重复点击测试");
-        strings.add("android常用到的设计模式");
-        strings.add("图片压缩工具类");
-        strings.add("使用RecyclerView");
-        strings.add("自定义进度条");
-        strings.add("动画");
-        strings.add("LocalBroadcastManager");
-        return strings;
     }
 
     @Override
@@ -199,8 +181,34 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 transactionLocalBroadcastManager.replace(R.id.frame_layout, LocalBroadcastManagerFragment.newInstance());
                 transactionLocalBroadcastManager.commit();
                 break;
+            case 10:
+                FragmentTransaction transactionHandlerThread = getSupportFragmentManager().beginTransaction();
+                transactionHandlerThread.replace(R.id.frame_layout, HandlerThreadFragment.newInstance());
+                transactionHandlerThread.commit();
+                break;
         }
         drawer_layout.closeDrawers();
+    }
+
+    /**
+     * 获取数据源
+     *
+     * @return
+     */
+    private List<String> getData() {
+        List<String> strings = new ArrayList<>();
+        strings.add("可伸缩的TextView");
+        strings.add("事件分发机制");
+        strings.add("OKHttp请求");
+        strings.add("不可重复点击测试");
+        strings.add("android常用到的设计模式");
+        strings.add("图片压缩工具类");
+        strings.add("使用RecyclerView");
+        strings.add("自定义进度条");
+        strings.add("动画");
+        strings.add("LocalBroadcastManager");
+        strings.add("HandlerThread");
+        return strings;
     }
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {

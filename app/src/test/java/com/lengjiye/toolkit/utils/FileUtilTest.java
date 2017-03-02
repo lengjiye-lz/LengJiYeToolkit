@@ -21,17 +21,17 @@ public class FileUtilTest {
 
     @Test
     public void testCreateFolder() throws Exception {
-        FileUtil.createFolder(path);
+        FileUtils.createFolder(path);
     }
 
     @Test
     public void testCreateDirectory() throws Exception {
-        FileUtil.createFolder(path);
+        FileUtils.createFolder(path);
     }
 
     @Test
     public void testCreateFile() throws Exception {
-        FileUtil.createFile(path, "11111.text");
+        FileUtils.createFile(path, "11111.text");
     }
 
     @Test

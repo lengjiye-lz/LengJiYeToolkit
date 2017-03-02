@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.model.IUserView;
 import com.lengjiye.toolkit.presenter.UserPresenter;
+import com.lengjiye.toolkit.utils.LogUtils;
 
 /**
  * mvp设计模式中view的操作
@@ -58,9 +59,9 @@ public class MVPTestFragment extends BaseFragment implements IUserView {
         switch (v.getId()) {
             case R.id.btn_cun:
                 userPresenter.saveUser(getUId(), getFirstName(), getLastName());
-//                et_id.setText("");
                 et_first_name.setText("");
                 et_last_name.setText("");
+                LogUtils.d("保存信息");
                 break;
             case R.id.btn_du:
                 userPresenter.loadUser(getUId());

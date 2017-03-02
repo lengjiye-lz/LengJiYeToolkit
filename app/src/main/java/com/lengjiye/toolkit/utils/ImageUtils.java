@@ -105,7 +105,7 @@ public class ImageUtils {
      */
     private static String saveImage(String path, String name, ByteArrayOutputStream outputStream) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File file = FileUtil.createDirectory(path);
+            File file = FileUtils.createDirectory(path);
             try {
                 FileOutputStream out = new FileOutputStream(file.getAbsolutePath() + File.separator + name);
                 out.write(outputStream.toByteArray());
