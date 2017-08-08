@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.text.format.Formatter;
 
-import com.lengjiye.toolkit.application.LJYApplication;
 
 import java.io.File;
 
@@ -16,9 +15,9 @@ import java.io.File;
  * 创建时间: 2016/12/14
  * 修改备注:
  */
-public class SDCardUtils {
+public class SDCardTool {
 
-    private SDCardUtils() {
+    private SDCardTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
@@ -91,12 +90,12 @@ public class SDCardUtils {
      *
      * @return
      */
-    public static String getAvailMemory() {// 获取android当前可用内存大小
-        ActivityManager am = (ActivityManager) LJYApplication.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
+    public static String getAvailMemory(Context applicationContext) {// 获取android当前可用内存大小
+        ActivityManager am = (ActivityManager) applicationContext.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
         am.getMemoryInfo(mi);
         //mi.availMem; 当前系统的可用内存
-        return Formatter.formatFileSize(LJYApplication.getInstance(), mi.availMem);// 将获取的内存大小规格化
+        return Formatter.formatFileSize(applicationContext, mi.availMem);// 将获取的内存大小规格化
     }
 
 }

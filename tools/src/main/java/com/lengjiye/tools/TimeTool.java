@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import java.util.Calendar;
 
@@ -8,9 +8,9 @@ import java.util.Calendar;
  * 创建时间: 2016/12/15
  * 修改备注:
  */
-public class TimeUtils {
+public class TimeTool {
 
-    private TimeUtils() {
+    private TimeTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }

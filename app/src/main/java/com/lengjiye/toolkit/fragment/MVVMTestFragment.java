@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.bean.MVVMUserBean;
 import com.lengjiye.toolkit.databinding.FragmentMvvmTestBinding;
-import com.lengjiye.toolkit.utils.StringUtils;
+import com.lengjiye.tools.StringTool;
 
 /**
  * MVVM框架模式
@@ -57,7 +57,7 @@ public class MVVMTestFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.btn_cun:
                 MVVMUserBean userBean = new MVVMUserBean();
-                userBean.id.set(Integer.parseInt(StringUtils.isBlank(binding.etId.getText().toString()) ? "0" : binding.etId.getText().toString()));
+                userBean.id.set(Integer.parseInt(StringTool.isBlank(binding.etId.getText().toString()) ? "0" : binding.etId.getText().toString()));
                 userBean.firstName.set(binding.etFirstName.getText().toString());
                 userBean.lastName.set(binding.etLastName.getText().toString());
                 sparseArray.append(0, userBean);

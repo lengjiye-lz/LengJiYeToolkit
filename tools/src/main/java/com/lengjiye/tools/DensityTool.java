@@ -1,16 +1,16 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.content.Context;
 import android.util.TypedValue;
 
 /**
- * 常用单位转换的辅助类
+ * 常用Android密度单位转换的辅助类
  * 创建人: lz
  * 创建时间: 2016/12/14
  * 修改备注:
  */
-public class DensityUtils {
-    private DensityUtils() {
+public class DensityTool {
+    private DensityTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
@@ -22,7 +22,7 @@ public class DensityUtils {
      * @param dpVal
      * @return
      */
-    public static int dp2px(Context context, float dpVal) {
+    public static int dpToPX(Context context, float dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics());
     }
 
@@ -33,7 +33,7 @@ public class DensityUtils {
      * @param spVal
      * @return
      */
-    public static int sp2px(Context context, float spVal) {
+    public static int spToPX(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal, context.getResources().getDisplayMetrics());
     }
 
@@ -44,7 +44,7 @@ public class DensityUtils {
      * @param pxVal
      * @return
      */
-    public static float px2dp(Context context, float pxVal) {
+    public static float pxToDP(Context context, float pxVal) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (pxVal / scale);
     }
@@ -56,7 +56,7 @@ public class DensityUtils {
      * @param pxVal
      * @return
      */
-    public static float px2sp(Context context, float pxVal) {
+    public static float pxToSP(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 }

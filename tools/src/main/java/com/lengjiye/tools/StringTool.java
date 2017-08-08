@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -20,9 +20,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtils {
+public class StringTool {
 
-    private StringUtils() {
+    private StringTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
@@ -32,16 +32,11 @@ public class StringUtils {
         if (str == null || str.trim().length() == 0) {
             return true;
         }
-        // for (int i = 0; i < strLen; i++) {
-        // if ((Character.isWhitespace(str.trim().charAt(i)) == false)) {
-        // return false;
-        // }
-        // }
         return false;
     }
 
     public static boolean isNotBlank(String s) {
-        return !StringUtils.isBlank(s);
+        return !StringTool.isBlank(s);
     }
 
     public static boolean isEmpty(String str) {
@@ -293,7 +288,7 @@ public class StringUtils {
      */
     public static void formatUnderlinePrice(TextView view, String price) {
         view.setVisibility(View.GONE);
-        if (view != null && StringUtils.isNotBlank(price)) {
+        if (view != null && StringTool.isNotBlank(price)) {
             view.setText(formatPriceString(price));
             view.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
@@ -308,7 +303,7 @@ public class StringUtils {
      * @return
      */
     private static String clearBlank(String number) {
-        if (StringUtils.isNotBlank(number)) {
+        if (StringTool.isNotBlank(number)) {
             return number.replaceAll(" ", "");
         }
         return number;
@@ -321,7 +316,7 @@ public class StringUtils {
      * @return
      */
     private static boolean numberLength(String number) {
-        if (StringUtils.isNotBlank(number)) {
+        if (StringTool.isNotBlank(number)) {
             int len = clearBlank(number).length();
             return (len == 11 || len == 14);
         }
@@ -332,7 +327,7 @@ public class StringUtils {
      * 过滤掉电话号码中个的"+86"
      */
     public static String filterPlus86AndBlank(String number) {
-        if (StringUtils.isNotBlank(number)) {
+        if (StringTool.isNotBlank(number)) {
             if (number.contains("+86")) {
                 return clearBlank(number.replace("+86", ""));
             } else {
@@ -491,7 +486,7 @@ public class StringUtils {
      */
     public static void highlight(TextView textView, String orgstr, HighLightString[] highLightStrings) {
 
-        if (textView == null || StringUtils.isBlank(orgstr) || highLightStrings == null) {
+        if (textView == null || StringTool.isBlank(orgstr) || highLightStrings == null) {
             return;
         }
         SpannableStringBuilder spannable = new SpannableStringBuilder(orgstr);//用于可变字符串

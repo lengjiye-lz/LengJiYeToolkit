@@ -1,9 +1,7 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.lengjiye.toolkit.application.LJYApplication;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,37 +11,40 @@ import java.lang.reflect.Method;
  * 如果只是保存数据，没什么特殊的要求可以直接调用getInstance()方法获取实例，putXX()保存值，getXX()方法获取值。
  * Created by lz on 2016/7/14.
  */
-public class SPUtils {
+public class SPTool {
 
     /**
      * 默认使用包名作为name
      */
     private static String NAME;
 
-    private static SPUtils spUtils;
+    private static SPTool spTool;
 
-    private SPUtils() {
+    private static Context application;
+
+    private SPTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
-     * @return SPUtils
+     * @return
      */
-    public synchronized static SPUtils getInstance() {
-        NAME = LJYApplication.getInstance().getPackageName();
+    public synchronized static SPTool getInstance(Context applicationContext) {
+        NAME = applicationContext.getPackageName();
+        application = applicationContext;
         return getInstance(NAME);
     }
 
     /**
-     * @return SPUtils
+     * @return SPTool
      */
-    public synchronized static SPUtils getInstance(String name) {
-        if (spUtils == null) {
-            spUtils = new SPUtils();
+    public synchronized static SPTool getInstance(String name) {
+        if (spTool == null) {
+            spTool = new SPTool();
         }
         NAME = name;
-        return spUtils;
+        return spTool;
     }
 
     /**
@@ -163,7 +164,7 @@ public class SPUtils {
      * @param object
      */
     private void setParam(String key, Object object) {
-        SharedPreferences sp = LJYApplication.getInstance().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = application.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         if (object instanceof String) {
             editor.putString(key, (String) object);
@@ -189,7 +190,7 @@ public class SPUtils {
      * @return
      */
     private Object getParam(String key, Object defaultObject) {
-        SharedPreferences sp = LJYApplication.getInstance().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = application.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
         } else if (defaultObject instanceof Integer) {
@@ -211,7 +212,7 @@ public class SPUtils {
      * @return
      */
     public boolean contains(String key) {
-        SharedPreferences sp = LJYApplication.getInstance().getSharedPreferences(NAME,
+        SharedPreferences sp = application.getSharedPreferences(NAME,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
     }
@@ -222,7 +223,7 @@ public class SPUtils {
      * @param key
      */
     public void remove(String key) {
-        SharedPreferences sp = LJYApplication.getInstance().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = application.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         SharedPreferencesCompat.apply(editor);
@@ -232,7 +233,7 @@ public class SPUtils {
      * 清除所有数据
      */
     public void clear() {
-        SharedPreferences sp = LJYApplication.getInstance().getSharedPreferences(NAME,
+        SharedPreferences sp = application.getSharedPreferences(NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();

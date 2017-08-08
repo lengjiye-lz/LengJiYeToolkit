@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
+import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,10 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lengjiye.toolkit.utils.MyHandler;
 import com.lengjiye.toolkit.utils.NoDoubleClickUtils;
 
 import org.xutils.x;
+
+import java.lang.ref.WeakReference;
 
 /**
  * fragment的基类
@@ -44,7 +45,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        myHandler = new MyHandler(Looper.getMainLooper());
     }
 
     /**
@@ -56,6 +56,22 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
+        myHandler = new MyHandler(mActivity);
+    }
+
+    static class MyHandler extends Handler {
+        WeakReference<Activity> mActivityReference;
+
+        MyHandler(Activity activity) {
+            mActivityReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (mActivityReference != null) {
+            }
+        }
     }
 
     @Override
@@ -142,24 +158,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void initData() {
     }
 
-    public void setHandler() {
-        Log.e("lz", "setHandler");
-        myHandler.setHandler(new MyHandler.IHandler() {
-            @Override
-            public void handleMessage(Message msg) {
-                handler(msg);
-            }
-        });
-    }
-
-    /**
-     * 数据更新
-     *
-     * @param msg
-     */
-    public void handler(Message msg) {
-
-    }
 
     @Override
     public void onClick(View v) {

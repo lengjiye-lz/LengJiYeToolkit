@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
@@ -10,9 +10,9 @@ import android.widget.EditText;
  * 创建时间: 2016/12/14
  * 修改备注:
  */
-public class KeyBoardUtils {
+public class KeyBoardTool {
 
-    private KeyBoardUtils() {
+    private KeyBoardTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }

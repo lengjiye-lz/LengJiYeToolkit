@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.lengjiye.toolkit.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StaggeredHomeAdapter extends
@@ -36,14 +35,10 @@ public class StaggeredHomeAdapter extends
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
-    public StaggeredHomeAdapter(Context context, List<String> datas) {
+    public StaggeredHomeAdapter(Context context, List<String> datas, List<Integer> mHeights) {
         mInflater = LayoutInflater.from(context);
-        mDatas = datas;
-
-        mHeights = new ArrayList<Integer>();
-        for (int i = 0; i < mDatas.size(); i++) {
-            mHeights.add((int) (100 + Math.random() * 300));
-        }
+        this.mDatas = datas;
+        this.mHeights = mHeights;
     }
 
     @Override
@@ -76,7 +71,6 @@ public class StaggeredHomeAdapter extends
                 public boolean onLongClick(View v) {
                     int pos = holder.getLayoutPosition();
                     mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
-                    removeData(pos);
                     return false;
                 }
             });

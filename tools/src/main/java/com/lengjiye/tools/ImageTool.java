@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,18 +13,18 @@ import java.io.IOException;
  * 图片操作方法类
  * Created by lz on 2016/6/7.
  */
-public class ImageUtils {
+public class ImageTool {
     private static Bitmap bitmap;
 
     private static float height;
     private static float width;
 
-    public ImageUtils(float newWidth, float newHeight) {
+    public ImageTool(float newWidth, float newHeight) {
         this.width = newWidth;
         this.height = newHeight;
     }
 
-    public ImageUtils() {
+    public ImageTool() {
         this.height = 800f;
         this.width = 480f;
     }
@@ -105,7 +105,7 @@ public class ImageUtils {
      */
     private static String saveImage(String path, String name, ByteArrayOutputStream outputStream) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File file = FileUtils.createDirectory(path);
+            File file = FileTool.createDirectory(path);
             try {
                 FileOutputStream out = new FileOutputStream(file.getAbsolutePath() + File.separator + name);
                 out.write(outputStream.toByteArray());

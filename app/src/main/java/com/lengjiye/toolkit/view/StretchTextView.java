@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lengjiye.toolkit.R;
-import com.lengjiye.toolkit.utils.StringUtils;
+import com.lengjiye.tools.StringTool;
 
 
 /**
@@ -257,7 +257,7 @@ public class StretchTextView extends RelativeLayout {
      * @param foldText
      */
     public void setFoldText(String foldText) {
-        if (StringUtils.isBlank(foldText)) {
+        if (StringTool.isBlank(foldText)) {
             return;
         }
         this.foldText = foldText;
@@ -269,7 +269,7 @@ public class StretchTextView extends RelativeLayout {
      * @param unFoldText
      */
     public void setUnFoldText(String unFoldText) {
-        if (StringUtils.isBlank(unFoldText)) {
+        if (StringTool.isBlank(unFoldText)) {
             return;
         }
         this.unFoldText = unFoldText;

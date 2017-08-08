@@ -7,6 +7,8 @@ import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -28,7 +30,7 @@ import com.lengjiye.toolkit.R;
  */
 public class PropertyAnimationFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
-    private ImageView image1, image2, image3, image4, image5, image6, image7;
+    private ImageView image1, image2, image3, image4, image5, image6, image7,image8,image9, image10;
     private Button button1, button2, button3, button4, button5;
     private ViewGroup viewGroup;
     private GridLayout mGridLayout;
@@ -60,6 +62,9 @@ public class PropertyAnimationFragment extends BaseFragment implements CompoundB
         image5 = (ImageView) view.findViewById(R.id.image5);
         image6 = (ImageView) view.findViewById(R.id.image6);
         image7 = (ImageView) view.findViewById(R.id.image7);
+        image8 = (ImageView) view.findViewById(R.id.image8);
+        image9 = (ImageView) view.findViewById(R.id.image9);
+        image10 = (ImageView) view.findViewById(R.id.image10);
 
         button1 = (Button) view.findViewById(R.id.button1);
         button2 = (Button) view.findViewById(R.id.button2);
@@ -92,6 +97,9 @@ public class PropertyAnimationFragment extends BaseFragment implements CompoundB
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
+        image8.setOnClickListener(this);
+        image9.setOnClickListener(this);
+        image10.setOnClickListener(this);
 
         mAppear.setOnCheckedChangeListener(this);
         mChangeAppear.setOnCheckedChangeListener(this);
@@ -235,6 +243,24 @@ public class PropertyAnimationFragment extends BaseFragment implements CompoundB
                 PropertyValuesHolder holderY = PropertyValuesHolder.ofFloat("y", 0,
                         mContext.getResources().getDimension(R.dimen.dp_500) / 2, 0);
                 ObjectAnimator.ofPropertyValuesHolder(image7, holderX, holderY).setDuration(1000).start();
+                break;
+            case R.id.image8:
+                Drawable drawable = image8.getDrawable();
+                if (drawable instanceof Animatable) {
+                    ((Animatable) drawable).start();
+                }
+                break;
+            case R.id.image9:
+                Drawable drawable1 = image9.getDrawable();
+                if (drawable1 instanceof Animatable) {
+                    ((Animatable) drawable1).start();
+                }
+                break;
+            case R.id.image10:
+                Drawable drawable2 = image10.getDrawable();
+                if (drawable2 instanceof Animatable) {
+                    ((Animatable) drawable2).start();
+                }
                 break;
         }
     }

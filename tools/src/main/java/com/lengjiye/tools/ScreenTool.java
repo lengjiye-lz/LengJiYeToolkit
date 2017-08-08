@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,9 +14,9 @@ import android.view.WindowManager;
  * 创建时间: 2016/12/14
  * 修改备注:
  */
-public class ScreenUtils {
+public class ScreenTool {
 
-    private ScreenUtils() {
+    private ScreenTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }

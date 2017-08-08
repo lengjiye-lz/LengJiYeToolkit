@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class ImageCompress {
 
-    private ImageUtils imageUtils;
+    private ImageTool imageTool;
 
     public ImageCompress() {
-        if (imageUtils == null) {
-            imageUtils = new ImageUtils();
+        if (imageTool == null) {
+            imageTool = new ImageTool();
         }
     }
 
@@ -39,7 +39,7 @@ public class ImageCompress {
      * @param newHeight
      */
     public void setImageUtils(float newWidth, float newHeight) {
-        imageUtils = new ImageUtils(newWidth, newHeight);
+        imageTool = new ImageTool(newWidth, newHeight);
     }
 
     /**
@@ -60,8 +60,8 @@ public class ImageCompress {
             public void run() {
                 for (int i = 0; i < stringList.size(); i++) {
                     File file = new File(stringList.get(i));
-                    if (FileUtils.isExist(file.getPath())) {
-                        String path = ImageUtils.getImage(file.getPath(), newpath, file.getName());
+                    if (FileTool.isExist(file.getPath())) {
+                        String path = ImageTool.getImage(file.getPath(), newpath, file.getName());
                         strings.add(path);
                     }
                 }
@@ -70,7 +70,7 @@ public class ImageCompress {
                 } else {
                     callBack.success(strings);
                 }
-                ImageUtils.bitmapRecycle();
+                ImageTool.bitmapRecycle();
             }
         }).start();
     }

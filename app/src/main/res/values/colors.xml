@@ -11,4 +11,8 @@
     <color name="cl_0079ff">#0079ff</color>
     <color name="color_item_press">#ffff0000</color>
     <color name="color_item_normal">#44ff0000</color>
+    <color name="item_border_color">#666666</color>
+    <color name="item_default_color">#22EEEEEE</color>
+    <color name="item_pressed_color">#CCCCCC</color>
+    <color name="item_activated_color">#77CEEE</color>
 </resources>

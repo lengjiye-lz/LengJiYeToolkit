@@ -1,8 +1,7 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import android.util.Log;
 
-import com.lengjiye.toolkit.BuildConfig;
 
 /**
  * 类描述: 日志工具类
@@ -13,12 +12,12 @@ import com.lengjiye.toolkit.BuildConfig;
  * 创建时间: 2016/11/22
  * 修改备注:
  */
-public class LogUtils {
+public class LogTool {
 
     public static final String SEPARATOR = ",";
     public static final String TAG_NAME = "lengjiye";
 
-    private LogUtils() {
+    private LogTool() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }

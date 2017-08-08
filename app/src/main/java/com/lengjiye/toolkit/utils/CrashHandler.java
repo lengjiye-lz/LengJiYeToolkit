@@ -6,6 +6,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
 import com.lengjiye.toolkit.application.LJYApplication;
+import com.lengjiye.tools.DateFormatTool;
+import com.lengjiye.tools.FileTool;
+import com.lengjiye.tools.LogTool;
+import com.lengjiye.tools.SDCardTool;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -108,16 +112,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 infos.put("versionCode", versionCode);
             }
         } catch (NameNotFoundException e) {
-            LogUtils.e("collectDeviceInfo() an error occured when collect package info NameNotFoundException:" + e);
+            LogTool.e("collectDeviceInfo() an error occured when collect package info NameNotFoundException:" + e);
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
-                LogUtils.d(field.getName() + " : " + field.get(null));
+                LogTool.d(field.getName() + " : " + field.get(null));
             } catch (Exception e) {
-                LogUtils.e("collectDeviceInfo() an error occured when collect crash info Exception:" + e);
+                LogTool.e("collectDeviceInfo() an error occured when collect crash info Exception:" + e);
             }
         }
     }
@@ -149,10 +153,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         sb.append(result);
         try {
             long timestamp = System.currentTimeMillis();
-            String time = DateFormatUtils.formatDate6(new Date());
+            String time = DateFormatTool.formatDate6(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
-            if (SDCardUtils.isSDCardEnable()) {
-                String path = SDCardUtils.getSDCardPath() + "crash/";
+            if (SDCardTool.isSDCardEnable()) {
+                String path = SDCardTool.getSDCardPath() + "crash/";
                 File dir = new File(path);
                 if (!dir.exists()) {
                     dir.mkdirs();
@@ -165,7 +169,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             }
             return fileName;
         } catch (Exception e) {
-            LogUtils.e("saveCatchInfo2File() an error occured while writing file... Exception:" + e);
+            LogTool.e("saveCatchInfo2File() an error occured while writing file... Exception:" + e);
         }
         return null;
     }
@@ -177,8 +181,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @since V1.0
      */
     private void sendCrashLog2PM(String fileName) {
-        if (FileUtils.isExist(fileName)) {
-            LogUtils.e("日志文件不存在");
+        if (FileTool.isExist(fileName)) {
+            LogTool.e("日志文件不存在");
             return;
         }
         FileInputStream fis = null;
@@ -192,7 +196,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 if (s == null)
                     break;
                 // 由于目前尚未确定以何种方式发送，所以先打出log日志。
-                LogUtils.e(s);
+                LogTool.e(s);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

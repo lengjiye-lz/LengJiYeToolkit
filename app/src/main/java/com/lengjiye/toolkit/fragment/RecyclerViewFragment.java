@@ -1,13 +1,16 @@
 package com.lengjiye.toolkit.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lengjiye.toolkit.R;
+import com.lengjiye.toolkit.adapter.HeaderAndFooterWrapper;
+import com.lengjiye.toolkit.adapter.LoadMoreWrapper;
 import com.lengjiye.toolkit.adapter.RecyclerViewAdapter;
 import com.lengjiye.toolkit.adapter.StaggeredHomeAdapter;
 import com.lengjiye.toolkit.view.DividerGridItemDecoration;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +35,7 @@ import java.util.List;
 public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private List<String> stringList;
+    private List<Integer> mHeights;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipe_refresh_widget;
@@ -38,6 +45,9 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
 
     private RecyclerViewAdapter adapter;
     private StaggeredHomeAdapter homeAdapter;
+    private HeaderAndFooterWrapper headerAndFooterWrapper;
+    private LoadMoreWrapper loadMoreWrapper;
+    private MyHandler myHandler;
 
     public RecyclerViewFragment() {
     }
@@ -65,7 +75,7 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
      * 初始化数据
      */
     public void initData() {
-        setHandler();
+        myHandler = new MyHandler(Looper.getMainLooper(), this);
         swipe_refresh_widget.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark,
                 R.color.colorAccent, R.color.cl_0079ff);
         swipe_refresh_widget.setOnRefreshListener(this);
@@ -75,27 +85,25 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
                         .getDisplayMetrics()));
         swipe_refresh_widget.setSize(SwipeRefreshLayout.LARGE);
         stringList = new ArrayList<>();
-        for (int i = 0; i < max; i++) {
-            stringList.add("" + i);
-        }
+        mHeights = new ArrayList<>();
+        setData(max);
         adapter = new RecyclerViewAdapter(mContext, stringList);
-        homeAdapter = new StaggeredHomeAdapter(mContext, stringList);
+        homeAdapter = new StaggeredHomeAdapter(mContext, stringList, mHeights);
+        addHeaderAndFooter();
+//        addLoadMore();
+
 //        recyclerView.setLayoutManager(new LinearLayoutManager(mContext)); // ListView
-//        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3)); // GridView
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)); //瀑布流 横向滑动
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3)); // GridView
+//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)); //瀑布流 横向滑动
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST)); //listview分割线
         recyclerView.addItemDecoration(new DividerGridItemDecoration(mContext)); //GridView分割线
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.setAdapter(adapter);
-        recyclerView.setAdapter(homeAdapter);
+        recyclerView.setAdapter(headerAndFooterWrapper);
         homeAdapter.setOnItemClickLitener(new StaggeredHomeAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (position == 0) {
-                    homeAdapter.addData(1);
-                } else {
-                    Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -103,40 +111,6 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
                 Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
-        // recyclerView 添加监听事件
-//        recyclerView.addOnScrollListener(new OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                Log.e("lz", "onScrollStateChanged:");
-//            }
-//
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-//                int totalItemCount = layoutManager.getItemCount();
-//                Log.e("lz", "totalItemCount ：" + totalItemCount);
-//                if (!loading) {
-//                    Log.e("lz", "开始加载");
-//                    loading = true;
-//                    myHandler.sendEmptyMessageDelayed(2, 1000);
-//                }
-//            }
-//        });
-
-        // recyclerView 移除监听事件
-//        recyclerView.removeOnScrollListener(new OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//        });
     }
 
     @Override
@@ -144,27 +118,70 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
         myHandler.sendEmptyMessageDelayed(1, 2000);
     }
 
-    @Override
-    public void handler(Message msg) {
-        super.handler(msg);
-        switch (msg.what) {
-            case 1:
-                stringList.clear();
-                max = 30;
-                for (int i = 0; i < max; i++) {
-                    stringList.add("" + i);
-                }
-                adapter.notifyDataSetChanged();
-                swipe_refresh_widget.setRefreshing(false);
-                break;
-            case 2:
-                for (int i = max; i < 50 + 10; i++) {
-                    stringList.add("" + i);
-                }
-                adapter.notifyDataSetChanged();
-                max = max + 10;
-                loading = false;
-                break;
+    private void setData(int max) {
+        for (int i = 0; i < max; i++) {
+            stringList.add("" + i);
+            mHeights.add((int) (100 + Math.random() * 300));
+        }
+    }
+
+    private void addHeaderAndFooter() {
+        headerAndFooterWrapper = new HeaderAndFooterWrapper(homeAdapter);
+        TextView t1 = new TextView(mContext);
+        t1.setText("Header 1");
+        t1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        t1.setGravity(Gravity.CENTER);
+        TextView t2 = new TextView(mContext);
+        t2.setText("Header 2");
+
+        headerAndFooterWrapper.addHeaderView(t1);
+        headerAndFooterWrapper.addHeaderView(t2);
+        headerAndFooterWrapper.addFootView(t1);
+        headerAndFooterWrapper.addFootView(t2);
+    }
+
+    private void addLoadMore() {
+        loadMoreWrapper = new LoadMoreWrapper(headerAndFooterWrapper);
+        loadMoreWrapper.setLoadMoreView(R.layout.default_loading);
+        loadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setData(10);
+                        loadMoreWrapper.notifyDataSetChanged();
+                    }
+                }, 3000);
+            }
+        });
+    }
+
+    static class MyHandler extends Handler {
+        WeakReference<RecyclerViewFragment> reference;
+
+        MyHandler(Looper looper, RecyclerViewFragment fragment) {
+            super(looper);
+            reference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (reference == null) {
+                return;
+            }
+            RecyclerViewFragment fragment = reference.get();
+            switch (msg.what) {
+                case 1:
+                    fragment.stringList.clear();
+                    fragment.max = 30;
+                    fragment.setData(fragment.max);
+                    fragment.headerAndFooterWrapper.notifyDataSetChanged();
+                    fragment.adapter.notifyDataSetChanged();
+                    fragment.swipe_refresh_widget.setRefreshing(false);
+                    break;
+            }
         }
     }
 }

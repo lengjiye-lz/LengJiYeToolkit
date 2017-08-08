@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.android.databinding:dataBinder:1.0-rc4'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,12 +14,12 @@ buildscript {
 
 //针对不同的app module之间的差异不统一，也不可控
 ext {
-    compileSdkVersion = 23
-    buildToolsVersion = "22.0.1"
+    compileSdkVersion = 25
+    buildToolsVersion = "25.0.3"
     minSdkVersion = 15
     targetSdkVersion = 23
     versionCode = 1
-    versionName = "1.0.0"
+    versionName = "1.0.0.0"
 }
 
 allprojects {

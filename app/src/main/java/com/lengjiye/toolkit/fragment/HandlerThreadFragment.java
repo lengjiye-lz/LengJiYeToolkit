@@ -60,6 +60,8 @@ public class HandlerThreadFragment extends BaseFragment {
         });
     }
 
+
+
     private void initBackThread() {
         handlerThread = new HandlerThread("timer");
         handlerThread.start();
@@ -73,5 +75,4 @@ public class HandlerThreadFragment extends BaseFragment {
             }
         };
     }
-
 }

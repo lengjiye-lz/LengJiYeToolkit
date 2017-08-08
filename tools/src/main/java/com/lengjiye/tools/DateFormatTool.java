@@ -1,4 +1,4 @@
-package com.lengjiye.toolkit.utils;
+package com.lengjiye.tools;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,12 +10,12 @@ import java.util.Date;
  * 创建时间: 2016/12/15
  * 修改备注:
  */
-public class DateFormatUtils {
+public class DateFormatTool {
 
     /**
      * 私有构造方法
      */
-    private DateFormatUtils() {
+    private DateFormatTool() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 

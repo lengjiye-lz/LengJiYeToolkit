@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.util.TimeUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -33,8 +33,10 @@ import com.lengjiye.toolkit.fragment.LocalBroadcastManagerFragment;
 import com.lengjiye.toolkit.fragment.NoDoubleTestFragment;
 import com.lengjiye.toolkit.fragment.OKHttpFragment;
 import com.lengjiye.toolkit.fragment.RecyclerViewFragment;
+import com.lengjiye.toolkit.fragment.RecyclerViewVlayoutFragment;
 import com.lengjiye.toolkit.fragment.StretchTextFragment;
 import com.lengjiye.toolkit.fragment.TouchTestFragment;
+import com.lengjiye.tools.TimeTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +93,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            long currentTime = System.currentTimeMillis();
+            long currentTime = TimeTool.getCurrentTimeMillis();
             if (currentTime - lastPressTime > 2000) {
                 Toast.makeText(getBaseContext(), "再按一次退出", Toast.LENGTH_SHORT).show();
                 lastPressTime = currentTime;
@@ -186,6 +188,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 transactionHandlerThread.replace(R.id.frame_layout, HandlerThreadFragment.newInstance());
                 transactionHandlerThread.commit();
                 break;
+            case 11:
+                FragmentTransaction recyclerViewVlayoutThread = getSupportFragmentManager().beginTransaction();
+                recyclerViewVlayoutThread.replace(R.id.frame_layout, RecyclerViewVlayoutFragment.newInstance());
+                recyclerViewVlayoutThread.commit();
+                break;
         }
         drawer_layout.closeDrawers();
     }
@@ -208,6 +215,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("动画");
         strings.add("LocalBroadcastManager");
         strings.add("HandlerThread");
+        strings.add("RecyclerView使用阿里的vlayout库");
         return strings;
     }
 
