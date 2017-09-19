@@ -32,7 +32,7 @@ public class LocalBroadcastManagerFragment extends BaseFragment {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local_broadcast_manager, container, false);
         button = (Button) view.findViewById(R.id.button);
         return view;

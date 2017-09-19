@@ -38,7 +38,7 @@ public class TweenAnimationFragment extends BaseFragment {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tween_animation, container, false);
         image1 = (ImageView) view.findViewById(R.id.image1);
         image2 = (ImageView) view.findViewById(R.id.image2);

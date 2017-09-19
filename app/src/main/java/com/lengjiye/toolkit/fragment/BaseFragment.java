@@ -90,8 +90,10 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
      */
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = initView(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
+        View view = createView(inflater, container, savedInstanceState);
+        initView(view);
         x.view().inject(this, view);
         if (isVisible && !isCreate) {
             Log.e("lz", "第一次加载fragment");
@@ -150,7 +152,15 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     /**
      * 初始化布局, 子类必须实现
      */
-    public abstract View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+    public abstract View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState);
+
+    /**
+     * 初始化view
+     */
+    public void initView(View view) {
+
+    }
 
     /**
      * 初始化数据, 子类可以不实现

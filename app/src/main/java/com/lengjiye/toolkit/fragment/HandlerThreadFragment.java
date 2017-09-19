@@ -40,11 +40,15 @@ public class HandlerThreadFragment extends BaseFragment {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_handler_thread, container, false);
+        return view;
+    }
+
+    @Override
+    public void initView(View view) {
         text = (TextView) view.findViewById(R.id.text);
         button = (Button) view.findViewById(R.id.button);
-        return view;
     }
 
     @Override

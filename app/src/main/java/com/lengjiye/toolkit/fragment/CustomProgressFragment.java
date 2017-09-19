@@ -37,11 +37,14 @@ public class CustomProgressFragment extends BaseFragment {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_custom_progress, container, false);
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_custom_progress, container, false);
+    }
+
+    @Override
+    public void initView(View view) {
         mask_text_view = (MaskTextView) view.findViewById(R.id.mask_text_view);
         button = (Button) view.findViewById(R.id.button);
-        return view;
     }
 
     @Override

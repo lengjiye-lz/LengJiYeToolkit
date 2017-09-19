@@ -36,7 +36,7 @@ public class MVVMTestFragment extends BaseFragment {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mvvm_test, container, false);
         binding = DataBindingUtil.bind(view);
         return view;

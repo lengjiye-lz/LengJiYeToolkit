@@ -34,11 +34,15 @@ public class FrameAnimationFragment extends BaseFragment {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frame_animation, container, false);
+        return view;
+    }
+
+    @Override
+    public void initView(View view) {
         image = (ImageView) view.findViewById(R.id.image);
         button = (Button) view.findViewById(R.id.button);
-        return view;
     }
 
     @Override

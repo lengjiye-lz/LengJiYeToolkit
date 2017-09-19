@@ -63,7 +63,7 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         swipe_refresh_widget = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_widget);

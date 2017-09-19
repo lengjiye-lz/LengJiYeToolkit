@@ -26,6 +26,7 @@ import com.lengjiye.toolkit.application.LJYApplication;
 import com.lengjiye.toolkit.fragment.AnimatorFragment;
 import com.lengjiye.toolkit.fragment.BaseFragment;
 import com.lengjiye.toolkit.fragment.CustomProgressFragment;
+import com.lengjiye.toolkit.fragment.FastJsonFragment;
 import com.lengjiye.toolkit.fragment.FrameModeFragment;
 import com.lengjiye.toolkit.fragment.HandlerThreadFragment;
 import com.lengjiye.toolkit.fragment.ImageCompressFragment;
@@ -193,6 +194,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 recyclerViewVlayoutThread.replace(R.id.frame_layout, RecyclerViewVlayoutFragment.newInstance());
                 recyclerViewVlayoutThread.commit();
                 break;
+            case 12:
+                FragmentTransaction fastJson = getSupportFragmentManager().beginTransaction();
+                fastJson.replace(R.id.frame_layout, FastJsonFragment.newInstance());
+                fastJson.commit();
+                break;
         }
         drawer_layout.closeDrawers();
     }
@@ -216,6 +222,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("LocalBroadcastManager");
         strings.add("HandlerThread");
         strings.add("RecyclerView使用阿里的vlayout库");
+        strings.add("FastJson使用");
         return strings;
     }
 

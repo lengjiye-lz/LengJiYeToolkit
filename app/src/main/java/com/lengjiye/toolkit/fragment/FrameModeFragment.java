@@ -39,11 +39,16 @@ public class FrameModeFragment extends BaseFragment implements AdapterView.OnIte
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frame_mode, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void initView(View view) {
         listView = (ListView) view.findViewById(R.id.listview);
         drawer_layout = (DrawerLayout) view.findViewById(R.id.drawer_layout);
-        return view;
     }
 
     @Override

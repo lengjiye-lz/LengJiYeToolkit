@@ -37,7 +37,7 @@ public class MVPTestFragment extends BaseFragment implements IUserView {
     }
 
     @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mvp_test, container, false);
         view.findViewById(R.id.btn_cun).setOnClickListener(this);
         view.findViewById(R.id.btn_du).setOnClickListener(this);

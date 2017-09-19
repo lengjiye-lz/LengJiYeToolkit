@@ -2,6 +2,7 @@ package com.lengjiye.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -170,20 +171,6 @@ public class AppTool {
         activity.startActivityForResult(IntentTool.getInstallAppIntent(activity, file, authority), requestCode);
     }
 
-    /**
-     * 静默安装App
-     * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
-     *
-     * @param filePath 文件路径
-     * @return {@code true}: 安装成功<br>{@code false}: 安装失败
-     */
-    public static boolean installAppSilent(String filePath) {
-        File file = FileTool.getFileByPath(filePath);
-        if (!FileTool.isFile(file)) return false;
-        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
-        ShellTool.CommandResult commandResult = ShellTool.execCmd(command, !isSystemApp(), true);
-        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
-    }
 
     /**
      * 卸载App
@@ -208,22 +195,6 @@ public class AppTool {
         if (isBlank(packageName)) return;
         activity.startActivityForResult(IntentTool.getUninstallAppIntent(packageName), requestCode);
     }
-
-    /**
-     * 静默卸载App
-     * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
-     *
-     * @param packageName 包名
-     * @param isKeepData  是否保留数据
-     * @return {@code true}: 卸载成功<br>{@code false}: 卸载失败
-     */
-    public static boolean uninstallAppSilent(String packageName, boolean isKeepData) {
-        if (isBlank(packageName)) return false;
-        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall " + (isKeepData ? "-k " : "") + packageName;
-        ShellTool.CommandResult commandResult = ShellTool.execCmd(command, !isSystemApp(), true);
-        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
-    }
-
 
     /**
      * 判断App是否有root权限
@@ -261,5 +232,35 @@ public class AppTool {
     public static void launchApp(Activity activity, String packageName, int requestCode) {
         if (isBlank(packageName)) return;
         activity.startActivityForResult(IntentTool.getLaunchAppIntent(activity, packageName), requestCode);
+    }
+
+    /**
+     * 判断是否是系统应用
+     *
+     * @param pInfo
+     * @return
+     */
+    public static boolean isSystemApp(PackageInfo pInfo) {
+        return ((pInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
+    }
+
+    /**
+     * 系统应用，被用户更新了
+     *
+     * @param pInfo
+     * @return
+     */
+    public static boolean isSystemUpdateApp(PackageInfo pInfo) {
+        return ((pInfo.applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0);
+    }
+
+    /**
+     * 是否是第三方应用
+     *
+     * @param pInfo
+     * @return
+     */
+    public static boolean isUserApp(PackageInfo pInfo) {
+        return (!isSystemApp(pInfo) && !isSystemUpdateApp(pInfo));
     }
 }
