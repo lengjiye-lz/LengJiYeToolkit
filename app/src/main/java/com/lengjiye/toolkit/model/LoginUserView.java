@@ -9,7 +9,18 @@ import com.lengjiye.toolkit.bean.User;
  * Created by lz on 2016/5/23.
  */
 public interface LoginUserView {
-    void LoginSuccess(int code, User user);
+
+    String getName();
+
+    String getPas();
+
+    void cleanPas();
+
+    void showDialog();
+
+    void hideDialog();
+
+    void loginSuccess(int code, User user);
 
     void loginFailure(int code, String error);
 }

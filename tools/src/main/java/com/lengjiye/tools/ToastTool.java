@@ -19,7 +19,7 @@ public class ToastTool {
      * @return
      */
     public static ToastTool getInstance() {
-        if (toastTool != null) {
+        if (toastTool == null) {
             toastTool = new ToastTool();
         }
         return toastTool;

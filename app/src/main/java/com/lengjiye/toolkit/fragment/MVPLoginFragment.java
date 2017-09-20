@@ -2,11 +2,13 @@ package com.lengjiye.toolkit.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +30,8 @@ public class MVPLoginFragment extends BaseFragment implements LoginUserView {
 
     private LoginUserPresenter userPresenter;
     private EditText et_user_name, et_user_pas;
-    private Button btn_login, btn_sign_in;
     private TextView tv_forget_pas;
+    private LinearLayout linear;
 
     public MVPLoginFragment() {
     }
@@ -56,6 +58,7 @@ public class MVPLoginFragment extends BaseFragment implements LoginUserView {
         et_user_name = (EditText) view.findViewById(R.id.et_user_name);
         et_user_pas = (EditText) view.findViewById(R.id.et_user_pas);
         tv_forget_pas = (TextView) view.findViewById(R.id.tv_forget_pas);
+        linear = (LinearLayout) view.findViewById(R.id.linear);
         view.findViewById(R.id.btn_login).setOnClickListener(this);
         view.findViewById(R.id.btn_sign_in).setOnClickListener(this);
         view.findViewById(R.id.tv_forget_pas).setOnClickListener(this);
@@ -72,61 +75,52 @@ public class MVPLoginFragment extends BaseFragment implements LoginUserView {
         super.click(v);
         switch (v.getId()) {
             case R.id.btn_login:
-                login();
+                userPresenter.login();
                 break;
             case R.id.btn_sign_in:
-                signIn();
+                userPresenter.signIn();
                 break;
             case R.id.tv_forget_pas:
-                forgetPas();
+                userPresenter.forgetPas();
                 break;
         }
-    }
-
-    /**
-     * 用户登录
-     */
-    private void login() {
-        String name = et_user_name.getText().toString().trim();
-        String pas = et_user_pas.getText().toString().trim();
-        if (StringTool.isBlank(name) || StringTool.isBlank(pas)) {
-            ToastTool.getInstance().show(getActivity().getApplicationContext(), "用户名或密码不能为空");
-            return;
-        }
-        userPresenter.login(name, pas);
-    }
-
-    /**
-     * 用户注册
-     */
-    private void signIn() {
-        String name = et_user_name.getText().toString().trim();
-        if (StringTool.isBlank(name)) {
-            ToastTool.getInstance().show(getActivity().getApplicationContext(), "用户名不能为空");
-            return;
-        }
-        userPresenter.signIn(name);
-    }
-
-    /**
-     * 用户注册
-     */
-    private void forgetPas() {
-        String name = et_user_name.getText().toString().trim();
-        if (StringTool.isBlank(name)) {
-            ToastTool.getInstance().show(getActivity().getApplicationContext(), "用户名不能为空");
-            return;
-        }
-        userPresenter.forgetPas(name);
     }
 
     @Override
-    public void LoginSuccess(int code, User user) {
+    public String getName() {
+        return et_user_name.getText().toString().trim();
+    }
 
+    @Override
+    public String getPas() {
+        return et_user_pas.getText().toString().trim();
+    }
+
+    @Override
+    public void cleanPas() {
+        et_user_pas.setText("");
+    }
+
+    @Override
+    public void showDialog() {
+        linear.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideDialog() {
+        linear.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void loginSuccess(int code, User user) {
+        if (code == 200) {
+            ToastTool.getInstance().show(getActivity().getApplicationContext(), "登录成功");
+        }
     }
 
     @Override
     public void loginFailure(int code, String error) {
-
+        LogTool.e("error:" + error);
+        ToastTool.getInstance().show(getActivity().getApplicationContext(), error);
     }
 }

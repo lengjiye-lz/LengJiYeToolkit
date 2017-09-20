@@ -3,9 +3,9 @@ package com.lengjiye.toolkit.presenter;
 import android.os.Handler;
 
 import com.lengjiye.toolkit.bean.User;
-import com.lengjiye.toolkit.model.IUserModel;
+import com.lengjiye.toolkit.model.LoginUserModel;
 import com.lengjiye.toolkit.model.LoginUserView;
-import com.lengjiye.toolkit.model.UserModel;
+import com.lengjiye.toolkit.model.OnLoginListener;
 
 /**
  * mvp中的Presenter类
@@ -14,78 +14,75 @@ import com.lengjiye.toolkit.model.UserModel;
  */
 public class LoginUserPresenter {
     private LoginUserView userView;
-    private IUserModel userModel;
+    private LoginUserModel userModel;
 
     private Handler mainHandler = new Handler();
 
     public LoginUserPresenter(LoginUserView userView) {
         this.userView = userView;
-        userModel = new UserModel();
-
+        userModel = new LoginUserModel();
     }
 
     /**
      * 登录
-     *
-     * @param name
-     * @param pas
      */
-    public void login(String name, String pas) {
-        if (!pas.equals("123")) {
-            userView.loginFailure(1, "密码错误");
-            return;
-        }
-        final String nameString = name;
-        mainHandler.postDelayed(new Runnable() {
+    public void login() {
+        userView.showDialog();
+        userModel.login(userView.getName(), userView.getPas(), new OnLoginListener() {
             @Override
-            public void run() {
-                User user = new User();
-                user.setName(nameString);
-                user.setAge(18);
-                user.setSex("男");
-                user.setId(1);
-                userView.LoginSuccess(200, user);
+            public void onSuccess(final User user) {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        userView.cleanPas();
+                        userView.hideDialog();
+                        userView.loginSuccess(200, user);
+                    }
+                });
             }
-        }, 3000);
+
+            @Override
+            public void onFailed() {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        userView.cleanPas();
+                        userView.hideDialog();
+                        userView.loginFailure(0, "密码错误");
+                    }
+                });
+            }
+        });
     }
 
     /**
      * 注册
-     *
-     * @param name
      */
-    public void signIn(String name) {
-        final String nameString = name;
-        mainHandler.postDelayed(new Runnable() {
+    public void signIn() {
+        userView.showDialog();
+        userModel.signIn(userView.getName(), new OnLoginListener() {
             @Override
-            public void run() {
-                User user = new User();
-                user.setName(nameString);
-                user.setAge(18);
-                user.setSex("男");
-                user.setId(1);
-                userView.LoginSuccess(201, user);
+            public void onSuccess(User user) {
+                login();
             }
-        }, 3000);
+
+            @Override
+            public void onFailed() {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        userView.hideDialog();
+                        userView.loginFailure(1, "注册失败");
+                    }
+                });
+            }
+        });
     }
 
     /**
      * 忘记密码
-     *
-     * @param name
      */
-    public void forgetPas(String name) {
-        final String nameString = name;
-        mainHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                User user = new User();
-                user.setName(nameString);
-                user.setAge(18);
-                user.setSex("男");
-                user.setId(1);
-                userView.LoginSuccess(202, user);
-            }
-        }, 3000);
+    public void forgetPas() {
+
     }
 }

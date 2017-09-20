@@ -39,9 +39,9 @@ public class FrameModeFragment extends BaseFragment implements AdapterView.OnIte
     }
 
     @Override
-    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frame_mode, container, false);
-
         return view;
     }
 
@@ -69,6 +69,7 @@ public class FrameModeFragment extends BaseFragment implements AdapterView.OnIte
     private List<String> getData() {
         List<String> strings = new ArrayList<>();
         strings.add("MVP框架模式");
+        strings.add("MVP框架登录");
         strings.add("MVVM框架模式");
         return strings;
     }
@@ -86,10 +87,16 @@ public class FrameModeFragment extends BaseFragment implements AdapterView.OnIte
                 addDefaultFragment();
                 break;
             case 1:
+                FragmentTransaction transactionMVPLogin = getChildFragmentManager().beginTransaction();
+                transactionMVPLogin.replace(R.id.frame_layout, MVPLoginFragment.newInstance());
+                transactionMVPLogin.commit();
+                break;
+            case 2:
                 FragmentTransaction transactionMVVMTest = getChildFragmentManager().beginTransaction();
                 transactionMVVMTest.replace(R.id.frame_layout, MVVMTestFragment.newInstance());
                 transactionMVVMTest.commit();
                 break;
+
         }
         drawer_layout.closeDrawers();
     }
