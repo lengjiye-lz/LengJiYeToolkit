@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.lengjiye.toolkit.R;
+import com.lengjiye.tools.LogTool;
 
 /**
  * 实现遮罩效果的进度条
@@ -89,6 +90,11 @@ public class MaskTextView extends View {
         mWidth = measureWidth(widthMeasureSpec);
         mHeight = measureHeight(heightMeasureSpec);
         setMeasuredDimension(mWidth, mHeight);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     /**

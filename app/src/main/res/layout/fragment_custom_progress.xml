@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         app:max_progress="100"/>
 
-    <Button
-        android:id="@+id/button"
+    <SeekBar
+        android:id="@+id/seekBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="button"/>
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

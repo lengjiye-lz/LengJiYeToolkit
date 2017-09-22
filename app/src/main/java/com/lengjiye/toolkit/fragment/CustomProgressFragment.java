@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.view.MaskTextView;
+import com.lengjiye.tools.LogTool;
 
 import org.xutils.common.util.LogUtil;
 
@@ -19,9 +21,7 @@ import org.xutils.common.util.LogUtil;
 public class CustomProgressFragment extends BaseFragment {
 
     private MaskTextView mask_text_view;
-    private Button button;
-
-    private int i = 10;
+    private SeekBar seekBar;
 
     public CustomProgressFragment() {
     }
@@ -37,25 +37,35 @@ public class CustomProgressFragment extends BaseFragment {
     }
 
     @Override
-    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
         return inflater.inflate(R.layout.fragment_custom_progress, container, false);
     }
 
     @Override
     public void initView(View view) {
         mask_text_view = (MaskTextView) view.findViewById(R.id.mask_text_view);
-        button = (Button) view.findViewById(R.id.button);
+        seekBar = (SeekBar) view.findViewById(R.id.seekBar);
     }
 
     @Override
     public void initData() {
         super.initData();
-        button.setOnClickListener(new View.OnClickListener() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View v) {
-                mask_text_view.setProgress(i);
-                i += 10;
-                LogUtil.e("getProgress:" + mask_text_view.getProgress());
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                LogTool.e("progress:" + progress);
+                mask_text_view.setProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }

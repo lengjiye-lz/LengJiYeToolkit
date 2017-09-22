@@ -105,7 +105,7 @@ public class LogTool {
         // code line
         int lineNumber = stackTraceElement.getLineNumber();
 
-        logInfoStringBuilder.append("[ ");
+        logInfoStringBuilder.append("[line:");
 //        logInfoStringBuilder.append("threadID=" +
 //                threadID).append(SEPARATOR);
 //        logInfoStringBuilder.append("threadName=" +
@@ -116,8 +116,8 @@ public class LogTool {
 //                + className).append(SEPARATOR);
 //        logInfoStringBuilder.append("methodName=" +
 //                methodName).append(SEPARATOR);
-        logInfoStringBuilder.append("line = " + lineNumber);
-        logInfoStringBuilder.append(" ] ");
+        logInfoStringBuilder.append(lineNumber);
+        logInfoStringBuilder.append("] ");
         methodName = logInfoStringBuilder.toString();
         return methodName;
     }

@@ -43,6 +43,8 @@ android {
         }
     }
     buildTypes {
+        debug {
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -75,6 +77,9 @@ dependencies {
     compile('com.alibaba.android:vlayout:1.0.3@aar') {
         transitive = true
     }
-    compile project(path: ':tools')
     compile files('libs/fastjson-1.2.38.jar')
+
+    debugCompile project(path: ':tools', configuration: 'allDebug')
+    releaseCompile project(path: ':tools', configuration: 'allRelease')
+
 }

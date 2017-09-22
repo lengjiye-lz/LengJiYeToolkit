@@ -20,6 +20,18 @@ android {
         }
     }
     buildToolsVersion rootProject.ext.buildToolsVersion
+
+    productFlavors {
+        create('all') {
+
+        }
+    }
+    publishNonDefault true
+}
+
+configurations {
+    allDebug
+    allRelease
 }
 
 dependencies {
