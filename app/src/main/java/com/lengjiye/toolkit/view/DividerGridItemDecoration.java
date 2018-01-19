@@ -11,7 +11,8 @@ import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.lengjiye.toolkit.adapter.HeaderAndFooterWrapper;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
+
 
 /**
  * 类描述:
@@ -20,6 +21,8 @@ import com.lengjiye.toolkit.adapter.HeaderAndFooterWrapper;
  * 修改备注:
  */
 public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
+    private static final int BASE_ITEM_TYPE_HEADER = 100000;
+    private static final int BASE_ITEM_TYPE_FOOTER = 200000;
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private int j = 0;// 记录有多少头部
@@ -87,7 +90,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
 
     private boolean isLastColum(RecyclerView parent, int pos, int spanCount, int childCount) {
         int i = getViewType(parent, pos);
-        if (i >= HeaderAndFooterWrapper.BASE_ITEM_TYPE_HEADER && i < HeaderAndFooterWrapper.BASE_ITEM_TYPE_FOOTER) {
+        if (i >= BASE_ITEM_TYPE_HEADER && i < BASE_ITEM_TYPE_FOOTER) {
 //            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
             k = maxNum(k, pos);
             j = k - 2;
@@ -118,7 +121,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
 
     private boolean isLastRaw(RecyclerView parent, int pos, int spanCount, int childCount) {
         int i = getViewType(parent, pos);
-        if (i >= HeaderAndFooterWrapper.BASE_ITEM_TYPE_HEADER) {
+        if (i >= BASE_ITEM_TYPE_HEADER) {
 //            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
             return false;
         }

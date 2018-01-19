@@ -15,14 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lengjiye.toolkit.R;
-import com.lengjiye.toolkit.adapter.HeaderAndFooterWrapper;
-import com.lengjiye.toolkit.adapter.LoadMoreWrapper;
 import com.lengjiye.toolkit.adapter.RecyclerViewAdapter;
 import com.lengjiye.toolkit.adapter.StaggeredHomeAdapter;
 import com.lengjiye.toolkit.view.DividerGridItemDecoration;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
+import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -88,7 +87,7 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
         mHeights = new ArrayList<>();
         setData(max);
         adapter = new RecyclerViewAdapter(mContext, stringList);
-        homeAdapter = new StaggeredHomeAdapter(mContext, stringList, mHeights);
+        homeAdapter = new StaggeredHomeAdapter(mContext, stringList);
         addHeaderAndFooter();
 //        addLoadMore();
 
@@ -100,17 +99,6 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.setAdapter(adapter);
         recyclerView.setAdapter(headerAndFooterWrapper);
-        homeAdapter.setOnItemClickLitener(new StaggeredHomeAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override

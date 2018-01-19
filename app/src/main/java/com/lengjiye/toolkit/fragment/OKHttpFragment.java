@@ -24,6 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -31,11 +39,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+
 
 /**
  * 试用okhttp
@@ -97,9 +101,9 @@ public class OKHttpFragment extends BaseFragment {
      */
     private void loadWebPageDataGit() {
         Observable.create(
-                new Observable.OnSubscribe<String>() {
+                new ObservableOnSubscribe<String>() {
                     @Override
-                    public void call(Subscriber<? super String> sub) {
+                    public void subscribe(ObservableEmitter<String> sub) throws Exception {
                         try {
                             String path = "https://www.baidu.com/";
                             Response response = OkHttpUtils.getInstance().getRequest(path, null);
@@ -113,11 +117,18 @@ public class OKHttpFragment extends BaseFragment {
                             sub.onError(e);
                         }
                     }
+
                 }
         )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>() {
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
                     @Override
                     public void onNext(String s) {
                         Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
@@ -125,14 +136,16 @@ public class OKHttpFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
                     public void onError(Throwable e) {
                         Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
                         text.setText("请求失败:" + e);
                     }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
                 });
 
     }
@@ -239,9 +252,9 @@ public class OKHttpFragment extends BaseFragment {
         Observable.just(message)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
+                .subscribe(new Consumer<String>() {
                     @Override
-                    public void call(String s) {
+                    public void accept(String s) throws Exception {
                         if (b) {
                             Toast.makeText(mContext, "请求成功", Toast.LENGTH_SHORT).show();
                             text.setText(s);

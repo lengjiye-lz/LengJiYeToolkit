@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.util.TimeUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +34,7 @@ import com.lengjiye.toolkit.fragment.NoDoubleTestFragment;
 import com.lengjiye.toolkit.fragment.OKHttpFragment;
 import com.lengjiye.toolkit.fragment.RecyclerViewFragment;
 import com.lengjiye.toolkit.fragment.RecyclerViewVlayoutFragment;
+import com.lengjiye.toolkit.fragment.RxJava2Fragment;
 import com.lengjiye.toolkit.fragment.StretchTextFragment;
 import com.lengjiye.toolkit.fragment.TouchTestFragment;
 import com.lengjiye.tools.TimeTool;
@@ -199,6 +199,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 fastJson.replace(R.id.frame_layout, FastJsonFragment.newInstance());
                 fastJson.commit();
                 break;
+            case 13:
+                FragmentTransaction rxJava = getSupportFragmentManager().beginTransaction();
+                rxJava.replace(R.id.frame_layout, RxJava2Fragment.newInstance());
+                rxJava.commit();
+                break;
         }
         drawer_layout.closeDrawers();
     }
@@ -223,6 +228,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("HandlerThread");
         strings.add("RecyclerView使用阿里的vlayout库");
         strings.add("FastJson使用");
+        strings.add("简单使用RXJava2");
         return strings;
     }
 
