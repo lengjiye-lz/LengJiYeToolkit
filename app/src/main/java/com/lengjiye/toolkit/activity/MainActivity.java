@@ -37,6 +37,7 @@ import com.lengjiye.toolkit.fragment.RecyclerViewVlayoutFragment;
 import com.lengjiye.toolkit.fragment.RxJava2Fragment;
 import com.lengjiye.toolkit.fragment.StretchTextFragment;
 import com.lengjiye.toolkit.fragment.TouchTestFragment;
+import com.lengjiye.toolkit.fragment.WebViewFragment;
 import com.lengjiye.tools.TimeTool;
 
 import java.util.ArrayList;
@@ -204,6 +205,13 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 rxJava.replace(R.id.frame_layout, RxJava2Fragment.newInstance());
                 rxJava.commit();
                 break;
+            case 14:
+                FragmentTransaction webView = getSupportFragmentManager().beginTransaction();
+                webView.replace(R.id.frame_layout, WebViewFragment.newInstance());
+                webView.commit();
+                break;
+            default:
+                break;
         }
         drawer_layout.closeDrawers();
     }
@@ -229,6 +237,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("RecyclerView使用阿里的vlayout库");
         strings.add("FastJson使用");
         strings.add("简单使用RXJava2");
+        strings.add("WebView");
         return strings;
     }
 

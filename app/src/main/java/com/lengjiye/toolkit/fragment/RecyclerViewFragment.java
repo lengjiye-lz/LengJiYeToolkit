@@ -73,6 +73,7 @@ public class RecyclerViewFragment extends BaseFragment implements SwipeRefreshLa
     /**
      * 初始化数据
      */
+    @Override
     public void initData() {
         myHandler = new MyHandler(Looper.getMainLooper(), this);
         swipe_refresh_widget.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark,
