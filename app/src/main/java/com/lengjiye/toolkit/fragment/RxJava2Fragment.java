@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.tools.LogTool;
+import com.lengjiye.tools.ToastTool;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -291,22 +292,79 @@ public class RxJava2Fragment extends BaseFragment {
      * 测试map操作符
      */
     private void test6() {
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext("1a");
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String integer) throws Exception {
+                return Integer.valueOf(integer);
+            }
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer s) throws Exception {
+                textView.setText("转换测试：" + s);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                ToastTool.getInstance().show(getActivity().getApplicationContext(), "转换错误：" + throwable.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 测试zip操作符
+     */
+    private void test7() {
+        Observable observableString = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                if (e.isDisposed()) {
+                    return;
+                }
+                e.onNext("a");
+                LogTool.e("a");
+                e.onNext("b");
+                LogTool.e("b");
+                e.onNext("c");
+                LogTool.e("c");
+                e.onNext("d");
+                LogTool.e("d");
+            }
+        });
+
+        Observable observableInt = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                if (e.isDisposed()) {
+                    return;
+                }
                 e.onNext(1);
+                LogTool.e("1");
                 e.onNext(2);
+                LogTool.e("2");
                 e.onNext(3);
+                LogTool.e("3");
+                e.onNext(4);
+                LogTool.e("4");
+                e.onNext(5);
+                LogTool.e("5");
             }
-        }).map(new Function<Integer, String>() {
+        });
+
+        Observable.zip(observableInt, observableString, new BiFunction<Integer, String, String>() {
+
             @Override
-            public String apply(Integer integer) throws Exception {
-                return "转换成String类型" + integer;
+            public String apply(Integer integer, String s) throws Exception {
+                return s + integer;
             }
         }).subscribe(new Consumer<String>() {
             @Override
-            public void accept(String s) throws Exception {
-                textView.setText(s);
+            public void accept(String o) throws Exception {
+                LogTool.e("o:" + o);
             }
         });
     }
