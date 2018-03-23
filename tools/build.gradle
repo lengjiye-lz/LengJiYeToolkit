@@ -37,11 +37,13 @@ android {
     }
     buildToolsVersion rootProject.ext.buildToolsVersion
 
-//    productFlavors {
-//        create('all') {
-//
-//        }
-//    }
+    productFlavors {
+        if (!isModule.toBoolean()) {
+            create('all') {
+
+            }
+        }
+    }
     publishNonDefault true
 }
 

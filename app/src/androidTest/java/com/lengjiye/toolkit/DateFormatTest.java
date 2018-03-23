@@ -2,9 +2,10 @@ package com.lengjiye.toolkit;
 
 import android.test.AndroidTestCase;
 
-import com.lengjiye.toolkit.utils.DateFormatUtils;
-import com.lengjiye.toolkit.utils.LogUtils;
-import com.lengjiye.toolkit.utils.TimeUtils;
+
+import com.lengjiye.tools.DateFormatTool;
+import com.lengjiye.tools.LogTool;
+import com.lengjiye.tools.TimeTool;
 
 import java.util.Date;
 
@@ -17,22 +18,22 @@ import java.util.Date;
 public class DateFormatTest extends AndroidTestCase {
 
     public void testFormatDate1() {
-        String time = DateFormatUtils.formatDate1(new Date());
-        LogUtils.e("time:" + time);
+        String time = DateFormatTool.formatDate1(new Date());
+        LogTool.e("time:" + time);
     }
 
     public void testGetMonth() {
-        int monday = TimeUtils.getWeek();
-        LogUtils.e("monday:" + monday);
+        int monday = TimeTool.getWeek();
+        LogTool.e("monday:" + monday);
     }
 
     public void testGetYear() {
-        int monday = TimeUtils.getYear();
-        LogUtils.e("monday:" + monday);
+        int monday = TimeTool.getYear();
+        LogTool.e("monday:" + monday);
     }
 
     public void testGetDay() {
-        int monday = TimeUtils.getDay();
-        LogUtils.e("monday:" + monday);
+        int monday = TimeTool.getDay();
+        LogTool.e("monday:" + monday);
     }
 }

@@ -92,9 +92,9 @@ public class FrameModeFragment extends BaseFragment implements AdapterView.OnIte
                 transactionMVPLogin.commit();
                 break;
             case 2:
-                FragmentTransaction transactionMVVMTest = getChildFragmentManager().beginTransaction();
-                transactionMVVMTest.replace(R.id.frame_layout, MVVMTestFragment.newInstance());
-                transactionMVVMTest.commit();
+//                FragmentTransaction transactionMVVMTest = getChildFragmentManager().beginTransaction();
+//                transactionMVVMTest.replace(R.id.frame_layout, MVVMTestFragment.newInstance());
+//                transactionMVVMTest.commit();
                 break;
 
         }

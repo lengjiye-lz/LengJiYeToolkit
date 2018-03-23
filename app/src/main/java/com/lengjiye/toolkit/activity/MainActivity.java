@@ -32,10 +32,10 @@ import com.lengjiye.toolkit.fragment.ImageCompressFragment;
 import com.lengjiye.toolkit.fragment.LocalBroadcastManagerFragment;
 import com.lengjiye.toolkit.fragment.NoDoubleTestFragment;
 import com.lengjiye.toolkit.fragment.OKHttpFragment;
-import com.lengjiye.toolkit.fragment.RecyclerViewFragment;
+import com.lengjiye.toolkit.fragment.RecyclerViewTestFragment;
 import com.lengjiye.toolkit.fragment.RecyclerViewVlayoutFragment;
 import com.lengjiye.toolkit.fragment.RxJava2Fragment;
-import com.lengjiye.toolkit.fragment.StretchTextFragment;
+import com.lengjiye.toolkit.fragment.ThreadFragment;
 import com.lengjiye.toolkit.fragment.TouchTestFragment;
 import com.lengjiye.toolkit.fragment.WebViewFragment;
 import com.lengjiye.tools.TimeTool;
@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
      */
     private void addDefaultFragment() {
         FragmentTransaction transactionStretchText = getSupportFragmentManager().beginTransaction();
-        transactionStretchText.replace(R.id.frame_layout, StretchTextFragment.newInstance());
+        transactionStretchText.replace(R.id.frame_layout, ThreadFragment.newInstance());
         transactionStretchText.commit();
     }
 
@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 break;
             case 6:
                 FragmentTransaction transactionRecyclerView = getSupportFragmentManager().beginTransaction();
-                transactionRecyclerView.replace(R.id.frame_layout, RecyclerViewFragment.newInstance());
+                transactionRecyclerView.replace(R.id.frame_layout, RecyclerViewTestFragment.newInstance());
                 transactionRecyclerView.commit();
                 break;
             case 7:
@@ -210,6 +210,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 webView.replace(R.id.frame_layout, WebViewFragment.newInstance());
                 webView.commit();
                 break;
+            case 15:
+                FragmentTransaction thread = getSupportFragmentManager().beginTransaction();
+                thread.replace(R.id.frame_layout, ThreadFragment.newInstance());
+                thread.commit();
+                break;
             default:
                 break;
         }
@@ -238,6 +243,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         strings.add("FastJson使用");
         strings.add("简单使用RXJava2");
         strings.add("WebView");
+        strings.add("线程测试");
         return strings;
     }
 

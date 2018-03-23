@@ -5,14 +5,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.lengjiye.toolkit.R;
 import com.lengjiye.toolkit.view.MaskTextView;
 import com.lengjiye.tools.LogTool;
-
-import org.xutils.common.util.LogUtil;
 
 /**
  * 自定义进度条
@@ -55,7 +52,7 @@ public class CustomProgressFragment extends BaseFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 LogTool.e("progress:" + progress);
-                mask_text_view.setProgress(progress);
+                mask_text_view.setMaxProgress(progress);
             }
 
             @Override

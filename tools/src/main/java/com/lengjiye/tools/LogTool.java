@@ -73,7 +73,17 @@ public class LogTool {
         if (BuildConfig.DEBUG) {
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
             String tag = getDefaultTag(stackTraceElement);
-            Log.e(tag, getLogInfo(stackTraceElement) + message);
+            e(tag, getLogInfo(stackTraceElement) + message);
+        }
+    }
+
+    /**
+     * @param tag
+     * @param message
+     */
+    public static void e(String tag, String message) {
+        if (BuildConfig.DEBUG) {
+            Log.e(tag, message);
         }
     }
 

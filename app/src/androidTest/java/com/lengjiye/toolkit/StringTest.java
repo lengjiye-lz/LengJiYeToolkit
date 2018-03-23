@@ -3,7 +3,7 @@ package com.lengjiye.toolkit;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.lengjiye.toolkit.utils.FileUtils;
+import com.lengjiye.tools.FileTool;
 
 import java.io.File;
 
@@ -69,8 +69,8 @@ public class StringTest extends AndroidTestCase {
     }
 
     public void testGetFile() {
-        if (FileUtils.isExist(FileUtils.getSdCardPath())) {
-            File file = new File(FileUtils.getSdCardPath());
+        if (FileTool.isExist(FileTool.getSdCardPath())) {
+            File file = new File(FileTool.getSdCardPath());
             File[] files = file.listFiles();
             for (int i = 0; i < files.length; i++) {
                 Log.e("lz", "files:" + files[i]);

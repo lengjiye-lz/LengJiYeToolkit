@@ -13,7 +13,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.lengjiye.toolkit.R;
-import com.lengjiye.tools.LogTool;
 
 /**
  * 实现遮罩效果的进度条
@@ -28,7 +27,8 @@ public class MaskTextView extends View {
     private Context mContext;
     private Paint.FontMetrics fm;
     private int mWidth, mHeight;
-    private Paint mPaint;
+    private Paint mFirstPaint;
+    private Paint mSecondPaint;
     private float strokeWidth = 5; // 线的宽度
     private float textSize = 30; // 字体的大小
     private int progress = 0; // 进度
@@ -56,6 +56,9 @@ public class MaskTextView extends View {
         }
         initAttributeFromXml(attrs);
         setMaxProgress(DEFAULT_MAX_PROGRESS);// 默认最大进度是100
+        mSecondPaint = new Paint();
+        mFirstPaint = new Paint();
+
     }
 
     public void setStrokeWidth(float strokeWidth) {
@@ -115,6 +118,8 @@ public class MaskTextView extends View {
             case MeasureSpec.UNSPECIFIED:
                 result = DEFAULT_HEIGHT;
                 break;
+            default:
+                break;
         }
         result = mode == MeasureSpec.AT_MOST ? Math.min(result, val) : result;
         return result + getPaddingTop() + getPaddingBottom();
@@ -138,6 +143,8 @@ public class MaskTextView extends View {
             case MeasureSpec.UNSPECIFIED:
                 // result = mTextBound.width();
                 result = val;
+                break;
+            default:
                 break;
         }
         result = mode == MeasureSpec.AT_MOST ? Math.min(result, val) : result;
@@ -176,6 +183,8 @@ public class MaskTextView extends View {
                 case R.styleable.MaskTextView_text_size:
                     setStrokeWidth(typed.getDimension(R.styleable.MaskTextView_text_size, 5));
                     break;
+                default:
+                    break;
             }
         }
         typed.recycle();
@@ -184,7 +193,7 @@ public class MaskTextView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        first(canvas);
+//        first(canvas);
         second(canvas, (int) (progress * countProgress()));
     }
 
@@ -192,57 +201,61 @@ public class MaskTextView extends View {
      * 绘制第一个view
      */
     private void first(Canvas mCanvas) {
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.parseColor("#FF7E00"));
-        mPaint.setStrokeWidth(strokeWidth);
+        mFirstPaint.setAntiAlias(true);
+        mFirstPaint.setStyle(Paint.Style.STROKE);
+        mFirstPaint.setColor(Color.parseColor("#FF7E00"));
+        mFirstPaint.setStrokeWidth(strokeWidth);
 
-        RectF oval3 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
-        mCanvas.drawRoundRect(oval3, mHeight / 2, mHeight / 2, mPaint);
+        // 设置个长方形，扫描测量
+        RectF oval3 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);
+        mCanvas.drawRoundRect(oval3, mHeight / 2, mHeight / 2, mFirstPaint);
 
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setStrokeWidth(2);
-        mPaint.setTextSize(textSize);
-        mPaint.setColor(Color.parseColor("#000000"));
-        fm = mPaint.getFontMetrics();
+        mFirstPaint.setStyle(Paint.Style.FILL);
+        mFirstPaint.setStrokeWidth(2);
+        mFirstPaint.setTextSize(textSize);
+        mFirstPaint.setColor(Color.parseColor("#000000"));
+        fm = mFirstPaint.getFontMetrics();
         float textPlace = mHeight / 2 - fm.descent + (fm.descent - fm.ascent) / 2;
-        mCanvas.drawText(this.progress + "/" + maxProgress, TEXT_TO_LIFT, textPlace, mPaint);
+        mCanvas.drawText(this.progress + "/" + maxProgress, TEXT_TO_LIFT, textPlace, mFirstPaint);
     }
 
     /**
      * 绘制第二个view
      */
     private void second(Canvas mCanvas, int progress) {
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(Color.parseColor("#FF7E00"));
-        mPaint.setStrokeWidth(strokeWidth);
-        mCanvas.saveLayer(0, 0, mWidth, mHeight, mPaint);
-        RectF oval1 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);// 设置个长方形，扫描测量
-        mCanvas.drawRoundRect(oval1, mHeight / 2, mHeight / 2, mPaint);
 
-        mPaint.setStrokeWidth(2);
-        mPaint.setTextSize(textSize);
-        mPaint.setColor(Color.parseColor("#ffffff"));
+        mSecondPaint.setAntiAlias(true);
+        mSecondPaint.setStyle(Paint.Style.FILL);
+        mSecondPaint.setColor(Color.parseColor("#FF7E00"));
+        mSecondPaint.setStrokeWidth(strokeWidth);
+        mCanvas.saveLayer(0, 0, mWidth, mHeight, mSecondPaint);
+        // 设置个长方形，扫描测量
+        RectF oval1 = new RectF(strokeWidth / 2, strokeWidth / 2, mWidth - strokeWidth / 2, mHeight - strokeWidth / 2);
+        mCanvas.drawRoundRect(oval1, mHeight / 2, mHeight / 2, mSecondPaint);
+
+        mSecondPaint.setStrokeWidth(2);
+        mSecondPaint.setTextSize(textSize);
+        mSecondPaint.setColor(Color.parseColor("#ffffff"));
+        fm = mSecondPaint.getFontMetrics();
         float textPlace = mHeight / 2 - fm.descent + (fm.descent - fm.ascent) / 2;
-        mCanvas.drawText(this.progress + "/" + maxProgress, TEXT_TO_LIFT, textPlace, mPaint);
+        mCanvas.drawText(this.progress + "/" + maxProgress, TEXT_TO_LIFT, textPlace, mSecondPaint);
 
         /**、
          * 绘制透明遮罩
+         * 设置转换模式，取下层绘制非交集部分。
          */
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT)); // 设置转换模式，取下层绘制非交集部分。
+        mSecondPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
         // （setXfermode方法之前表示下层，方法之后表示上层）
         Path path = new Path();
         path.moveTo(progress - mHeight / 2, 0);
         path.lineTo(mWidth + mHeight / 2, 0);
         path.lineTo(mWidth + mHeight / 2, mHeight);
         path.lineTo(progress - mHeight / 2, mHeight);
-        RectF oval3 = new RectF(progress - mHeight, 0, progress, mHeight);// 设置个长方形，扫描测量
+        // 设置个长方形，扫描测量
+        RectF oval3 = new RectF(progress - mHeight, 0, progress, mHeight);
         path.addArc(oval3, -90, 180);
         path.setFillType(Path.FillType.EVEN_ODD);
-        mCanvas.drawPath(path, mPaint);
+        mCanvas.drawPath(path, mSecondPaint);
         mCanvas.restore();
     }
 }
