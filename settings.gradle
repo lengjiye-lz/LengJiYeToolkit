@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 include ':app', ':tools', ':baseadapter-recyclerview', ':myapplication'
-=======
-include ':app', ':tools'
->>>>>>> parent of 7bbc0b2... 提交代码
+
