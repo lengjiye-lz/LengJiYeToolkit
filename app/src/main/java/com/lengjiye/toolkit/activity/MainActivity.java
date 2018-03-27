@@ -139,6 +139,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         switch (position) {
             case 0:
                 addDefaultFragment();
+
                 break;
             case 1:
                 FragmentTransaction transactionTouchTest = getSupportFragmentManager().beginTransaction();
