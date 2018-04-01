@@ -12,14 +12,31 @@ public class User implements Serializable {
     private String name;
     private int age;
     private String sex;
+    private String test;
+    private Integer integer;
+
+    public String string;
 
     public User() {
+    }
+
+    private User(String test) {
+        this.test = test;
     }
 
     public User(int id, String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
+    }
+
+    protected User(int age) {
+        this.age = age;
+    }
+
+    public User(int age, int id) {
+        this.age = age;
+        this.id = id;
     }
 
     public int getId() {
@@ -52,5 +69,21 @@ public class User implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    private String getTest() {
+        return test;
+    }
+
+    private void setTest(String test) {
+        this.test = test;
+    }
+
+    public Integer getInteger() {
+        return integer;
+    }
+
+    private void setInteger(Integer integer) {
+        this.integer = integer;
     }
 }

@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lengjiye.toolkit.R;
+import com.lengjiye.toolkit.bean.User;
 import com.lengjiye.toolkit.model.Day;
 import com.lengjiye.tools.LogTool;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
@@ -85,7 +90,8 @@ public class ThreadFragment extends BaseFragment {
                 testAddMinus();
                 break;
             case R.id.button5:
-                testEnum(Day.FRIDAY);
+//                testEnum(Day.FRIDAY);
+                getClassData();
                 break;
             default:
                 break;
@@ -349,6 +355,184 @@ public class ThreadFragment extends BaseFragment {
 
         Day.MONDAY.print();
         Day.FRIDAY.print();
+
+    }
+
+    /**
+     * 通过反射获取对象
+     */
+    private void getClassData() {
+        Class k = null;
+        // 1. new一个对象就会产生一个class
+        User user = new User();
+        Class c = user.getClass();
+        LogTool.e("class1:" + c);
+
+        // 2.每一个对象都有一个.class静态方法
+        Class u = User.class;
+        LogTool.e("class2:" + u);
+
+        // 通过Class.forName方法获取对象，参数必须是据对路径，即：包名+类名
+        try {
+            k = Class.forName("com.lengjiye.toolkit.bean.User");
+            LogTool.e("class3:" + k);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // 获取所有的public构造方法
+        Constructor[] list = c.getConstructors();
+        for (Constructor constructor : list) {
+            LogTool.e("getConstructors:" + constructor);
+        }
+
+        /**
+         * 所有的构造方法(包括：私有、受保护、默认、公有)
+         */
+        Constructor[] listU = u.getDeclaredConstructors();
+        for (Constructor constructor : listU) {
+            LogTool.e("getDeclaredConstructors:" + constructor);
+        }
+
+        /**
+         * 获取public的成员方法
+         * 可以获取到父类的public方法
+         */
+        Method methods[] = u.getMethods();
+        for (Method method : methods) {
+            LogTool.e("method:" + method);
+        }
+
+        /**
+         * 获取所有的成员方法
+         * 只能获取当前类的方法
+         */
+        Method methodsC[] = c.getDeclaredMethods();
+        for (Method method : methodsC) {
+            LogTool.e("methodsC:" + method);
+        }
+
+        /**
+         * 获取public成员方法
+         * 根据方法名和参数获取方法
+         */
+        try {
+            Object object= k.newInstance();
+            Method method = k.getMethod("setId", int.class);
+            LogTool.e("根据方法名和参数获取public方法:" + method);
+            method.invoke(object, 3);
+            Method method1 = k.getMethod("getId");
+            int id = (int) method1.invoke(object);
+            LogTool.e("根据方法名和参数获取public方法和值:" + id);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * 获取成员方法
+         * 根据方法名和参数获取方法
+         */
+        try {
+            Object object= k.newInstance();
+            Method method = k.getDeclaredMethod("setTest", String.class);
+            LogTool.e("根据方法名和参数获取方法:" + method);
+            // 取消限制
+            method.setAccessible(true);
+            // 调用私有方法
+            method.invoke(object,"调用私有方法");
+            Method method1 = k.getDeclaredMethod("getTest");
+            method1.setAccessible(true);
+            String string = (String) method1.invoke(object);
+            LogTool.e("根据方法名和参数获取方法和值:" + string);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * 获取public构造方法
+         * 根据传的参数 获取对应的构造方法
+         * 注：如果构造方法参数是int则用int.class，如果是Integer则用Integer.class，否则报错
+         */
+        try {
+            Constructor constructor = k.getConstructor();
+            LogTool.e("constructor:" + constructor);
+            // 使用构造方法调用
+            // constructor.newInstance()
+            // 使用此 Constructor 对象表示的构造方法来创建该构造方法的声明类的新实例，并用指定的初始化参数初始化该实例。
+            User user1 = (User) constructor.newInstance();
+            user1.setName("反射");
+            String name = user1.getName();
+            LogTool.e("name:" + name);
+
+            // 根据参数获取对应的public构造方法
+            Constructor constructorU = u.getConstructor(int.class, int.class);
+            LogTool.e("constructorU:" + constructorU);
+
+            User user2 = (User) constructorU.newInstance(20, 1);
+            int age = user2.getAge();
+            LogTool.e("age:" + age);
+            int id = user2.getId();
+            LogTool.e("id:" + id);
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * 获取构造方法（不区分public，private等）
+         * 根据传的参数 获取对应的构造方法
+         * 注：如果构造方法参数是int则用int.class，如果是Integer则用Integer.class，否则报错
+         */
+        try {
+            Constructor constructor = k.getDeclaredConstructor(int.class, String.class, int.class);
+            LogTool.e("constructor111:" + constructor);
+            // 去掉修饰符的限制
+            constructor.setAccessible(true);
+            User user1 = (User) constructor.newInstance(10, "测试", 5);
+            int test = user1.getAge();
+            LogTool.e("test:" + test);
+
+            // 根据参数获取对应的构造方法  这里获取的是protected方法
+            Constructor constructorC = c.getDeclaredConstructor(int.class);
+            // 去掉修饰符的限制
+            constructorC.setAccessible(true);
+            User user2 = (User) constructorC.newInstance(10);
+            int age = user2.getAge();
+            LogTool.e("age:" + age);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Field field = k.getField("string");
+            LogTool.e("field:" + field);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
     }
 
