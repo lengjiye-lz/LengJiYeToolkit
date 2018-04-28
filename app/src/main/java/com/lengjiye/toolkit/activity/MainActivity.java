@@ -49,15 +49,17 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener, AdapterView.OnItemClickListener {
 
-    static final String ACTION_STARTED = "com.example.android.supportv4.STARTED";
-    static final String ACTION_UPDATE = "com.example.android.supportv4.UPDATE";
-    static final String ACTION_STOPPED = "com.example.android.supportv4.STOPPED";
+    private static final String ACTION_STARTED = "com.example.android.supportv4.STARTED";
+    private static final String ACTION_UPDATE = "com.example.android.supportv4.UPDATE";
+    private static final String ACTION_STOPPED = "com.example.android.supportv4.STOPPED";
 
     private long lastPressTime;
     private TextView textView;
     private DrawerLayout drawer_layout;
     private Toolbar toolbar;
     private LocalBroadcastManager mLocalBroadcastManager;
+
+    
 
     @Override
     protected void initOnCreate(Bundle savedInstanceSstate) {
@@ -266,5 +268,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     protected void onDestroy() {
         super.onDestroy();
         mLocalBroadcastManager.unregisterReceiver(mReceiver);
+    }
+
+
+    private void switchFragment(){
+
     }
 }
