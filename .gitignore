@@ -3,9 +3,5 @@
 /.gradle
 build
 .DS_Store
-LengJiYeToolkit.iml
-app/app.iml
 projectFilesBackup
-tools.iml
 *.iml
-/.iml
