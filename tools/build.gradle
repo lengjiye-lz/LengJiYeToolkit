@@ -37,24 +37,23 @@ android {
     }
     buildToolsVersion rootProject.ext.buildToolsVersion
 
-    productFlavors {
-        if (!isModule.toBoolean()) {
-            create('all') {
-
-            }
-        }
-    }
-    publishNonDefault true
+//    productFlavors {
+//        if (!isModule.toBoolean()) {
+//            create('all') {
+//
+//            }
+//        }
+//    }
+//    publishNonDefault true
 }
 
-configurations {
-    allDebug
-    allRelease
-}
+//configurations {
+//    allDebug
+//    allRelease
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.1.2'
 }

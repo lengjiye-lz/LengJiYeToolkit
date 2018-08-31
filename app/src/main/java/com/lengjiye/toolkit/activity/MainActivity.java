@@ -29,6 +29,7 @@ import com.lengjiye.toolkit.fragment.FastJsonFragment;
 import com.lengjiye.toolkit.fragment.FrameModeFragment;
 import com.lengjiye.toolkit.fragment.HandlerThreadFragment;
 import com.lengjiye.toolkit.fragment.ImageCompressFragment;
+import com.lengjiye.toolkit.fragment.LambdaFragment;
 import com.lengjiye.toolkit.fragment.LocalBroadcastManagerFragment;
 import com.lengjiye.toolkit.fragment.NoDoubleTestFragment;
 import com.lengjiye.toolkit.fragment.OKHttpFragment;
@@ -141,7 +142,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         switch (position) {
             case 0:
                 addDefaultFragment();
-
                 break;
             case 1:
                 FragmentTransaction transactionTouchTest = getSupportFragmentManager().beginTransaction();
@@ -217,6 +217,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 FragmentTransaction thread = getSupportFragmentManager().beginTransaction();
                 thread.replace(R.id.frame_layout, ThreadFragment.newInstance());
                 thread.commit();
+                break;
+
+            case 16:
+                FragmentTransaction lambda = getSupportFragmentManager().beginTransaction();
+                lambda.replace(R.id.frame_layout, LambdaFragment.newInstance());
+                lambda.commit();
                 break;
             default:
                 break;

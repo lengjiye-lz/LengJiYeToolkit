@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.android.databinding'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -11,16 +10,17 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         multiDexEnabled true
+        flavorDimensions "versionCode"
     }
 
     productFlavors { // 正常的开发环境需要有这些配置，可以配置IP地址，不用每次都进行修改IP, 也可以配置不同的渠道号进行不同的渠道打包
         local { // 本机环境
-            minSdkVersion 21
+            minSdkVersion 23
             buildConfigField("String", "IP", "\"192.168.2.2\"") // 使用方法BuildConfig.IP就可以获取当前环境下的IP地址
         }
 
         dev { // (开发小组内自测的)开发环境
-            minSdkVersion 21
+            minSdkVersion 23
             buildConfigField("String", "IP", "\"192.168.2.1\"")
         }
 
@@ -52,40 +52,44 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
     buildToolsVersion rootProject.ext.buildToolsVersion
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:support-v4:25.2.0'
+//    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support:support-v4:27.1.1'
     compile 'org.xutils:xutils:3.3.34'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.google.android.gms:play-services:11.0.2'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.google.android.gms:play-services-ads:11.0.2'
-    compile 'com.google.android.gms:play-services-auth:11.0.2'
-    compile 'com.google.android.gms:play-services-gcm:11.0.2'
-    compile('com.alibaba.android:vlayout:1.2.6@aar') {
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.google.code.gson:gson:2.8.2'
+//    compile 'com.google.android.gms:play-services:11.0.2'
+    compile 'com.android.support:multidex:1.0.3'
+    compile 'com.android.support:design:27.1.1'
+//    compile 'com.google.android.gms:play-services-ads:11.0.2'
+//    compile 'com.google.android.gms:play-services-auth:11.0.2'
+//    compile 'com.google.android.gms:play-services-gcm:11.0.2'
+    compile ('com.alibaba.android:vlayout:1.2.6@aar') {
         transitive = true
     }
     compile files('libs/fastjson-1.2.38.jar')
-
-    debugCompile project(path: ':tools', configuration: 'allDebug')
-    releaseCompile project(path: ':tools', configuration: 'allRelease')
-
+//    debugCompile project(path: ':tools', configuration: 'allDebug')
+//    releaseCompile project(path: ':tools', configuration: 'allRelease')
     compile project(path: ':baseadapter-recyclerview')
-
-    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
+    compile 'io.reactivex.rxjava2:rxjava:2.1.12'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    androidTestCompile project(path: ':tools')
+    compile project(path: ':tools')
 }
